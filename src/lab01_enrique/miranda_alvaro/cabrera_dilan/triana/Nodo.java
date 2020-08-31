@@ -20,8 +20,18 @@ public abstract class Nodo {
         this.son = son;
     }
     
-    public void insertar(){
-        
+    public void insertar(Nodo nodo, Nodo Raiz){ }
+
+    public int getID() {
+        return ID;
+    }
+
+    public Nodo getFrere() {
+        return frere;
+    }
+
+    public Nodo getSon() {
+        return son;
     }
     
     

@@ -5,11 +5,14 @@
  */
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Domain
  */
 public class Comment extends Nodo{
+    private int postID;
     private String name;
     private String email;
     private String body;
@@ -20,13 +23,9 @@ public class Comment extends Nodo{
         this.email = email;
         this.body = body;
     }
-    
-    
-    
 
-
+    boolean belongsTo(int id) {
+        return this.postID == id;
+    }
     
-    
-    
-    
-}
+    }

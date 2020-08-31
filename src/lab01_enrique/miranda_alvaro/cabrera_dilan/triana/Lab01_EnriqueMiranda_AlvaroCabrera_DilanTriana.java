@@ -18,6 +18,7 @@ public class Lab01_EnriqueMiranda_AlvaroCabrera_DilanTriana {
     /**
      * @param args the command line arguments
      */
+    Nodo Raiz;
     public static void main(String[] args) {
         ArrayList<JSONObject> posts = Test1.deArchivoALista(1, 6, "posts");
         for (JSONObject post : posts) {
