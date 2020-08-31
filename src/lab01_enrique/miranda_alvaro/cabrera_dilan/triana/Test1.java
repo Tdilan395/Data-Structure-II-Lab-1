@@ -21,6 +21,29 @@ import org.json.JSONObject;
  *
  * @author user
  */
+
+/* "id": 1,
+"name": "Leanne Graham",
+"username": "Bret",
+"email": "Sincere@april.biz",
+"address": {
+"street": "Kulas Light",
+"suite": "Apt. 556",
+"city": "Gwenborough",
+"zipcode": "92998-3874",
+"geo": {
+"lat": "-37.3159",
+"lng": "81.1496"
+}
+},
+"phone": "1-770-736-8031 x56442",
+"website": "hildegard.org",
+"company": {
+"name": "Romaguera-Crona",
+"catchPhrase": "Multi-layered client-server neural-net",
+"bs": "harness real-time e-markets"
+}
+},*/
 public class Test1 {
 
     public static ArrayList<JSONObject> deArchivoALista(int lim1, int lim2, String ruta) {
@@ -58,34 +81,24 @@ public class Test1 {
             return objetos;
         }
     }
-
-    public static ArrayList<String> separar(String a) {
-        ArrayList<String> textos = new ArrayList<>();
-        int base = 0;
-        for (int i = 2; i < a.length(); i++) {
-            if (equi(a.substring(base, i)) == 0 && "},".equals(a.substring(i - 2, i))) {
-                if (textos.size() == 0) {
-                    textos.add(a.substring(1, i - 1));
-                    base = i + 1;
-                } else {
-                    textos.add(a.substring(base, i - 1));
-                    base = i + 1;
-                }
-            }
-        }
-        return textos;
+    
+    public static User deJSONaUser(JSONObject ob){
+    JSONObject address= new JSONObject(ob.get("address").toString());
+    JSONObject company=new JSONObject(ob.get("company").toString());
+    JSONObject geo= new JSONObject(address.get("geo").toString());
+    float ge[]= {geo.getFloat("lat"),geo.getFloat("lng")};
+    Address a= new Address(address.getString("street"), address.getString("suite"), address.getString("city"),address.getString("zipcode") , ge);
+    Company c= new Company(company.getString("name"), company.getString("catchPhrase"), company.getString("bs"));
+    return new User();
+    } 
+    
+    public static Comment deJSONaComment(JSONObject ob){
+        //id o postID?
+        return new Comment(ob.getString("name"), ob.getString("email"), ob.getString("body"), ob.getInt("id"), null, null);
     }
-
-    public static int equi(String a) {
-        int x = 0;
-        for (int i = 0; i < a.length(); i++) {
-            if (a.charAt(i) == '{') {
-                x++;
-            }
-            if (a.charAt(i) == '}') {
-                x--;
-            }
-        }
-        return x;
+    
+    public static Post deJSONaPost(JSONObject ob){
+        //id o UserId?
+        return new Post(ob.getString("title"), ob.getString("body"), ob.getInt("id"), null, null);
     }
 }

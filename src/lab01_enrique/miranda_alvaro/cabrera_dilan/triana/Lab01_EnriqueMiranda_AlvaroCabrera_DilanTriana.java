@@ -6,7 +6,6 @@
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
 import java.util.ArrayList;
-import static lab01_enrique.miranda_alvaro.cabrera_dilan.triana.Test1.deArchivoALista;
 import org.json.JSONObject;
 
 /**
