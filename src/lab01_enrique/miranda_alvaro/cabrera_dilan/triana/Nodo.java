@@ -5,33 +5,54 @@
  */
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Domain
  */
-public abstract class Nodo {
+public class Nodo {
     private final int ID;
-    Nodo frere;
-    Nodo son;
+    private ArrayList<Nodo> links;
 
-    public Nodo(int ID, Nodo frere, Nodo son) {
+    public Nodo(int ID) {
         this.ID = ID;
-        this.frere = frere;
-        this.son = son;
+        links = new ArrayList<>();
     }
     
-    public void insertar(Nodo nodo, Nodo Raiz){ }
-
     public int getID() {
         return ID;
     }
-
-    public Nodo getFrere() {
-        return frere;
+    public Nodo getLink(int i){
+        return links.get(i);
     }
-
-    public Nodo getSon() {
-        return son;
+    
+    /**
+     *
+     * @param nodo
+     * @param Raiz
+     * @since 0.2
+     */
+    public void insertar(Nodo nodo, Nodo Raiz) {
+        Raiz.links.add(nodo);
+    }
+    
+    /**
+     *
+     * @param id
+     * @param Raiz
+     * @since 0.2
+     * @return
+     */
+    public Nodo buscar(int id, Nodo Raiz){
+        for (Nodo link : Raiz.links) {
+            if (link.ID == id) return link;
+        }
+        return null;
+    }
+    
+    public ArrayList<Nodo> links(){
+        return this.links;
     }
     
     

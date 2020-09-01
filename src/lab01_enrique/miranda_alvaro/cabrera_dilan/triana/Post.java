@@ -16,40 +16,33 @@ public class Post extends Nodo{
     private String title;
     private String body;
 
-    public Post(String title, String body, int ID, Nodo frere, Nodo son) {
-        super(ID, frere, son);
+    public Post(String title, String body, int ID) {
+        super(ID);
         this.title = title;
         this.body = body;
     }
     
+    public int getUserID(){
+        return this.userID;
+    }
+    
     @Override
-    public void insertar(Nodo nodo, Nodo Raiz) {
-        if (Raiz == null) {
-            JOptionPane.showMessageDialog(null, "TE JODISTE");
-        } else {
-            if (nodo instanceof Post) {
-                if(Raiz.frere == null){
-                    Raiz.frere = nodo;
-                }else{
-                    insertar(nodo,Raiz.frere);
-                }
-            } else if (nodo instanceof Comment) {
-                Comment c = (Comment) nodo;
-                Post p = (Post) Raiz;
-                if (c.belongsTo(p.getID())) {
-                    if (Raiz.son == null) {
-                        Raiz.son = nodo;
-                    } else {
-                        Raiz.son.insertar(nodo, Raiz.son);
-                    }
-                } else {
-                    insertar(nodo, Raiz.frere);
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "TE JODISTE");
+    public Nodo buscar(int id,Nodo Raiz){
+        for (Nodo link : Raiz.links()) {
+            for (Nodo link1 : link.links()) {
+                if(link1.getID() == id) return link1;
             }
         }
+        return null;
     }
+    
+    @Override
+    public void insertar(Nodo nodo, Nodo Raiz){
+        Post p = (Post) nodo;
+        Nodo user = buscar(p.getUserID(),Raiz);
+        user.insertar(nodo, user);
+    }
+    
     public boolean isOwner(int i){
         return this.userID == i;
     }

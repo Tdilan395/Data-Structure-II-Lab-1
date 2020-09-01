@@ -20,36 +20,9 @@ public class User extends Nodo{
     private Company company;
     private Address address;
 
-    public User(int ID, Nodo frere, Nodo son) {
-        super(ID, frere, son);
+    public User(int ID) {
+        super(ID);
     }
     
-    @Override
-    public void insertar(Nodo nodo, Nodo Raiz) {
-        if (Raiz == null) {
-            Raiz = nodo;
-        } else {
-            if (nodo instanceof User) {
-                if (Raiz.frere == null) {
-                    Raiz.frere = nodo;
-                } else {
-                    insertar(nodo, Raiz.frere);
-                }
-            } else if (nodo instanceof Post) {
-                User u = (User) Raiz;
-                Post p = (Post) nodo;
-                if (p.isOwner(u.getID())) {
-                    if (Raiz.son == null) {
-                        Raiz.son = nodo;
-                    } else {
-                        Raiz.son.insertar(nodo, Raiz.son);
-                    }
-                } else {
-                    insertar(nodo, Raiz.frere);
-                }
-            } else {
-                //para dilan
-            }
-        }
-    }
+    
 }
