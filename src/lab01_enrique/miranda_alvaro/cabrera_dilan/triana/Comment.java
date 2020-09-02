@@ -24,12 +24,16 @@ public class Comment extends Nodo{
         this.body = body;
     }
     
+    public int getPostID(){
+        return postID;
+    }
+    
     @Override
     public Nodo buscar(int id, Nodo Raiz){
-        for (Nodo link : Raiz.links()) {
-            for (Nodo link1 : link.links()) {
-                for (Nodo link2 : link1.links()) {
-                    if(link2.getID() == id) return link2;
+        for (Nodo user : Raiz.getLinks()) {
+            for (Nodo post : user.getLinks()) {
+                for (Nodo comment : post.getLinks()) {
+                    if(comment.getID() == id) return comment;
                 }
             }
         }
@@ -38,7 +42,14 @@ public class Comment extends Nodo{
     
     @Override
     public void insertar(Nodo nodo, Nodo Raiz){
-       
+        Comment c = (Comment) nodo;
+        Post p = new Post("","",0);
+        p = (Post)p.buscar(c.getPostID(), Raiz);
+        if(p == null){
+            //mostrar mensaje de error
+        }else{
+            Raiz.insertar(nodo, p);
+        }
     }
 
     boolean belongsTo(int id) {

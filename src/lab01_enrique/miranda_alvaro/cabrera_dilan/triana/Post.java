@@ -28,9 +28,9 @@ public class Post extends Nodo{
     
     @Override
     public Nodo buscar(int id,Nodo Raiz){
-        for (Nodo link : Raiz.links()) {
-            for (Nodo link1 : link.links()) {
-                if(link1.getID() == id) return link1;
+        for (Nodo user : Raiz.getLinks()) {
+            for (Nodo post : user.getLinks()) {
+                if(post.getID() == id) return post;
             }
         }
         return null;
@@ -39,8 +39,14 @@ public class Post extends Nodo{
     @Override
     public void insertar(Nodo nodo, Nodo Raiz){
         Post p = (Post) nodo;
-        Nodo user = buscar(p.getUserID(),Raiz);
-        user.insertar(nodo, user);
+        Nodo user = Raiz.buscar(p.getUserID(),Raiz);
+        if(user == null){
+            //mostrar mensaje de error
+        }
+        else{
+            user.insertar(nodo, user);
+        }
+        
     }
     
     public boolean isOwner(int i){

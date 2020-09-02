@@ -17,7 +17,7 @@ public class AB {
     }
     
     public void insertar(Nodo nodo){
-        //Raiz.insertar(nodo);
+        Raiz.insertar(nodo,Raiz);
     }
     
     

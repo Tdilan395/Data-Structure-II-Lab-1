@@ -34,7 +34,7 @@ public class Nodo {
      * @since 0.2
      */
     public void insertar(Nodo nodo, Nodo Raiz) {
-        Raiz.links.add(nodo);
+        Raiz.getLinks().add(nodo);
     }
     
     /**
@@ -46,12 +46,12 @@ public class Nodo {
      */
     public Nodo buscar(int id, Nodo Raiz){
         for (Nodo link : Raiz.links) {
-            if (link.ID == id) return link;
+            if (link.getID() == id) return link;
         }
         return null;
     }
     
-    public ArrayList<Nodo> links(){
+    public ArrayList<Nodo> getLinks(){
         return this.links;
     }
     
