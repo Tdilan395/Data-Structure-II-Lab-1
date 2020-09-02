@@ -16,8 +16,9 @@ public class Comment extends Nodo{
     private String email;
     private String body;
 
-    public Comment(String name, String email, String body, int ID) {
+    public Comment(int postID, String name, String email, String body, int ID) {
         super(ID);
+        this.postID=postID;
         this.name = name;
         this.email = email;
         this.body = body;

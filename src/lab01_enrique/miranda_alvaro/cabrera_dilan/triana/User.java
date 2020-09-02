@@ -23,6 +23,46 @@ public class User extends Nodo{
     public User(int ID) {
         super(ID);
     }
+
+    public User(int ID, String name, String username, String email, String phone, String webside, Company c, Address a) {
+        super(ID);
+        this.name=name;
+        this.username=username;
+        this.email=email;
+        this.phone=phone;
+        this.website=webside;
+        company=c;
+        address=a;
+        
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
     
     
 }

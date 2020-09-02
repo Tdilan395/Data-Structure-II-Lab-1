@@ -16,7 +16,7 @@ public class Post extends Nodo{
     private String title;
     private String body;
 
-    public Post(String title, String body, int ID) {
+    public Post(int userID,String title, String body, int ID) {
         super(ID);
         this.title = title;
         this.body = body;
@@ -46,4 +46,14 @@ public class Post extends Nodo{
     public boolean isOwner(int i){
         return this.userID == i;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getBody() {
+        return body;
+    }
+    
+    
 }

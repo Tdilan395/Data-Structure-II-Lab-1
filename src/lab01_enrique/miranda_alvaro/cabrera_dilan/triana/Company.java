@@ -19,6 +19,18 @@ class Company {
         this.catchPhrase = catchPhrase;
         this.bs = bs;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCatchPhrase() {
+        return catchPhrase;
+    }
+
+    public String getBs() {
+        return bs;
+    }
    
    
 }

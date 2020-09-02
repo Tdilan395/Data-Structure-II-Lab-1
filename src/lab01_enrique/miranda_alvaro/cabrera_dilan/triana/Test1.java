@@ -62,17 +62,16 @@ public class Test1 {
         float ge[] = {geo.getFloat("lat"), geo.getFloat("lng")};
         Address a = new Address(address.getString("street"), address.getString("suite"), address.getString("city"), address.getString("zipcode"), ge);
         Company c = new Company(company.getString("name"), company.getString("catchPhrase"), company.getString("bs"));
-        return new User(ob.getInt("id"), null, null);
+        return new User(ob.getInt("id"),ob.getString("name"),ob.getString("username"),ob.getString("email"),ob.getString("phone"),ob.getString("website"),c,a);
     }
 
     public static Comment deJSONaComment(JSONObject ob) {
-        //id o postID?
-        return new Comment(ob.getString("name"), ob.getString("email"), ob.getString("body"), ob.getInt("id"), null, null);
+        return new Comment(ob.getInt("postId"),ob.getString("name"), ob.getString("email"), ob.getString("body"), ob.getInt("id"));
     }
 
     public static Post deJSONaPost(JSONObject ob) {
-        //id o UserId?
-        return new Post(ob.getString("title"), ob.getString("body"), ob.getInt("id"), null, null);
+        
+        return new Post(ob.getInt("userId"),ob.getString("title"), ob.getString("body"), ob.getInt("id"));
     }
 
     public void Agregar(int nivel, Nodo Raiz) {
