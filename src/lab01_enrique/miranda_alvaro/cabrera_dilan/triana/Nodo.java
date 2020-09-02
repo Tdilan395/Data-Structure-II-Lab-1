@@ -55,5 +55,14 @@ public class Nodo {
         return this.links;
     }
     
+    public void printAllLinks(){
+        for (Nodo link : links) {
+            link.printInfo();
+        }
+    }
+
+    public void printInfo() {
+        
+    }
     
 }

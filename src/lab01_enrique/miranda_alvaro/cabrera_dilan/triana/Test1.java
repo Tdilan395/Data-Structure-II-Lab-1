@@ -74,27 +74,30 @@ public class Test1 {
         return new Post(ob.getInt("userId"),ob.getString("title"), ob.getString("body"), ob.getInt("id"));
     }
 
-    public void Agregar(int nivel, Nodo Raiz) {
+    public static void Agregar(int nivel, Nodo raiz) {
         switch (nivel) {
             case 1:
                 ArrayList<JSONObject> usuarios = Test1.deArchivoALista(1, 23, "usuario");
                 User a;
                 for (JSONObject usuario : usuarios) {
-                    a = deJSONaUser(usuario);
-//                    Nodo.insertar(a);
-//                    Agregar(2,a);
+                      a = deJSONaUser(usuario);
+                      raiz.insertar(a, raiz);
+                      Agregar(2,a);
                 }
                 break;
             case 2:
                 ArrayList<JSONObject> posts = Test1.deArchivoALista(1, 6, "posts");
                 Post p;
+                
                 for (JSONObject post : posts) {
                     p = deJSONaPost(post);
-//                    if(p.getUserId()==Nodo.getId()){
-//                    Nodo.insertar(p);
+                    raiz.insertar(p, raiz);
+//                    User user = (User)raiz;
+//                    if(p.getUserID()==user.getID()){
+//                    user.insertar(p, raiz);
 //                    Agregar(3,p);
 //                    }
-//                    if(!p.listIsEmpthy() && p.getUserId()!=Nodo.getId()){
+//                    if(!p.getLinks().isEmpty() && p.getUserID()!=user.getID()){
 //                        break;
 //                    }
                 }
@@ -102,11 +105,13 @@ public class Test1 {
             case 3:
                 ArrayList<JSONObject> comentarios = Test1.deArchivoALista(1, 7, "comments");
                 Comment c;
+                
                 for (JSONObject comentario : comentarios) {
                     c = deJSONaComment(comentario);
-//                  if(Nodo.getId()==c.postID()){
-//                    Nodo.insertar(c);
-//                    }
+                  Post post = (Post)raiz;  
+                  if(post.getID()==c.getPostID()){
+                        ((Nodo)raiz).insertar(c, raiz);
+                  }
                 }
                 break;
             default:

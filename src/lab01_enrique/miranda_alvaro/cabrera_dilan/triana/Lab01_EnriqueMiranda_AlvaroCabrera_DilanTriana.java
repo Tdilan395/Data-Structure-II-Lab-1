@@ -21,16 +21,14 @@ public class Lab01_EnriqueMiranda_AlvaroCabrera_DilanTriana {
     
     Nodo Raiz;
     public static void main(String[] args) {
-        ArrayList<User>usuarios = new ArrayList<>();
-        ArrayList<JSONObject> yeisonList = Test1.deArchivoALista(1, 23, "usuario");
-        for (JSONObject yeisonObj : yeisonList) {
-            usuarios.add(Test1.deJSONaUser(yeisonObj));
-        }
+        AB arbol = new AB();
+   
+
         
-        for (User u: usuarios) {
-            System.out.println(u.getID() + "    " + u.getName());
-        }
-        
+        Test1.Agregar(1, arbol.raiz);
+        Test1.Agregar(2, arbol.raiz.getLink(0));
+        System.out.println(arbol.raiz.getLink(0).getLinks().size());
+        arbol.print();
     }
 
 }

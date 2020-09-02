@@ -41,6 +41,7 @@ public class Post extends Nodo{
         Post p = (Post) nodo;
         Nodo user = Raiz.buscar(p.getUserID(),Raiz);
         if(user == null){
+            System.out.println("Hola, no funciona, perdón");
             //mostrar mensaje de error
         }
         else{
@@ -61,5 +62,10 @@ public class Post extends Nodo{
         return body;
     }
     
-    
+    @Override
+    public void printInfo(){
+        System.out.println(userID + "   " + title + "   " + body);
+        System.out.println("");
+        this.printAllLinks();
+    }
 }

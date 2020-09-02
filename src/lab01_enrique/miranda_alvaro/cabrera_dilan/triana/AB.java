@@ -10,15 +10,18 @@ package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
  * @author Enrique
  */
 public class AB {
-    Nodo Raiz;
+    Nodo raiz;
     
     public AB(){
-        Raiz = new Nodo(0);
+        raiz = new Nodo(0);
     }
     
     public void insertar(Nodo nodo){
-        Raiz.insertar(nodo,Raiz);
+        raiz.insertar(nodo,raiz);
     }
     
+    public void print(){
+        raiz.printAllLinks();
+    }
     
 }

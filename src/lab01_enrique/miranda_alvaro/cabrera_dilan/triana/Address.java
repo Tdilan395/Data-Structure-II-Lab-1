@@ -23,6 +23,10 @@ public class Address {
         this.zipCode = zipCode;
         this.geo = geo;
     }
+
+    void printInfo() {
+         //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }

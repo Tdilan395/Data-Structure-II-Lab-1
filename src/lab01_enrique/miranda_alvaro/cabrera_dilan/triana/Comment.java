@@ -43,7 +43,7 @@ public class Comment extends Nodo{
     @Override
     public void insertar(Nodo nodo, Nodo Raiz){
         Comment c = (Comment) nodo;
-        Post p = new Post("","",0);
+        Post p = new Post(0,"","",0);
         p = (Post)p.buscar(c.getPostID(), Raiz);
         if(p == null){
             //mostrar mensaje de error
@@ -56,4 +56,8 @@ public class Comment extends Nodo{
         return this.postID == id;
     }
     
+    public void printInfo(){
+        System.out.println("");
+        System.out.println(postID + " - " + name +" - "+email+" - "+body);
+    }
     }
