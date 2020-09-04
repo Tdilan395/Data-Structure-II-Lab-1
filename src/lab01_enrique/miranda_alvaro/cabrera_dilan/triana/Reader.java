@@ -21,7 +21,7 @@ public class Reader {
 
     public static ArrayList<String> deArchivoALista(int lim1, int lim2, String ruta) {
         ArrayList<String> objetos = new ArrayList();
-        ArrayList<String> atributos = new ArrayList(); 
+        ArrayList<String> atributos = new ArrayList(); //DESCOMENTAR TODO LO RELACIONADO Y EL SOUT *******USERSSSSSSSSSSSSSSSSSE******** PARA PROBAR YEISON
         File f = new File(ruta + ".txt");
 
         try {
@@ -29,16 +29,18 @@ public class Reader {
             int cont = 0;
             String linea;
             String object = "{";
-            atributos.add(object);
+            //atributos.add(object);
             while ((linea = br.readLine()) != null) {
                 if (cont > lim1 && cont < lim2) {
-                    atributos.add(linea);
+                    //atributos.add(linea);
                     object +="\n"+linea;
                 }
                 cont++;
                 if (cont == lim2) {
                     object+= "\n}";
-                    Yeison.atributos(atributos);
+                    //System.out.println("************************************USERSSSSSSSSSSSSSSSSSE*****************************************");
+                    //Yeison.atributos(atributos);
+                    //atributos.clear();
                     objetos.add(object);
                     //System.out.println(object);
                     object = "{";
