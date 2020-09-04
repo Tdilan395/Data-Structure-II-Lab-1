@@ -19,9 +19,9 @@ import org.json.JSONObject;
  */
 public class Reader {
 
-    public static ArrayList<Nodo> deArchivoALista(int lim1, int lim2, String ruta) {
-        ArrayList<Nodo> objetos = new ArrayList();
-
+    public static ArrayList<String> deArchivoALista(int lim1, int lim2, String ruta) {
+        ArrayList<String> objetos = new ArrayList();
+        ArrayList<String> atributos = new ArrayList(); 
         File f = new File(ruta + ".txt");
 
         try {
@@ -29,14 +29,18 @@ public class Reader {
             int cont = 0;
             String linea;
             String object = "{";
+            atributos.add(object);
             while ((linea = br.readLine()) != null) {
                 if (cont > lim1 && cont < lim2) {
-                    object += linea;
+                    atributos.add(linea);
+                    object +="\n"+linea;
                 }
                 cont++;
                 if (cont == lim2) {
-                    JSONObject wey = new JSONObject(object + "}");
-                    objetos.add(wey);
+                    object+= "\n}";
+                    Yeison.atributos(atributos);
+                    objetos.add(object);
+                    System.out.println(object);
                     object = "{";
                     cont = 0;
                 }
@@ -54,14 +58,14 @@ public class Reader {
         }
     }
 
-    public static User deJSONaUser(JSONObject ob) {
-        JSONObject address = new JSONObject(ob.get("address").toString());
-        JSONObject company = new JSONObject(ob.get("company").toString());
-        JSONObject geo = new JSONObject(address.get("geo").toString());
-        float ge[] = {geo.getFloat("lat"), geo.getFloat("lng")};
-        Address a = new Address(address.getString("street"), address.getString("suite"), address.getString("city"), address.getString("zipcode"), ge);
-        Company c = new Company(company.getString("name"), company.getString("catchPhrase"), company.getString("bs"));
-        return new User(ob.getInt("id"), ob.getString("name"), ob.getString("username"), ob.getString("email"), ob.getString("phone"), ob.getString("website"), c, a);
+    public static User deJSONaUser(String user) {
+//        JSONObject address = new JSONObject(ob.get("address").toString());
+//        JSONObject company = new JSONObject(ob.get("company").toString());
+//        JSONObject geo = new JSONObject(address.get("geo").toString());
+//        float ge[] = {geo.getFloat("lat"), geo.getFloat("lng")};
+//        Address a = new Address(address.getString("street"), address.getString("suite"), address.getString("city"), address.getString("zipcode"), ge);
+//        Company c = new Company(company.getString("name"), company.getString("catchPhrase"), company.getString("bs"));
+        return null;//new User(ob.getInt("id"), ob.getString("name"), ob.getString("username"), ob.getString("email"), ob.getString("phone"), ob.getString("website"), c, a);
     }
 
     public static Comment deJSONaComment(JSONObject ob) {
@@ -76,48 +80,48 @@ public class Reader {
     public static void Agregar(int nivel, Nodo raiz) {
         switch (nivel) {
             case 1:
-                ArrayList<JSONObject> usuarios = Reader.deArchivoALista(1, 23, "usuario");
+                ArrayList<String> usuarios = Reader.deArchivoALista(1, 23, "usuario");
                 User a;
-                for (JSONObject usuario : usuarios) {
-                    a = deJSONaUser(usuario);
-                    raiz.insertar(a, raiz);
-                    Agregar(2, a);
+                for (String usuario : usuarios) {
+                    //a = deJSONaUser()
+//                    raiz.insertar(a, raiz);
+//                    Agregar(2, a);
                 }
                 break;
             case 2:
-                ArrayList<JSONObject> posts = Reader.deArchivoALista(1, 6, "posts");
+                ArrayList<String> posts = Reader.deArchivoALista(1, 6, "posts");
                 Post p;
-
-                for (JSONObject post : posts) {
-                    p = deJSONaPost(post);
-//                    p.insertar(p, raiz);
-//                    Agregar(3, raiz);
-
-                    if (p.getUserID() == raiz.getID()) {
-                        p.insertar(p, raiz);
-                        Agregar(3, p);
-
-                    }
-                    if (!p.getLinks().isEmpty() && p.getUserID() != raiz.getID()) {
-                        break;
-                    }
-
-                }
+//
+//                for (Nodo post : posts) {
+//                    p = (Post)post;
+////                    p.insertar(p, raiz);
+////                    Agregar(3, raiz);
+//
+//                    if (p.getUserID() == raiz.getID()) {
+//                        p.insertar(p, raiz);
+//                        Agregar(3, p);
+//
+//                    }
+//                    if (!p.getLinks().isEmpty() && p.getUserID() != raiz.getID()) {
+//                        break;
+//                    }
+//
+//                }
                 break;
             case 3:
-                ArrayList<JSONObject> comentarios = Reader.deArchivoALista(1, 7, "comments");
+                //ArrayList<Nodo> comentarios = Reader.deArchivoALista(1, 7, "comments");
                 Comment c;
 
-                for (JSONObject comentario : comentarios) {
-                    c = deJSONaComment(comentario);
-
-                    if (c.getPostID() == raiz.getID()) {
-                        c.insertar(c, raiz);
-
-                    }
-
-                }
-                break;
+//                for (Nodo comentario : comentarios) {
+//                    c = (Comment) comentario;
+//
+//                    if (c.getPostID() == raiz.getID()) {
+//                        c.insertar(c, raiz);
+//
+//                    }
+//
+//                }
+//                break;
             default:
                 System.out.println("Solo existen 3 niveles. ");
         }
