@@ -40,7 +40,7 @@ public class Reader {
                     object+= "\n}";
                     Yeison.atributos(atributos);
                     objetos.add(object);
-                    System.out.println(object);
+                    //System.out.println(object);
                     object = "{";
                     cont = 0;
                 }
