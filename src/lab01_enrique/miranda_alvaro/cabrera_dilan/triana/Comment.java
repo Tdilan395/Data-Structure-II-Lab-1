@@ -40,24 +40,14 @@ public class Comment extends Nodo{
         return null;
     }
     
-    @Override
-    public void insertar(Nodo nodo, Nodo Raiz){
-        Comment c = (Comment) nodo;
-        Post p = new Post(0,"","",0);
-        p = (Post)p.buscar(c.getPostID(), Raiz);
-        if(p == null){
-            //mostrar mensaje de error
-        }else{
-            Raiz.insertar(nodo, p);
-        }
-    }
+
 
     boolean belongsTo(int id) {
         return this.postID == id;
     }
     
+    @Override
     public void printInfo(){
-        System.out.println("");
         System.out.println(postID + " - " + name +" - "+email+" - "+body);
     }
     }

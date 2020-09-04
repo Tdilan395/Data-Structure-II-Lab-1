@@ -20,6 +20,7 @@ public class Post extends Nodo{
         super(ID);
         this.title = title;
         this.body = body;
+        this.userID = userID;
     }
     
     public int getUserID(){
@@ -36,19 +37,7 @@ public class Post extends Nodo{
         return null;
     }
     
-    @Override
-    public void insertar(Nodo nodo, Nodo Raiz){
-        Post p = (Post) nodo;
-        Nodo user = Raiz.buscar(p.getUserID(),Raiz);
-        if(user == null){
-            System.out.println("Hola, no funciona, perdón");
-            //mostrar mensaje de error
-        }
-        else{
-            user.insertar(nodo, user);
-        }
-        
-    }
+
     
     public boolean isOwner(int i){
         return this.userID == i;
@@ -64,8 +53,13 @@ public class Post extends Nodo{
     
     @Override
     public void printInfo(){
+        System.out.println("");
+        System.out.println("**********************************POST********************************************");
         System.out.println(userID + "   " + title + "   " + body);
         System.out.println("");
+        System.out.println("");
+        System.out.println("**********************************COMENTARIOS********************************************");
+        
         this.printAllLinks();
     }
 }

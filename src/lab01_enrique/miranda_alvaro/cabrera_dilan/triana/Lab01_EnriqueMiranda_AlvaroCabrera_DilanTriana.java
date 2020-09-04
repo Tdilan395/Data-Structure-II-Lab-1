@@ -25,10 +25,9 @@ public class Lab01_EnriqueMiranda_AlvaroCabrera_DilanTriana {
    
 
         
-        Test1.Agregar(1, arbol.raiz);
-        Test1.Agregar(2, arbol.raiz.getLink(0));
-        System.out.println(arbol.raiz.getLink(0).getLinks().size());
+        Reader.Agregar(1, arbol.raiz);
         arbol.print();
+
     }
 
 }

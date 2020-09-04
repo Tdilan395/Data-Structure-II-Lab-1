@@ -66,7 +66,11 @@ public class User extends Nodo{
     
     @Override
     public void printInfo(){
+        
+        System.out.println("******************************************USER*********************************************************");
         System.out.println(name + " - " + username + " - " +" - "+email+" - "+phone+" - "+website);
+        System.out.println("");
         this.printAllLinks();
+        
     }
 }

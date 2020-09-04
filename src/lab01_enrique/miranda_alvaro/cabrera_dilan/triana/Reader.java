@@ -17,16 +17,15 @@ import org.json.JSONObject;
  *
  * @author user
  */
-public class Test1 {
+public class Reader {
 
-    public static ArrayList<JSONObject> deArchivoALista(int lim1, int lim2, String ruta) {
-        ArrayList<JSONObject> objetos = new ArrayList();
+    public static ArrayList<Nodo> deArchivoALista(int lim1, int lim2, String ruta) {
+        ArrayList<Nodo> objetos = new ArrayList();
 
         File f = new File(ruta + ".txt");
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(f));
-            System.out.println("sí pasé");
             int cont = 0;
             String linea;
             String object = "{";
@@ -62,56 +61,61 @@ public class Test1 {
         float ge[] = {geo.getFloat("lat"), geo.getFloat("lng")};
         Address a = new Address(address.getString("street"), address.getString("suite"), address.getString("city"), address.getString("zipcode"), ge);
         Company c = new Company(company.getString("name"), company.getString("catchPhrase"), company.getString("bs"));
-        return new User(ob.getInt("id"),ob.getString("name"),ob.getString("username"),ob.getString("email"),ob.getString("phone"),ob.getString("website"),c,a);
+        return new User(ob.getInt("id"), ob.getString("name"), ob.getString("username"), ob.getString("email"), ob.getString("phone"), ob.getString("website"), c, a);
     }
 
     public static Comment deJSONaComment(JSONObject ob) {
-        return new Comment(ob.getInt("postId"),ob.getString("name"), ob.getString("email"), ob.getString("body"), ob.getInt("id"));
+        return new Comment(ob.getInt("postId"), ob.getString("name"), ob.getString("email"), ob.getString("body"), ob.getInt("id"));
     }
 
     public static Post deJSONaPost(JSONObject ob) {
-        
-        return new Post(ob.getInt("userId"),ob.getString("title"), ob.getString("body"), ob.getInt("id"));
+
+        return new Post(ob.getInt("userId"), ob.getString("title"), ob.getString("body"), ob.getInt("id"));
     }
 
     public static void Agregar(int nivel, Nodo raiz) {
         switch (nivel) {
             case 1:
-                ArrayList<JSONObject> usuarios = Test1.deArchivoALista(1, 23, "usuario");
+                ArrayList<JSONObject> usuarios = Reader.deArchivoALista(1, 23, "usuario");
                 User a;
                 for (JSONObject usuario : usuarios) {
-                      a = deJSONaUser(usuario);
-                      raiz.insertar(a, raiz);
-                      Agregar(2,a);
+                    a = deJSONaUser(usuario);
+                    raiz.insertar(a, raiz);
+                    Agregar(2, a);
                 }
                 break;
             case 2:
-                ArrayList<JSONObject> posts = Test1.deArchivoALista(1, 6, "posts");
+                ArrayList<JSONObject> posts = Reader.deArchivoALista(1, 6, "posts");
                 Post p;
-                
+
                 for (JSONObject post : posts) {
                     p = deJSONaPost(post);
-                    raiz.insertar(p, raiz);
-//                    User user = (User)raiz;
-//                    if(p.getUserID()==user.getID()){
-//                    user.insertar(p, raiz);
-//                    Agregar(3,p);
-//                    }
-//                    if(!p.getLinks().isEmpty() && p.getUserID()!=user.getID()){
-//                        break;
-//                    }
+//                    p.insertar(p, raiz);
+//                    Agregar(3, raiz);
+
+                    if (p.getUserID() == raiz.getID()) {
+                        p.insertar(p, raiz);
+                        Agregar(3, p);
+
+                    }
+                    if (!p.getLinks().isEmpty() && p.getUserID() != raiz.getID()) {
+                        break;
+                    }
+
                 }
                 break;
             case 3:
-                ArrayList<JSONObject> comentarios = Test1.deArchivoALista(1, 7, "comments");
+                ArrayList<JSONObject> comentarios = Reader.deArchivoALista(1, 7, "comments");
                 Comment c;
-                
+
                 for (JSONObject comentario : comentarios) {
                     c = deJSONaComment(comentario);
-                  Post post = (Post)raiz;  
-                  if(post.getID()==c.getPostID()){
-                        ((Nodo)raiz).insertar(c, raiz);
-                  }
+
+                    if (c.getPostID() == raiz.getID()) {
+                        c.insertar(c, raiz);
+
+                    }
+
                 }
                 break;
             default:
