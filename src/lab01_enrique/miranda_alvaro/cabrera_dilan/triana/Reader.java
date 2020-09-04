@@ -11,16 +11,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import org.json.JSONObject;
-
 /**
  *
  * @author user
  */
 public class Reader {
 
-    public static ArrayList<String> deArchivoALista(int lim1, int lim2, String ruta) {
-        ArrayList<String> objetos = new ArrayList();
+    public static ArrayList<Yeison> deArchivoALista(int lim1, int lim2, String ruta) {
+        ArrayList<Yeison> objetos = new ArrayList();
         ArrayList<String> atributos = new ArrayList(); //DESCOMENTAR TODO LO RELACIONADO Y EL SOUT *******USERSSSSSSSSSSSSSSSSSE******** PARA PROBAR YEISON
         File f = new File(ruta + ".txt");
 
@@ -29,20 +27,20 @@ public class Reader {
             int cont = 0;
             String linea;
             String object = "{";
-            //atributos.add(object);
+            atributos.add(object);
             while ((linea = br.readLine()) != null) {
                 if (cont > lim1 && cont < lim2) {
-                    //atributos.add(linea);
+                    atributos.add(linea);
                     object +="\n"+linea;
                 }
                 cont++;
                 if (cont == lim2) {
                     object+= "\n}";
-                    //System.out.println("************************************USERSSSSSSSSSSSSSSSSSE*****************************************");
-                    //Yeison.atributos(atributos);
-                    //atributos.clear();
-                    objetos.add(object);
-                    //System.out.println(object);
+                    System.out.println("************************************USERSSSSSSSSSSSSSSSSSE*****************************************");
+                    Yeison y= new Yeison(atributos);
+                    atributos.clear();
+                    objetos.add(y);
+                    System.out.println(object);
                     object = "{";
                     cont = 0;
                 }
@@ -70,28 +68,28 @@ public class Reader {
         return null;//new User(ob.getInt("id"), ob.getString("name"), ob.getString("username"), ob.getString("email"), ob.getString("phone"), ob.getString("website"), c, a);
     }
 
-    public static Comment deJSONaComment(JSONObject ob) {
-        return new Comment(ob.getInt("postId"), ob.getString("name"), ob.getString("email"), ob.getString("body"), ob.getInt("id"));
-    }
+//    public static Comment deJSONaComment(JSONObject ob) {
+//        return new Comment(ob.getInt("postId"), ob.getString("name"), ob.getString("email"), ob.getString("body"), ob.getInt("id"));
+//    }
 
-    public static Post deJSONaPost(JSONObject ob) {
-
-        return new Post(ob.getInt("userId"), ob.getString("title"), ob.getString("body"), ob.getInt("id"));
-    }
+//    public static Post deJSONaPost(JSONObject ob) {
+//
+//        return new Post(ob.getInt("userId"), ob.getString("title"), ob.getString("body"), ob.getInt("id"));
+//    }
 
     public static void Agregar(int nivel, Nodo raiz) {
         switch (nivel) {
             case 1:
-                ArrayList<String> usuarios = Reader.deArchivoALista(1, 23, "usuario");
+                ArrayList<Yeison> usuarios = Reader.deArchivoALista(1, 23, "usuario");
                 User a;
-                for (String usuario : usuarios) {
+                for (Yeison usuario : usuarios) {
                     //a = deJSONaUser()
 //                    raiz.insertar(a, raiz);
 //                    Agregar(2, a);
                 }
                 break;
             case 2:
-                ArrayList<String> posts = Reader.deArchivoALista(1, 6, "posts");
+                ArrayList<Yeison> posts = Reader.deArchivoALista(1, 6, "posts");
                 Post p;
 //
 //                for (Nodo post : posts) {

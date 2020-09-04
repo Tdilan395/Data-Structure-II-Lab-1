@@ -18,8 +18,13 @@ public class Yeison {
     Yeison funciona a partir de una entrada de tipo Arraylist en donde cada elemento es la distribución de lineas en formato String de un objeto con
     estructura JSON.
     */
+    private ArrayList<String> objects;
+
+    public Yeison(ArrayList<String> objects) {
+        this.objects = objects;
+    }
     
-    static public String[] atributos(ArrayList<String>lineas){
+     public String[] atributos(){
         /*
             Los grupos están definidos entre parentesis
         
@@ -58,12 +63,12 @@ public class Yeison {
         //
         Pattern p = Pattern.compile("(\"(\\w+)\": ([\\d]+))|(\"(\\w+)\": \"(.+)\")|(\"(\\w+)\": \\{)|(})");
             Matcher m;
-            String[] []tempAtribCollector = new String[2][lineas.size()];
+            String[] []tempAtribCollector = new String[2][objects.size()];
             int i = 0;
             int cantAtribut=0;
             boolean doraLaExploradora=false;
-        for (String linea : lineas){
-            m = p.matcher(linea);
+        for (String object : objects){
+            m = p.matcher(object);
             if (m.find()) {
                 if(m.group(1)!=null||m.group(4)!=null){
                     
