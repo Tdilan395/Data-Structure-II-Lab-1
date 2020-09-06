@@ -5,6 +5,7 @@
  */
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
+import Test_Units.treeUnits.GUI_Tree;
 import java.util.ArrayList;
 
 
@@ -21,15 +22,17 @@ public class Lab01_EnriqueMiranda_AlvaroCabrera_DilanTriana {
     Nodo Raiz;
     public static void main(String[] args) {
         AB arbol = new AB();
-
+        
         Reader.Agregar(1, arbol.raiz);
+        GUI_Tree GUI = new GUI_Tree("RRRR solutions", arbol.raiz, 600, 800);
+        GUI.add(arbol.raiz.getLinks(), GUI.getRoot());
         System.out.println(arbol.raiz.getLinks().size());
         
-        System.out.println(arbol.raiz.getLink(0).getLinks().size());
+        System.out.println(arbol.raiz.getLink(2).getLinks().size());
         
         
-        System.out.println(arbol.raiz.getLink(0).getLink(0).getLinks().size());
-        arbol.print();
+        System.out.println(arbol.raiz.getLink(2).getLink(0).getLinks().size());
+        
 
     }
 

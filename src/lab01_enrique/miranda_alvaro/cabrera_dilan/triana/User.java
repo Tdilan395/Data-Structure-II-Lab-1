@@ -73,4 +73,8 @@ public class User extends Nodo{
         this.printAllLinks();
         
     }
+    @Override
+    public String toString(){
+        return "User #" + this.getID() + ": " + this.name;
+    }
 }

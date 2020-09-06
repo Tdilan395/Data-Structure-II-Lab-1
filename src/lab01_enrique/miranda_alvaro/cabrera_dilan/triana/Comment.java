@@ -50,4 +50,8 @@ public class Comment extends Nodo{
     public void printInfo(){
         System.out.println(postID + " - " + name +" - "+email+" - "+body);
     }
+    @Override
+    public String toString(){
+        return "Comment #" + this.getID() + ": " + this.name;
+    }
     }

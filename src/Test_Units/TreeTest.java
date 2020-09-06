@@ -6,7 +6,6 @@
 package Test_Units;
 
 
-import Test_Units.treeUnits.Nodo;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.ImageIcon;
@@ -20,6 +19,7 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
+import lab01_enrique.miranda_alvaro.cabrera_dilan.triana.Nodo;
 
 /**
  *
@@ -28,14 +28,18 @@ import javax.swing.tree.TreePath;
 public class TreeTest {
     public static void main(String[] args){
         //Nodos que utiliza el arbol
-        Nodo nodox1 = new Nodo("Puto");
-        Nodo nodox2 = new Nodo("Lets");
-        Nodo nodox3 = new Nodo("FUUUCKING");
-        Nodo nodox4 = new Nodo("GOOOOOOOOOOOOO");
+        Nodo nodox1 = new Nodo(4);
+        Nodo nodox2 = new Nodo(1);
+        Nodo nodox3 = new Nodo(4);
+        Nodo nodox4 = new Nodo(54);
         DefaultMutableTreeNode node = new DefaultMutableTreeNode(nodox1);
         DefaultMutableTreeNode node4 = new DefaultMutableTreeNode(nodox2);
         DefaultMutableTreeNode node1 = new DefaultMutableTreeNode(nodox3);
         DefaultMutableTreeNode node2 = new DefaultMutableTreeNode(nodox4);
+        
+        for (int i = 0; i < 10000; i++) {
+            node4.add(new DefaultMutableTreeNode("dasdasdasda"));
+        }
         JLabel selectedLabel;
         
         node.add(node4);
@@ -48,9 +52,9 @@ public class TreeTest {
         frame.setSize(600, 800);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //setUp arbol
-        
-        frame.add(tree);
-        
+        tree.setSize(100, 100);
+        frame.add(tree, BorderLayout.NORTH);
+        frame.setResizable(false);
         frame.add(new JScrollPane(tree));
         
         //SHIT
@@ -77,7 +81,7 @@ public class TreeTest {
             if(node==null)return;
             
             Nodo n = (Nodo)node.getUserObject();
-            System.out.println(n.papara());
+            selectedLabel.setText(e.getPath().toString());
         }
         });
         
