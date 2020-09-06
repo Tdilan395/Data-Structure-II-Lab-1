@@ -64,5 +64,8 @@ public class Nodo {
     public void printInfo() {
         
     }
-    
+    @Override
+    public String toString(){
+        return "Users";
+    }
 }

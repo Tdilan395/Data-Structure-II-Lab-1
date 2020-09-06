@@ -62,4 +62,9 @@ public class Post extends Nodo{
         
         this.printAllLinks();
     }
+    
+    @Override
+    public String toString(){
+        return "Post #" + this.getID() + ": " + this.getTitle();
+    }
 }

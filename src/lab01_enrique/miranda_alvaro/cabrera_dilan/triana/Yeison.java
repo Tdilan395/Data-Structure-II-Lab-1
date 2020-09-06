@@ -41,7 +41,6 @@ public class Yeison {
                     s.append(mat.group().replace("\"" + key + "\": ", "").replace("\"", ""));
                 }
             }
-
         }
         return s.toString();
     }
