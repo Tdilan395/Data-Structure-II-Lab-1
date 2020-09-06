@@ -14,23 +14,35 @@ import java.util.regex.Pattern;
  * @author Domain
  */
 public class Yeison {
+
     /*
     Yeison funciona a partir de una entrada de tipo Arraylist en donde cada elemento es la distribución de lineas en formato String de un objeto con
     estructura JSON.
-    */
+     */
     private StringBuffer buff;
-    public Yeison(String object){
+
+    public Yeison(String object) {
         buff = new StringBuffer();
         buff.append(object);
-    } 
+    }
 
-    
     public String get(String key) {
         StringBuffer s = new StringBuffer();
-        Pattern pat = Pattern.compile("(\""+key+"\": \\{)[\\s\\S]+(?=\\},\\n)|(\""+key+"\":).+(?=,)|(\""+key+"\": \\{)[\\s\\S]+(?=\\})");
+        Pattern p = Pattern.compile("\"");
+
+        Pattern pat = Pattern.compile("(\"" + key + "\": \\{)[\\s\\S]+(?=\\},\\n)|(\"" + key + "\":).+(?=,)|(\"" + key + "\": \\{)[\\s\\S]+(?=\\}\\n)|(\"" + key + "\":).+(?=\\n)");
         Matcher mat = pat.matcher(buff.toString());
-        mat.find();
-        s.append(mat.group().replace("\""+key+"\": ",""));
+        if (mat.find()) {
+            if (mat.group(1) != null || mat.group(3) != null) {
+                s.append(mat.group().replace("\"" + key + "\": ", ""));
+            } else {
+                Matcher m = p.matcher(mat.group());
+                if (m.find()) {
+                    s.append(mat.group().replace("\"" + key + "\": ", "").replace("\"", ""));
+                }
+            }
+
+        }
         return s.toString();
     }
 }

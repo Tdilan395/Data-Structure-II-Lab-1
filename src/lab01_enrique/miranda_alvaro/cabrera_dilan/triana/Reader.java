@@ -40,6 +40,10 @@ public class Reader {
                    object+= "},";
                     //System.out.println("************************************USERSSSSSSSSSSSSSSSSSE*****************************************");
                     Yeison y = new Yeison(object);
+//                    Yeison a = new Yeison(y.get("address"));
+//                    Yeison g = new Yeison(a.get("geo"));
+//                    System.out.println(g.get("lat"));
+                    
                     //atributos.clear();
                     objetos.add(y);
                  // System.out.println(object);
@@ -60,7 +64,7 @@ public class Reader {
         }
     }
 
-    public static User deJSONaUser(Yeison ob) {
+    public static User deYeisonaUser(Yeison ob) {
         Yeison address = new Yeison(ob.get("address"));
         Yeison company = new Yeison(ob.get("company"));
       Yeison geo = new Yeison(address.get("geo"));
@@ -70,7 +74,13 @@ public class Reader {
           return  new User(Integer.parseInt(ob.get("id")), ob.get("name"), ob.get("username"), ob.get("email"), ob.get("phone"), ob.get("website"), c, a);
     }
 
-// 0
+    public static Post deYeisonaPost(Yeison ob){
+    return new Post(Integer.parseInt(ob.get("userId")), ob.get("title"), ob.get("body"), Integer.parseInt(ob.get("id")));
+    }
+    
+    public static Comment deYeisonaComment(Yeison ob){
+    return new Comment(Integer.parseInt(ob.get("postId")), ob.get("name"), ob.get("email"), ob.get("body"), Integer.parseInt(ob.get("id")));
+    }
 
     public static void Agregar(int nivel, Nodo raiz) {
         switch (nivel) {

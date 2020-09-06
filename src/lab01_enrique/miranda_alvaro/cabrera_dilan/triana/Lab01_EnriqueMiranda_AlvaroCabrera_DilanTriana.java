@@ -23,8 +23,13 @@ public class Lab01_EnriqueMiranda_AlvaroCabrera_DilanTriana {
         AB arbol = new AB();
    
 
-        
-        Reader.Agregar(1, arbol.raiz);
+    ArrayList<Yeison> posts = Reader.deArchivoALista(1, 6, "posts");
+    Post p;
+        for (Yeison post : posts) {
+            p= Reader.deYeisonaPost(post);
+            System.out.println(p.getID());
+        }
+        //Reader.Agregar(1, arbol.raiz);
         arbol.print();
 
     }
