@@ -88,45 +88,45 @@ public class Reader {
                 ArrayList<Yeison> usuarios = Reader.deArchivoALista(1, 23, "usuario");
                 User a;
                 for (Yeison usuario : usuarios) {
-                    //a = deJSONaUser()
-//                    raiz.insertar(a, raiz);
-//                    Agregar(2, a);
+                    a = deYeisonaUser(usuario);
+                    raiz.insertar(a, raiz);
+                    Agregar(2, a);
                 }
                 break;
             case 2:
                 ArrayList<Yeison> posts = Reader.deArchivoALista(1, 6, "posts");
                 Post p;
+
+                for (Yeison post : posts) {
+                    p = deYeisonaPost(post);
+                    p.insertar(p, raiz);
+                    Agregar(3, raiz);
+
+                    if (p.getUserID() == raiz.getID()) {
+                        p.insertar(p, raiz);
+                        Agregar(3, p);
+
+                    }
+                    if (!p.getLinks().isEmpty() && p.getUserID() != raiz.getID()) {
+                        break;
+                    }
 //
-//                for (Nodo post : posts) {
-//                    p = (Post)post;
-////                    p.insertar(p, raiz);
-////                    Agregar(3, raiz);
-//
-//                    if (p.getUserID() == raiz.getID()) {
-//                        p.insertar(p, raiz);
-//                        Agregar(3, p);
-//
-//                    }
-//                    if (!p.getLinks().isEmpty() && p.getUserID() != raiz.getID()) {
-//                        break;
-//                    }
-//
-//                }
+                }
                 break;
             case 3:
-                //ArrayList<Nodo> comentarios = Reader.deArchivoALista(1, 7, "comments");
+                ArrayList<Yeison> comentarios = Reader.deArchivoALista(1, 7, "comments");
                 Comment c;
 
-//                for (Nodo comentario : comentarios) {
-//                    c = (Comment) comentario;
-//
-//                    if (c.getPostID() == raiz.getID()) {
-//                        c.insertar(c, raiz);
-//
-//                    }
-//
-//                }
-//                break;
+                for (Yeison comentario : comentarios) {
+                    c = deYeisonaComment(comentario);
+
+                    if (c.getPostID() == raiz.getID()) {
+                        c.insertar(c, raiz);
+
+                    }
+
+                }
+                break;
             default:
                 System.out.println("Solo existen 3 niveles. ");
         }

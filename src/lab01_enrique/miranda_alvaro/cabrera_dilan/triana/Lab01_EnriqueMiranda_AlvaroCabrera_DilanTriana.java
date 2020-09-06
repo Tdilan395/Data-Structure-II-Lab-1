@@ -21,15 +21,8 @@ public class Lab01_EnriqueMiranda_AlvaroCabrera_DilanTriana {
     Nodo Raiz;
     public static void main(String[] args) {
         AB arbol = new AB();
-   
 
-    ArrayList<Yeison> posts = Reader.deArchivoALista(1, 6, "posts");
-    Post p;
-        for (Yeison post : posts) {
-            p= Reader.deYeisonaPost(post);
-            System.out.println(p.getID());
-        }
-        //Reader.Agregar(1, arbol.raiz);
+        Reader.Agregar(1, arbol.raiz);
         arbol.print();
 
     }
