@@ -76,7 +76,7 @@ public class TreeTest {
             
             if(node==null)return;
             
-            Nodo n = (Nodo) node.getUserObject();
+            Nodo n = (Nodo)node.getUserObject();
             System.out.println(n.papara());
         }
         });

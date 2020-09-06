@@ -23,6 +23,12 @@ public class Lab01_EnriqueMiranda_AlvaroCabrera_DilanTriana {
         AB arbol = new AB();
 
         Reader.Agregar(1, arbol.raiz);
+        System.out.println(arbol.raiz.getLinks().size());
+        
+        System.out.println(arbol.raiz.getLink(0).getLinks().size());
+        
+        
+        System.out.println(arbol.raiz.getLink(0).getLink(0).getLinks().size());
         arbol.print();
 
     }

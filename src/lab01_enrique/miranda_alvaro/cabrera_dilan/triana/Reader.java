@@ -69,7 +69,7 @@ public class Reader {
         Yeison company = new Yeison(ob.get("company"));
       Yeison geo = new Yeison(address.get("geo"));
         float ge[] = {Float.parseFloat(geo.get("lat")), Float.parseFloat(geo.get("lng"))};
-        Address a = new Address(address.get("street"), address.get("suite"), address.get("city"), address.get("zipcode"), ge);
+       Address a = new Address(address.get("street"), address.get("suite"), address.get("city"), address.get("zipcode"), ge);
        Company c = new Company(company.get("name"), company.get("catchPhrase"), company.get("bs"));
           return  new User(Integer.parseInt(ob.get("id")), ob.get("name"), ob.get("username"), ob.get("email"), ob.get("phone"), ob.get("website"), c, a);
     }
@@ -99,8 +99,6 @@ public class Reader {
 
                 for (Yeison post : posts) {
                     p = deYeisonaPost(post);
-                    p.insertar(p, raiz);
-                    Agregar(3, raiz);
 
                     if (p.getUserID() == raiz.getID()) {
                         p.insertar(p, raiz);
