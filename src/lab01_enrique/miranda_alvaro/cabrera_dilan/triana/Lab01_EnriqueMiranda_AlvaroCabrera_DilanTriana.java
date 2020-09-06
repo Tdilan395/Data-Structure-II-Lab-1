@@ -21,9 +21,7 @@ public class Lab01_EnriqueMiranda_AlvaroCabrera_DilanTriana {
     Nodo Raiz;
     public static void main(String[] args) {
         AB arbol = new AB();
-   
 
-        
         Reader.Agregar(1, arbol.raiz);
         arbol.print();
 
