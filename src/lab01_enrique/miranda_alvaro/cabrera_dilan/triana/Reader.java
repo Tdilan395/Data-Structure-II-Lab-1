@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import org.json.JSONObject;
+
 
 /**
  *
@@ -19,8 +19,8 @@ import org.json.JSONObject;
  */
 public class Reader {
 
-    public static ArrayList<String> deArchivoALista(int lim1, int lim2, String ruta) {
-        ArrayList<String> objetos = new ArrayList();
+    public static ArrayList<Yeison> deArchivoALista(int lim1, int lim2, String ruta) {
+        ArrayList<Yeison> objetos = new ArrayList();
         ArrayList<String> atributos = new ArrayList(); //DESCOMENTAR TODO LO RELACIONADO Y EL SOUT *******USERSSSSSSSSSSSSSSSSSE******** PARA PROBAR YEISON
         File f = new File(ruta + ".txt");
 
@@ -28,22 +28,22 @@ public class Reader {
             BufferedReader br = new BufferedReader(new FileReader(f));
             int cont = 0;
             String linea;
-            String object = "{";
-            //atributos.add(object);
+            String object = "";
+            atributos.add(object);
             while ((linea = br.readLine()) != null) {
-                if (cont > lim1 && cont < lim2) {
-                    //atributos.add(linea);
-                    object +="\n"+linea;
+                if (cont >= lim1 && cont <= lim2) {
+                    atributos.add(linea);
+                    object +=linea+"\n";
                 }
                 cont++;
                 if (cont == lim2) {
-                    object+= "\n}";
+                   object+= "},";
                     //System.out.println("************************************USERSSSSSSSSSSSSSSSSSE*****************************************");
-                    //Yeison.atributos(atributos);
+                    Yeison y = new Yeison(object);
                     //atributos.clear();
-                    objetos.add(object);
-                    //System.out.println(object);
-                    object = "{";
+                    objetos.add(y);
+                 // System.out.println(object);
+                    object = "";
                     cont = 0;
                 }
             }
@@ -60,38 +60,31 @@ public class Reader {
         }
     }
 
-    public static User deJSONaUser(String user) {
-//        JSONObject address = new JSONObject(ob.get("address").toString());
-//        JSONObject company = new JSONObject(ob.get("company").toString());
-//        JSONObject geo = new JSONObject(address.get("geo").toString());
-//        float ge[] = {geo.getFloat("lat"), geo.getFloat("lng")};
-//        Address a = new Address(address.getString("street"), address.getString("suite"), address.getString("city"), address.getString("zipcode"), ge);
-//        Company c = new Company(company.getString("name"), company.getString("catchPhrase"), company.getString("bs"));
-        return null;//new User(ob.getInt("id"), ob.getString("name"), ob.getString("username"), ob.getString("email"), ob.getString("phone"), ob.getString("website"), c, a);
+    public static User deJSONaUser(Yeison ob) {
+        Yeison address = new Yeison(ob.get("address"));
+        Yeison company = new Yeison(ob.get("company"));
+      Yeison geo = new Yeison(address.get("geo"));
+        float ge[] = {Float.parseFloat(geo.get("lat")), Float.parseFloat(geo.get("lng"))};
+        Address a = new Address(address.get("street"), address.get("suite"), address.get("city"), address.get("zipcode"), ge);
+       Company c = new Company(company.get("name"), company.get("catchPhrase"), company.get("bs"));
+          return  new User(Integer.parseInt(ob.get("id")), ob.get("name"), ob.get("username"), ob.get("email"), ob.get("phone"), ob.get("website"), c, a);
     }
 
-    public static Comment deJSONaComment(JSONObject ob) {
-        return new Comment(ob.getInt("postId"), ob.getString("name"), ob.getString("email"), ob.getString("body"), ob.getInt("id"));
-    }
-
-    public static Post deJSONaPost(JSONObject ob) {
-
-        return new Post(ob.getInt("userId"), ob.getString("title"), ob.getString("body"), ob.getInt("id"));
-    }
+// 0
 
     public static void Agregar(int nivel, Nodo raiz) {
         switch (nivel) {
             case 1:
-                ArrayList<String> usuarios = Reader.deArchivoALista(1, 23, "usuario");
+                ArrayList<Yeison> usuarios = Reader.deArchivoALista(1, 23, "usuario");
                 User a;
-                for (String usuario : usuarios) {
+                for (Yeison usuario : usuarios) {
                     //a = deJSONaUser()
 //                    raiz.insertar(a, raiz);
 //                    Agregar(2, a);
                 }
                 break;
             case 2:
-                ArrayList<String> posts = Reader.deArchivoALista(1, 6, "posts");
+                ArrayList<Yeison> posts = Reader.deArchivoALista(1, 6, "posts");
                 Post p;
 //
 //                for (Nodo post : posts) {
