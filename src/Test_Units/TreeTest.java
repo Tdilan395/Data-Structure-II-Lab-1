@@ -49,7 +49,7 @@ public class TreeTest {
         //Frame simple con un arbol
         JFrame frame = new JFrame("Tree Test");
         JTree tree = new JTree(node);
-        frame.setSize(600, 800);
+        frame.setSize(600, 700);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //setUp arbol
         tree.setSize(100, 100);

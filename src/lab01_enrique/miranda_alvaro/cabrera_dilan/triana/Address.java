@@ -27,6 +27,26 @@ public class Address {
     void printInfo() {
          //To change body of generated methods, choose Tools | Templates.
     }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public String getSuite() {
+        return suite;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public float getGeo(int i) {
+        return geo[i];
+    }
     
     
 }

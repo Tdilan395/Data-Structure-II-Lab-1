@@ -6,7 +6,7 @@
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
 import Test_Units.treeUnits.GUI_Tree;
-import java.util.ArrayList;
+import Test_Units.testeo;
 
 
 /**
@@ -18,21 +18,18 @@ public class Lab01_EnriqueMiranda_AlvaroCabrera_DilanTriana {
     /**
      * @param args the command line arguments
      */
-    
-    Nodo Raiz;
     public static void main(String[] args) {
         AB arbol = new AB();
-        
+        testeo t = new testeo();
+        t.setVisible(true);
         Reader.Agregar(1, arbol.raiz);
-        GUI_Tree GUI = new GUI_Tree("RRRR solutions", arbol.raiz, 600, 800);
+        testeo.Raiz = arbol.raiz;
+        GUI_Tree GUI = new GUI_Tree("RRRR solutions", arbol.raiz, 600, 700);
         GUI.add(arbol.raiz.getLinks(), GUI.getRoot());
-        System.out.println(arbol.raiz.getLinks().size());
-        
-        System.out.println(arbol.raiz.getLink(2).getLinks().size());
-        
-        
-        System.out.println(arbol.raiz.getLink(2).getLink(0).getLinks().size());
-        
+        //System.out.println(arbol.raiz.getLinks().size());
+        //System.out.println(arbol.raiz.getLink(2).getLinks().size());
+        //System.out.println(arbol.raiz.getLink(2).getLink(0).getLinks().size());
+        //GUI.escribir();
 
     }
 

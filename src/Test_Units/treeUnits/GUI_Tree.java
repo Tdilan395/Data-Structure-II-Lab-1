@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.TreePath;
 import lab01_enrique.miranda_alvaro.cabrera_dilan.triana.Nodo;
 
 /**
@@ -48,6 +49,12 @@ public class GUI_Tree extends JFrame{
         this.add(new JScrollPane(tree));
         this.add(tree);
         this.setVisible(true);
+        
+        tree.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
+            public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
+                treeValueChanged(evt);
+            }
+        });
     }
     
     public void add(ArrayList<Nodo>nodos, DefaultMutableTreeNode root){
@@ -57,11 +64,27 @@ public class GUI_Tree extends JFrame{
             this.add(nodo.getLinks(), j_Nodo);
             root.add(j_Nodo);
         }
-    
+        
     }
 
     public DefaultMutableTreeNode getRoot() {
         return root;
+    }
+    
+    public void escribir(){
+        for (int i = 0; i < root.getChildCount(); i++) {
+            DefaultMutableTreeNode a = (DefaultMutableTreeNode)root.getChildAt(i);
+            System.out.println(((Nodo)a.getUserObject()).getID());
+        }
+        
+        
+    }
+    private void treeValueChanged(javax.swing.event.TreeSelectionEvent evt) {
+        System.out.println();
+        Object o[] = tree.getSelectionPath().getPath();
+        for (Object object : o) {
+            System.out.println(object);
+        }
     }
     
     

@@ -5,7 +5,8 @@
  */
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
-import javax.swing.JOptionPane;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -19,10 +20,6 @@ public class User extends Nodo{
     private String website;
     private Company company;
     private Address address;
-
-    public User(int ID) {
-        super(ID);
-    }
 
     public User(int ID, String name, String username, String email, String phone, String webside, Company c, Address a) {
         super(ID);
@@ -76,5 +73,54 @@ public class User extends Nodo{
     @Override
     public String toString(){
         return "User #" + this.getID() + ": " + this.name;
+    }
+    
+    @Override
+    public Nodo search(String toSearch, String search){//post
+        Pattern pat = Pattern.compile(search);
+        Matcher mat;
+        System.out.println("**************Busqueda de post**************");
+        for (Nodo post : this.getLinks()) {
+            Post p = (Post)post;
+            switch(toSearch){
+                case "userId":
+                    if(p.getUserID() == Integer.parseInt(search)){
+                        return p;
+                    }
+                    break;
+                case "id":
+                    if(p.getID() == Integer.parseInt(search)){
+                        return p;
+                    }
+                    break;
+                case "title":
+                    mat = pat.matcher(p.getTitle());
+                    if(mat.find()){
+                        return p;
+                    }
+                case "body":
+                    mat = pat.matcher(p.getBody());
+                    if(mat.find()){
+                        return p;
+                    }
+                    break;
+                default:
+                    System.out.println("No debería llegar aquí busqueda de post");
+                    break;
+            }
+        }
+        return null;
+    }
+    
+    @Override
+    public Nodo searchComment(String searchTo, String search){
+        for (Nodo post : getLinks()) {
+            Post p = (Post) post;
+            Comment c = (Comment) p.search(searchTo, search);
+            if(c != null){
+                return c;
+            }
+        }
+        return null;
     }
 }

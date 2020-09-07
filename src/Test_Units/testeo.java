@@ -18,12 +18,15 @@ public class testeo extends javax.swing.JFrame {
      * Creates new form testeo
      */
     DefaultComboBoxModel search_atributes[];
+    public static Nodo Raiz;
+
     public testeo() {
         initComponents();
         search_atributes = new DefaultComboBoxModel[3];
         initAtributes();
         this.search_Property.setModel(search_atributes[search_Class.getSelectedIndex()]);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -93,7 +96,7 @@ public class testeo extends javax.swing.JFrame {
                 .addComponent(search)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(34, 34, 34))
         );
 
         pack();
@@ -104,20 +107,40 @@ public class testeo extends javax.swing.JFrame {
     }//GEN-LAST:event_search_ClassItemStateChanged
 
     private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
-        if(!searchBar.getText().isEmpty()){
-            switch((String)search_Class.getSelectedItem()){
+        if (!searchBar.getText().isEmpty()) {
+            
+            switch ((String) search_Class.getSelectedItem()) {
                 case "Usuario":
+                    User u = (User) Raiz.search((String) search_Property.getSelectedItem(), searchBar.getText());
+                    if (u != null) {
+                        consola.append(u.getName() + " - " + u.getUsername() + " - " + u.getAddress().getCity() + " - " + u.getCompany().getName()+"\n");
+                    } else {
+                        consola.append("No se encontró usuario buscado por " + search_Property.getSelectedItem() + ": " + searchBar.getText()+"\n");
+                    }
+                    searchBar.setText("");
                     break;
                 case "Post":
+                    Post p = (Post)Raiz.searchPost((String) search_Property.getSelectedItem(), searchBar.getText());
+                    if (p != null) {
+                        consola.append(p.getID()+" - "+p.getTitle()+"\n");
+                    } else {
+                        consola.append("No se encontró post buscado por " + search_Property.getSelectedItem() + ": " + searchBar.getText()+"\n");
+                    }
                     break;
                 case "Comentario":
+                    Comment c = (Comment) Raiz.searchComment((String) search_Property.getSelectedItem(), searchBar.getText());
+                    if (c != null) {
+                        consola.append(c.getID()+" - "+c.getEmail()+"\n");
+                    } else {
+                        consola.append("No se encontró comentario buscado por " + search_Property.getSelectedItem() + ": " + searchBar.getText()+"\n");
+                    }
                     break;
-                        
+
             }
         }
     }//GEN-LAST:event_searchActionPerformed
 
-    public void initAtributes(){
+    public void initAtributes() {
         this.search_atributes[0] = new DefaultComboBoxModel();
         this.search_atributes[0].addElement("id");
         this.search_atributes[0].addElement("name");
@@ -146,6 +169,7 @@ public class testeo extends javax.swing.JFrame {
         this.search_atributes[2].addElement("email");
         this.search_atributes[2].addElement("body");
     }
+
     /**
      * @param args the command line arguments
      */
