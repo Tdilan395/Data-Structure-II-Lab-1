@@ -14,11 +14,21 @@ import java.util.ArrayList;
 
 
 /**
- *
- * @author user
+ *  Esta clase contiene todo lo concerniente a la lectura de un archivo con formato JSON y a la transformación hacia objetos de la clase
+ * @author Alvaro Cabrera
+ * @see Yeison
+ * @see User
+ * @see Comment
+ * @see Post
  */
 public class Reader {
-
+    /**
+     * Metodo para leer un archivo de formato JSON y transformarlos a una lista de objetos Yeison
+     * @param lim1 indica la linea en la que empieza el objeto dentro del formato JSON
+     * @param lim2 indica la linea en la que termina el objeto dentro del formato JSON
+     * @param ruta indica el nombre del archivo donde se encuentra la lista de objetos JSON
+     * @return Una lista de objetos tipo Yeison 
+     */
     public static ArrayList<Yeison> deArchivoALista(int lim1, int lim2, String ruta) {
         ArrayList<Yeison> objetos = new ArrayList();
         ArrayList<String> atributos = new ArrayList(); //DESCOMENTAR TODO LO RELACIONADO Y EL SOUT *******USERSSSSSSSSSSSSSSSSSE******** PARA PROBAR YEISON
@@ -63,7 +73,11 @@ public class Reader {
             return objetos;
         }
     }
-
+    /**
+     * Metodo para crear objetos tipo User a partir de un objeto Yeison
+     * @param ob Objeto Yeison que contiene la información del User
+     * @return regresa el objeto tipo User
+     */
     public static User deYeisonaUser(Yeison ob) {
         Yeison address = new Yeison(ob.get("address"));
         Yeison company = new Yeison(ob.get("company"));
@@ -73,15 +87,27 @@ public class Reader {
        Company c = new Company(company.get("name"), company.get("catchPhrase"), company.get("bs"));
           return  new User(Integer.parseInt(ob.get("id")), ob.get("name"), ob.get("username"), ob.get("email"), ob.get("phone"), ob.get("website"), c, a);
     }
-
+    /**
+     * Metodo para crear objetos tipo Post a partir de un objeto Yeison
+     * @param ob Objeto Yeison que contiene la información del Post
+     * @return regresa el objeto tipo Post
+     */
     public static Post deYeisonaPost(Yeison ob){
     return new Post(Integer.parseInt(ob.get("userId")), ob.get("title"), ob.get("body"), Integer.parseInt(ob.get("id")));
     }
-    
+    /**
+     * Metodo para crear objetos tipo Comment a partir de un objeto Yeison  
+     * @param ob Objeto Yeison que contiene la información del Comment
+     * @return regresa el objeto tipo Comment
+     */
     public static Comment deYeisonaComment(Yeison ob){
     return new Comment(Integer.parseInt(ob.get("postId")), ob.get("name"), ob.get("email"), ob.get("body"), Integer.parseInt(ob.get("id")));
     }
-
+    /**
+     * Metodo para añadir los objetos tipo User, Post y Comment al arbol
+     * @param nivel Indica en que nivel deseamos agregar el objeto 1=User, 2= Post, 3=Comment
+     * @param raiz La raiz del arbol donde deseamos agregar
+     */
     public static void Agregar(int nivel, Nodo raiz) {
         switch (nivel) {
             case 1:

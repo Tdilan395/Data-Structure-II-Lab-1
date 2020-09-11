@@ -6,8 +6,8 @@
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
 /**
- *
- * @author Domain
+ *Esta clase contiene todos los atributos y métodos de la dirección
+ * @author Dilan Triana
  */
 public class Address {
     private String street;
@@ -15,7 +15,14 @@ public class Address {
     private String city;
     private String zipCode;
     private float [] geo;
-
+    /**
+     * Metodo constructor parametrizado 
+     * @param street calle
+     * @param suite
+     * @param city  ciudad  
+     * @param zipCode codigo postal
+     * @param geo coordenadas
+     */
     public Address(String street, String suite, String city, String zipCode, float[] geo) {
         this.street = street;
         this.suite = suite;

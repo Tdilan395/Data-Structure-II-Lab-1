@@ -6,32 +6,49 @@
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
 /**
- *
- * @author Domain
+ *Esta clase contiene todos los atributos y metodos de una compañia
+ * @author Dilan Triana
  */
 class Company {
    private String name;
    private String catchPhrase;
    private String bs;
-
+   /**
+    * Metodo constructor parametrizado
+    * @param name nombre de la compañia
+    * @param catchPhrase eslogan de la compañia
+    * @param bs 
+    */
     public Company(String name, String catchPhrase, String bs) {
         this.name = name;
         this.catchPhrase = catchPhrase;
         this.bs = bs;
     }
-
+    /**
+     * Metodo para obtener el nombre de la compañia
+     * @return el nombre
+     */
     public String getName() {
         return name;
     }
-
+    /**
+     * Metodo para retornar el eslogan de la compañia
+     * @return el slogan 
+     */
     public String getCatchPhrase() {
         return catchPhrase;
     }
-
+    /**
+     * Metodo para retonar el bs
+     * @return  bs
+     */
     public String getBs() {
         return bs;
     }
-
+    /**
+     * Metodo para imprimir toda la inforación del objeto en una cadena de caracteres
+     * @return toda la información del objeto
+     */
     String printInfo() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

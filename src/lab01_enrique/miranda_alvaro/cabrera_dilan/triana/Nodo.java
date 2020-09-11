@@ -8,29 +8,40 @@ package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 import java.util.ArrayList;
 
 /**
- *
+ * Esta clase contiene todos los atributos y metodos de un Nodo
  * @author Domain
  */
 public class Nodo {
     private final int ID;
     private ArrayList<Nodo> links;
-
+    /**
+     * Metodo constructor parametrizado
+     * @param ID  id del nodo
+     */
     public Nodo(int ID) {
         this.ID = ID;
         links = new ArrayList<>();
     }
-    
+    /**
+     * Metodo para obtener el id del nodo
+     * @return Id del nodo
+     */
     public int getID() {
         return ID;
     }
+    /**
+     * Metodo para obtener la dirección de alguno de los hijos del nodo
+     * @param i el número del hijo que desea
+     * @return Nodo i-esimo
+     */
     public Nodo getLink(int i){
         return links.get(i);
     }
     
     /**
-     *
-     * @param nodo
-     * @param Raiz
+     * Metodo para insertar Nodos
+     * @param nodo nodo que se desea insertar
+     * @param Raiz Raiz del arbol
      * @since 0.2
      */
     public void insertar(Nodo nodo, Nodo Raiz) {
@@ -50,7 +61,10 @@ public class Nodo {
         }
         return null;
     }
-    
+    /**
+     * Metodo para obtener la lista de hijos del nodo
+     * @return Hijos del nodo
+     */
     public ArrayList<Nodo> getLinks(){
         return this.links;
     }

@@ -10,22 +10,31 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- *
- * @author Domain
+ *  Esta clase contiene todo lo relacionado para la obtención de los objetos leidos de un formato JSON.
+ *  Yeison funciona a partir de una entrada de tipo Arraylist en donde cada elemento es la distribución de lineas en formato String de un objeto con
+    estructura JSON.
+ * @author Dilan Triana
  */
 public class Yeison {
 
     /*
-    Yeison funciona a partir de una entrada de tipo Arraylist en donde cada elemento es la distribución de lineas en formato String de un objeto con
-    estructura JSON.
+  
      */
     private StringBuffer buff;
-
+    /**
+     * Metodo constructor parametrizado
+     * @param object Objeto en formato JSON
+     */
     public Yeison(String object) {
         buff = new StringBuffer();
         buff.append(object);
     }
-
+    /**
+     * Metodo para obtener el valor de los parametros del objeto en formato JSON
+     * @param key Nombre del paramentro
+     * @return El valor de parametro en tipo String
+     */
+   
     public String get(String key) {
         StringBuffer s = new StringBuffer();
         Pattern p = Pattern.compile("\"");

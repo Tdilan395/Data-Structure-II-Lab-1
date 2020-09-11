@@ -5,11 +5,9 @@
  */
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
-import javax.swing.JOptionPane;
-
 /**
- *
- * @author Domain
+ *Esta clase contiene todos los atributos y metodos de un Usuario
+ * @author Dilan Triana
  */
 public class User extends Nodo{
     private String name;
@@ -20,10 +18,17 @@ public class User extends Nodo{
     private Company company;
     private Address address;
 
-    public User(int ID) {
-        super(ID);
-    }
-
+    /**
+     * Metodo constructor parametrizado
+     * @param ID el id del usuario  
+     * @param name nombre del usuario
+     * @param username sobrenombre del usuario  
+     * @param email correo electronico del usuario
+     * @param phone telefono celular del usuario
+     * @param webside sitio web del usuario
+     * @param c compañia del usuario
+     * @param a dirección del usuario
+     */
     public User(int ID, String name, String username, String email, String phone, String webside, Company c, Address a) {
         super(ID);
         this.name=name;
