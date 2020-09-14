@@ -6,20 +6,12 @@
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.ScrollPane;
-import java.awt.TextArea;
 import java.util.ArrayList;
-import javafx.scene.control.ComboBox;
-import javafx.scene.layout.Border;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -41,6 +33,7 @@ public class GUI_Tree extends JFrame{
     private JScrollPane treeBar;
     private JScrollPane descripcionBar;
     private JButton search;
+    private JButton searchOwner;
     private JTextField searchLabel;
     private JComboBox nodoType;
     private JComboBox varType;
@@ -54,6 +47,7 @@ public class GUI_Tree extends JFrame{
         treeBar=new JScrollPane();
         description= new JTextArea();
         search = new JButton("Buscar");
+        searchOwner = new JButton("Buscar Usuario");
         searchLabel = new  JTextField();
         String nodoTypeOptions[]= {"Users","Post","Comment"}; 
         nodoType = new JComboBox(nodoTypeOptions);
@@ -75,16 +69,22 @@ public class GUI_Tree extends JFrame{
         
         descripcionBar.setBounds(width/2-50, 60, width/2-100, height/2);
         treeBar.setBounds(5, 60, width/2-100, height/2);
-        searchLabel.setBounds(10, 10, 50, 25);
+        searchLabel.setBounds(10, 10, 80, 25);
         searchLabel.setBackground(Color.WHITE);
-        nodoType.setBounds(50, 10, 50, 25);
-        varType.setBounds(90, 10, 50, 25);
+        nodoType.setBounds(110, 10, 80, 25);
+        varType.setBounds(200, 10, 80, 25);
+        search.setBounds(290, 10, 80, 25);
+        searchOwner.setBounds(width/2-50, 65+height/2, 80, 25);
+        
         panel.add(descripcionBar);
         panel.add(treeBar);
         panel.add(searchLabel);
         panel.add(nodoType);
         panel.add(varType);
+        panel.add(search);
+        panel.add(searchOwner);
         
+        searchOwner.setEnabled(false);
         descripcionBar.setViewportView(description);
         treeBar.setViewportView(tree);
         
@@ -101,6 +101,8 @@ public class GUI_Tree extends JFrame{
             if(node==null)return;
             
             Nodo n = (Nodo)node.getUserObject();
+            if(n instanceof Comment)searchOwner.setEnabled(true);
+            else searchOwner.setEnabled(false);
             description.setText(n.printInfo());
         }
         });
