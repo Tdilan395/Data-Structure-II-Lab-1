@@ -20,9 +20,7 @@ public class User extends Nodo{
     private Company company;
     private Address address;
 
-    public User(int ID) {
-        super(ID);
-    }
+
 
     public User(int ID, String name, String username, String email, String phone, String webside, Company c, Address a) {
         super(ID);
@@ -65,12 +63,12 @@ public class User extends Nodo{
     }
     
     @Override
-    public void printInfo(){
-        
-        System.out.println("******************************************USER*********************************************************");
-        System.out.println(name + " - " + username + " - " +" - "+email+" - "+phone+" - "+website);
-        System.out.println("");
-        this.printAllLinks();
+    public String printInfo(){
+        return (name + " \n- " + username + " \n- " +" \n- "+email+" \n- "+phone+" \n- "+website);
+//        System.out.println("******************************************USER*********************************************************");
+        //System.out.println(name + " \n- " + username + " \n- " +" \n- "+email+" \n- "+phone+" \n- "+website);
+//        System.out.println("");
+//        this.printAllLinks();
         
     }
     @Override

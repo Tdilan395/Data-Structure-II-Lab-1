@@ -61,8 +61,8 @@ public class Nodo {
         }
     }
 
-    public void printInfo() {
-        
+    public String printInfo() {
+        return "";
     }
     @Override
     public String toString(){

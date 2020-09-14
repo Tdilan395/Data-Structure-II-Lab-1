@@ -54,7 +54,6 @@ public class TreeTest {
         //setUp arbol
         tree.setSize(100, 100);
         frame.add(tree, BorderLayout.NORTH);
-        frame.setResizable(false);
         frame.add(new JScrollPane(tree));
         
         //SHIT
