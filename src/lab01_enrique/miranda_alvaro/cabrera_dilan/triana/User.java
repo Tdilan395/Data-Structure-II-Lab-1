@@ -123,4 +123,13 @@ public class User extends Nodo{
         }
         return null;
     }
+    
+    @Override
+    public String WriteInfo() {
+        StringBuffer b = new StringBuffer();
+        
+        b.append("User info");
+        
+        return b.toString();
+    }
 }

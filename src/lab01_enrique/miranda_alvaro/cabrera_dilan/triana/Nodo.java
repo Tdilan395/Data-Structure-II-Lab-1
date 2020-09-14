@@ -168,4 +168,12 @@ public class Nodo {
         }
         return null;
     }
+
+    public String WriteInfo() {
+        StringBuffer b = new StringBuffer();
+        
+        b.append("Nodo info");
+        
+        return b.toString();
+    }
 }

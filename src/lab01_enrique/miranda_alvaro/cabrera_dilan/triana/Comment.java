@@ -55,4 +55,13 @@ public class Comment extends Nodo {
         System.out.println("Nunca debería estar aquí");
         return null;
     }
+    
+    @Override
+    public String WriteInfo() {
+        StringBuffer b = new StringBuffer();
+        
+        b.append("Comment info");
+        
+        return b.toString();
+    }
 }

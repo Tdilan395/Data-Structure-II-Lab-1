@@ -94,4 +94,13 @@ public class Post extends Nodo {
         }
         return null;
     }
+    
+    @Override
+    public String WriteInfo() {
+        StringBuffer b = new StringBuffer();
+        
+        b.append("Post info");
+        
+        return b.toString();
+    }
 }
