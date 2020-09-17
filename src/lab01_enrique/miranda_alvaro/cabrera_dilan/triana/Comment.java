@@ -53,6 +53,7 @@ public class Comment extends Nodo{
     }
     @Override
     public String toString() {
+        if(etiquetaSelection)return "...";
         return "Comment #" + this.getID() + ": " + this.name;
     }
 }

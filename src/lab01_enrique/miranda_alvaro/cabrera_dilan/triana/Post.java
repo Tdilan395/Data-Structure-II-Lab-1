@@ -66,6 +66,7 @@ public class Post extends Nodo{
     
     @Override
     public String toString(){
+        if(etiquetaSelection)return "...";
         return "Post #" + this.getID() + ": " + this.getTitle();
     }
 }

@@ -14,7 +14,8 @@ import java.util.ArrayList;
 public class Nodo {
     private final int ID;
     private ArrayList<Nodo> links;
-
+    private Nodo father;
+    protected Boolean etiquetaSelection=false;
     public Nodo(int ID) {
         this.ID = ID;
         links = new ArrayList<>();
@@ -33,8 +34,9 @@ public class Nodo {
      * @param Raiz
      * @since 0.2
      */
-    public void insertar(Nodo nodo, Nodo Raiz) {
-        Raiz.getLinks().add(nodo);
+    public void insertar(Nodo nodo, Nodo raiz) {
+        nodo.father=raiz;
+        raiz.getLinks().add(nodo);
     }
     
     /**
@@ -64,8 +66,16 @@ public class Nodo {
     public String printInfo() {
         return "";
     }
+
+    public Nodo getFather() {
+        return father;
+    }
+    
+    
+    
     @Override
     public String toString(){
+        if(etiquetaSelection)return "...";
         return "Users";
     }
 }

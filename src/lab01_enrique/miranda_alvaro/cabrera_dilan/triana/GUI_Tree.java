@@ -7,15 +7,20 @@ package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
 
 import java.awt.Color;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTree;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -25,7 +30,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @author Domain
  */
 public class GUI_Tree extends JFrame{
-    private JTree tree;
     private DefaultMutableTreeNode root;
     private JPanel panel;
     private int width,height;
@@ -35,15 +39,23 @@ public class GUI_Tree extends JFrame{
     private JButton search;
     private JButton searchOwner;
     private JTextField searchLabel;
+    private JTextField routeLabel;
+    private JList tree;
     private JComboBox nodoType;
     private JComboBox varType;
-
+    private long now,past;
+    
+    
     public GUI_Tree(String title, Nodo n_root,int width){
         super(title);
         this.width=width;
         this.height=width/16*9;
         root= new DefaultMutableTreeNode(n_root);
-        tree = new JTree(root);
+        DefaultListModel model = new DefaultListModel();
+        for (Nodo nodo:n_root.getLinks()) {
+            model.addElement(nodo);
+        }
+        tree = new JList(model);
         treeBar=new JScrollPane();
         description= new JTextArea();
         search = new JButton("Buscar");
@@ -55,7 +67,7 @@ public class GUI_Tree extends JFrame{
         varType = new JComboBox(varTypeOptions);
         descripcionBar= new JScrollPane();
         panel = new JPanel();
-        
+        past=System.nanoTime();
         init();
     }
 
@@ -91,20 +103,43 @@ public class GUI_Tree extends JFrame{
         this.setResizable(false);
         this.setVisible(true);
         
-        tree.getSelectionModel().addTreeSelectionListener(new TreeSelectionListener() {
+        tree.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
         @Override
-        public void valueChanged(TreeSelectionEvent e) {
-        
-            DefaultMutableTreeNode node = (DefaultMutableTreeNode)
-                       tree.getLastSelectedPathComponent();
+        public void valueChanged(ListSelectionEvent e) {
             
-            if(node==null)return;
-            
-            Nodo n = (Nodo)node.getUserObject();
+            Nodo n = (Nodo)tree.getSelectedValue();
+            if(n==null)return;
             if(n instanceof Comment)searchOwner.setEnabled(true);
             else searchOwner.setEnabled(false);
             description.setText(n.printInfo());
         }
+        });
+        
+        
+        tree.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                now = System.nanoTime();
+                
+                System.out.println("Run Test00 "+(now-past));
+                if(now-past<=250000000){
+                    Nodo nodo = (Nodo)tree.getSelectedValue();
+
+                    DefaultListModel modelo = (DefaultListModel)tree.getModel();
+                    if(tree.getSelectedIndex()==0){
+                        nodo.etiquetaSelection=false;
+                    }
+                    
+                    modelo.clear();
+                    if(nodo.getFather()!=null)nodo.getFather().etiquetaSelection=true;
+                    modelo.addElement(nodo.getFather());
+                    for (Nodo col : nodo.getLinks()) {
+                        modelo.addElement(col);
+                    }
+                    
+                }
+        	past = now;
+            }
         });
     }
     

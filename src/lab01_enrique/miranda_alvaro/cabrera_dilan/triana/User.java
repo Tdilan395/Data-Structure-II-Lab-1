@@ -21,7 +21,6 @@ public class User extends Nodo{
     private Address address;
 
 
-
     public User(int ID, String name, String username, String email, String phone, String webside, Company c, Address a) {
         super(ID);
         this.name=name;
@@ -73,6 +72,7 @@ public class User extends Nodo{
     }
     @Override
     public String toString(){
+        if(etiquetaSelection)return "...";
         return "User #" + this.getID() + ": " + this.name;
     }
 }
