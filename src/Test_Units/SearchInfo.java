@@ -102,7 +102,7 @@ public class SearchInfo extends JFrame {
         if (i == 1) {
             previus.setEnabled(true);
         }
-        next.setText(Integer.toString(i + 1));
+        number.setText(Integer.toString(i + 1));
     }
 
     public void minus() {
@@ -113,7 +113,7 @@ public class SearchInfo extends JFrame {
         if (i == searchResult.size()) {
             next.setEnabled(true);
         }
-        next.setText(Integer.toString(i - 1));
+        number.setText(Integer.toString(i - 1));
     }
 
     private void setPages() {
@@ -121,14 +121,11 @@ public class SearchInfo extends JFrame {
             System.out.println("Lo que toca hacer cuando no encuentra nada");
             number.setText("0");
             next.setEnabled(false);
-            showTree.setEnabled(false);
         } else if (searchResult.size() == 1) {
             number.setText("1");
             next.setEnabled(false);
-            showInfo();
         } else if (searchResult.size() > 1) {
             number.setText("1");
-            showInfo();
         }
     }
 

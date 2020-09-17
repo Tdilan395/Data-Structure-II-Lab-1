@@ -42,7 +42,7 @@ public class GUI_Tree extends JFrame{
     private JList tree;
     private JComboBox nodoType;
     private JComboBox varType;
-    
+    private ArrayList<Nodo> searchResult;
     private long now,past;
     private Nodo n_root;
     private DefaultComboBoxModel search_atributes[];
@@ -54,6 +54,7 @@ public class GUI_Tree extends JFrame{
         this.height=width/16*9;
         root= new DefaultMutableTreeNode(n_root);
         this.n_root = n_root;
+        searchResult = new ArrayList();
         DefaultListModel model = new DefaultListModel();
         for (Nodo nodo:n_root.getLinks()) {
             model.addElement(nodo);
@@ -66,7 +67,10 @@ public class GUI_Tree extends JFrame{
         up=new JButton("🔼");
         down= new JButton("🔽");
         searchLabel = new  JTextField();
+        up.setEnabled(false);
+        down.setEnabled(false);
         matches = new JTextField();
+        matches.setText("");
         routeLabel = new JTextField("Route:\\\\ Init");
         String nodoTypeOptions[]= {"Users","Post","Comment"}; 
         nodoType = new JComboBox(nodoTypeOptions);
@@ -134,26 +138,32 @@ public class GUI_Tree extends JFrame{
                     description.setText("");
                     switch ((String) nodoType.getSelectedItem()) {
                         case "Users":
-                            ArrayList<Nodo> u = n_root.search((String) varType.getSelectedItem(), searchLabel.getText());
-                            if (!u.isEmpty()) {
-                                description.append(u.get(0).printInfo());
+                            searchResult = n_root.search((String) varType.getSelectedItem(), searchLabel.getText());
+                            if (!searchResult.isEmpty()) {
+                                description.append(searchResult.get(0).printInfo());
+                                showList(searchResult.get(0).getFather());
+                                matches.setText(Integer.toString(searchResult.size()));
                             } else {
                                 description.append("No se encontró usuario buscado por " + varType.getSelectedItem() + ": " + searchLabel.getText() + "\n");
                             }
                             searchLabel.setText("");
                             break;
                         case "Post":
-                            ArrayList<Nodo> p = n_root.searchPost((String) varType.getSelectedItem(), searchLabel.getText());
-                            if (!p.isEmpty()) {
-                                description.append(p.get(0).printInfo());
+                            searchResult = n_root.searchPost((String) varType.getSelectedItem(), searchLabel.getText());
+                            if (!searchResult.isEmpty()) {
+                                description.append(searchResult.get(0).printInfo());
+                                showList(searchResult.get(0).getFather());
+                                matches.setText(Integer.toString(searchResult.size()));
                             } else {
                                 description.append("No se encontró post buscado por " + varType.getSelectedItem() + ": " + searchLabel.getText() + "\n");
                             }
                             break;
                         case "Comment":
-                            ArrayList<Nodo> c = n_root.searchComment((String) varType.getSelectedItem(), searchLabel.getText());
-                            if (!c.isEmpty()) {
-                                description.append(c.get(0).printInfo());
+                            searchResult = n_root.searchComment((String) varType.getSelectedItem(), searchLabel.getText());
+                            if (!searchResult.isEmpty()) {
+                                description.append(searchResult.get(0).printInfo());
+                                showList(searchResult.get(0).getFather());
+                                matches.setText(Integer.toString(searchResult.size()));
                             } else {
                                 description.append("No se encontró comentario buscado por " + varType.getSelectedItem() + ": " + searchLabel.getText() + "\n");
                             }
@@ -173,6 +183,10 @@ public class GUI_Tree extends JFrame{
             if(n instanceof Comment)searchOwner.setEnabled(true);
             else searchOwner.setEnabled(false);
             description.setText(n.printInfo());
+            searchResult = new ArrayList();
+            up.setEnabled(false);
+            down.setEnabled(false);
+            matches.setText("");
         }
         });
         
@@ -211,6 +225,7 @@ public class GUI_Tree extends JFrame{
     private void showList(Nodo nodo) {
         DefaultListModel modelo = (DefaultListModel)tree.getModel();
         modelo.clear();
+        setRoute(nodo);
         if (nodo.getFather() != null) {
             nodo.getFather().etiquetaSelection = true;
         }
@@ -218,6 +233,28 @@ public class GUI_Tree extends JFrame{
         for (Nodo col : nodo.getLinks()) {
             modelo.addElement(col);
         }
+    }
+    
+    public void plus() {
+        int i = Integer.parseInt(matches.getText());
+        if (i >= searchResult.size() - 1) {
+            up.setEnabled(false);
+        }
+        if (i == 1) {
+            down.setEnabled(true);
+        }
+        matches.setText((i + 1)+" / "+searchResult.size());
+    }
+
+    public void minus() {
+        int i = Integer.parseInt(matches.getText());
+        if (i == 2) {
+            down.setEnabled(false);
+        }
+        if (i == searchResult.size()) {
+            up.setEnabled(true);
+        }
+        matches.setText((i - 1)+" / "+searchResult.size());
     }
     
     private void initComboBoxAtributes() {
