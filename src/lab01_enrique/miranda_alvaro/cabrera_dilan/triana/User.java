@@ -62,16 +62,17 @@ public class User extends Nodo{
     }
     
     @Override
-    public void printInfo(){
-        
-        System.out.println("******************************************USER*********************************************************");
-        System.out.println(name + " - " + username + " - " +" - "+email+" - "+phone+" - "+website);
-        System.out.println("");
-        this.printAllLinks();
+    public String printInfo(){
+        return (name + " \n- " + username + " \n- " +" \n- "+email+" \n- "+phone+" \n- "+website);
+//        System.out.println("******************************************USER*********************************************************");
+        //System.out.println(name + " \n- " + username + " \n- " +" \n- "+email+" \n- "+phone+" \n- "+website);
+//        System.out.println("");
+//        this.printAllLinks();
         
     }
     @Override
     public String toString(){
+        if(etiquetaSelection)return "...";
         return "User #" + this.getID() + ": " + this.name;
     }
     

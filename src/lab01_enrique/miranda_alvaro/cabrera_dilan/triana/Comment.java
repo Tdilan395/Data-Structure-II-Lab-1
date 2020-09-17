@@ -41,12 +41,14 @@ public class Comment extends Nodo {
     }
 
     @Override
-    public void printInfo() {
-        System.out.println(postID + " - " + name + " - " + email + " - " + body);
+    public String printInfo(){
+//        System.out.println(postID + " - " + name +" - "+email+" - "+body);
+        return (postID + " \n- " + name +" \n- "+email+" \n- "+body);
     }
 
     @Override
     public String toString() {
+        if(etiquetaSelection)return "...";
         return "Comment #" + this.getID() + ": " + this.name;
     }
 

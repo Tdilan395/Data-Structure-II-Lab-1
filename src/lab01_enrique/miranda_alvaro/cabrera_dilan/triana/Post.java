@@ -38,19 +38,20 @@ public class Post extends Nodo {
     }
 
     @Override
-    public void printInfo() {
-        System.out.println("");
-        System.out.println("**********************************POST********************************************");
-        System.out.println(userID + "   " + title + "   " + body);
-        System.out.println("");
-        System.out.println("");
-        System.out.println("**********************************COMENTARIOS********************************************");
-
-        this.printAllLinks();
+    public String printInfo(){
+//        System.out.println("");
+//        System.out.println("**********************************POST********************************************");
+//        System.out.println(userID + "   " + title + "   " + body);
+//        System.out.println("");
+//        System.out.println("");
+//        System.out.println("**********************************COMENTARIOS********************************************");
+//        this.printAllLinks();
+        return (userID + " \n-  " + title + " \n-  " + body);
     }
 
     @Override
-    public String toString() {
+    public String toString(){
+        if(etiquetaSelection)return "...";
         return "Post #" + this.getID() + ": " + this.getTitle();
     }
 

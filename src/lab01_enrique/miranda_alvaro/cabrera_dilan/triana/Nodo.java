@@ -15,7 +15,8 @@ public class Nodo {
 
     private final int ID;
     private ArrayList<Nodo> links;
-
+    private Nodo father;
+    protected Boolean etiquetaSelection=false;
     public Nodo(int ID) {
         this.ID = ID;
         links = new ArrayList<>();
@@ -35,8 +36,9 @@ public class Nodo {
      * @param Raiz
      * @since 0.2
      */
-    public void insertar(Nodo nodo, Nodo Raiz) {
-        Raiz.getLinks().add(nodo);
+    public void insertar(Nodo nodo, Nodo raiz) {
+        nodo.father=raiz;
+        raiz.getLinks().add(nodo);
     }
 
     public ArrayList<Nodo> getLinks() {
@@ -169,11 +171,23 @@ public class Nodo {
         return null;
     }
 
+    public String printInfo() {
+        return "";
     public String WriteInfo() {
         StringBuffer b = new StringBuffer();
         
         b.append("Nodo info");
         
         return b.toString();
+    }
+
+    public Nodo getFather() {
+        return father;
+    }
+    
+    @Override
+    public String toString(){
+        if(etiquetaSelection)return "...";
+        return "Users";
     }
 }
