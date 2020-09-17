@@ -64,7 +64,7 @@ public class User extends Nodo{
     
     @Override
     public String printInfo(){
-        return (name + " \n- " + username + " \n- " +" \n- "+email+" \n- "+phone+" \n- "+website);
+        return ("Name: "+name + " \nUsername: " + username + " \nEmail: "+email+" \nPhone: "+phone+" \nWebsite: "+website+"\nCompany: "+company.printInfo()+"\nAddres: "+address.printInfo());
 //        System.out.println("******************************************USER*********************************************************");
         //System.out.println(name + " \n- " + username + " \n- " +" \n- "+email+" \n- "+phone+" \n- "+website);
 //        System.out.println("");

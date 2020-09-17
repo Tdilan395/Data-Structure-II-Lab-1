@@ -61,7 +61,10 @@ public class Post extends Nodo{
 //        System.out.println("**********************************COMENTARIOS********************************************");
 //        
 //        this.printAllLinks();
-        return (userID + " \n-  " + title + " \n-  " + body);
+    String aux=body;
+        aux=aux.replace("\\n", "");
+        System.out.println(title.length());
+        return ("UserID: "+userID + "\n"+"Title: " + title + "\n" +"Body: " +aux);
     }
     
     @Override

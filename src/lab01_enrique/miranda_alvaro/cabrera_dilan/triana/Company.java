@@ -32,8 +32,8 @@ class Company {
         return bs;
     }
 
-    String printInfo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String printInfo() {
+        return ("\n  Name: "+name+"\n  CatchPhrase: "+catchPhrase+" \n  Bs: "+bs);
     }
    
    

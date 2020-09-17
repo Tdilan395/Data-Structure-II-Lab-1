@@ -49,7 +49,9 @@ public class Comment extends Nodo{
     @Override
     public String printInfo(){
 //        System.out.println(postID + " - " + name +" - "+email+" - "+body);
-        return (postID + " \n- " + name +" \n- "+email+" \n- "+body);
+String aux=body;
+        aux=aux.replace("\\n", "");
+        return ("PostID: "+postID + " \nName: " + name +" \nEmail: "+email+" \nBody: "+aux);
     }
     @Override
     public String toString() {

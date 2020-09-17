@@ -24,8 +24,8 @@ public class Address {
         this.geo = geo;
     }
 
-    void printInfo() {
-         //To change body of generated methods, choose Tools | Templates.
+    public String printInfo() {
+         return ("  Street: "+street+"\n  Suite: "+suite+"\n  City: "+city+"\n  ZipCode: "+zipCode+"\n  Geo :"+"\n    Lat: "+geo[0]+"\n    Lng: "+geo[1]);
     }
     
     

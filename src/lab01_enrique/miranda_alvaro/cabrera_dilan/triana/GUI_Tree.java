@@ -7,6 +7,7 @@ package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
 
 import java.awt.Color;
+import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,6 +19,8 @@ import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -103,7 +106,12 @@ public class GUI_Tree extends JFrame{
             Nodo n = (Nodo)node.getUserObject();
             if(n instanceof Comment)searchOwner.setEnabled(true);
             else searchOwner.setEnabled(false);
+            description.setLineWrap(true);
+            description.setFont( new Font("Times New Roman",Font.PLAIN, 15));
+            description.setWrapStyleWord(true);
+            
             description.setText(n.printInfo());
+            
         }
         });
     }
