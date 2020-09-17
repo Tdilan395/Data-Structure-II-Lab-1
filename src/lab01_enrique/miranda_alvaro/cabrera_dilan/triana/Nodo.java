@@ -50,15 +50,7 @@ public class Nodo {
             link.printInfo();
         }
     }
-
-    public void printInfo() {
-
-    }
-
-    @Override
-    public String toString() {
-        return "Users";
-    }
+    
     
     public Nodo searchPost(String searchTo, String search){
         for (Nodo user : links) {
@@ -83,7 +75,6 @@ public class Nodo {
     }
     
     public Nodo search(String toSearch, String search) {//user
-        System.out.println("**************Busqueda de usuario**************");
         for (Nodo nodo : links) {
             User u = (User) nodo;
             switch (toSearch) {
@@ -173,13 +164,14 @@ public class Nodo {
 
     public String printInfo() {
         return "";
-    public String WriteInfo() {
-        StringBuffer b = new StringBuffer();
-        
-        b.append("Nodo info");
-        
-        return b.toString();
     }
+//    public String WriteInfo() {
+//        StringBuffer b = new StringBuffer();
+//        
+//        b.append("Nodo info");
+//        
+//        return b.toString();
+//    }
 
     public Nodo getFather() {
         return father;

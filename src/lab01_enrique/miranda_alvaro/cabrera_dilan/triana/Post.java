@@ -59,7 +59,6 @@ public class Post extends Nodo {
     public Nodo search(String searchTo, String search) {//comment
         Pattern pat = Pattern.compile(search);
         Matcher mat;
-        System.out.println("**************Busqueda de comentario**************");
         for (Nodo comment : getLinks()) {
             Comment c = (Comment) comment;
             switch (searchTo) {
@@ -96,12 +95,12 @@ public class Post extends Nodo {
         return null;
     }
     
-    @Override
-    public String WriteInfo() {
-        StringBuffer b = new StringBuffer();
-        
-        b.append("Post info");
-        
-        return b.toString();
-    }
+//    @Override
+//    public String WriteInfo() {
+//        StringBuffer b = new StringBuffer();
+//        
+//        b.append("Post info");
+//        
+//        return b.toString();
+//    }
 }

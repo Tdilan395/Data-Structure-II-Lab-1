@@ -80,7 +80,6 @@ public class User extends Nodo{
     public Nodo search(String toSearch, String search){//post
         Pattern pat = Pattern.compile(search);
         Matcher mat;
-        System.out.println("**************Busqueda de post**************");
         for (Nodo post : this.getLinks()) {
             Post p = (Post)post;
             switch(toSearch){
@@ -125,12 +124,12 @@ public class User extends Nodo{
         return null;
     }
     
-    @Override
-    public String WriteInfo() {
-        StringBuffer b = new StringBuffer();
-        
-        b.append("User info");
-        
-        return b.toString();
-    }
+//    @Override
+//    public String WriteInfo() {
+//        StringBuffer b = new StringBuffer();
+//        
+//        b.append("User info");
+//        
+//        return b.toString();
+//    }
 }

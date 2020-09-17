@@ -9,6 +9,7 @@ package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 import java.awt.Color;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -44,6 +45,8 @@ public class GUI_Tree extends JFrame{
     private JComboBox nodoType;
     private JComboBox varType;
     private long now,past;
+    private Nodo n_root;
+    private DefaultComboBoxModel search_atributes[];
     
     
     public GUI_Tree(String title, Nodo n_root,int width){
@@ -51,6 +54,7 @@ public class GUI_Tree extends JFrame{
         this.width=width;
         this.height=width/16*9;
         root= new DefaultMutableTreeNode(n_root);
+        this.n_root = n_root;
         DefaultListModel model = new DefaultListModel();
         for (Nodo nodo:n_root.getLinks()) {
             model.addElement(nodo);
@@ -63,8 +67,10 @@ public class GUI_Tree extends JFrame{
         searchLabel = new  JTextField();
         String nodoTypeOptions[]= {"Users","Post","Comment"}; 
         nodoType = new JComboBox(nodoTypeOptions);
-        String varTypeOptions[]= {"Var1","Var2","Var3"}; 
-        varType = new JComboBox(varTypeOptions);
+        varType = new JComboBox();
+        search_atributes = new DefaultComboBoxModel[3];
+        initComboBoxAtributes();
+        varType.setModel(search_atributes[nodoType.getSelectedIndex()]);
         descripcionBar= new JScrollPane();
         panel = new JPanel();
         past=System.nanoTime();
@@ -102,6 +108,48 @@ public class GUI_Tree extends JFrame{
         
         this.setResizable(false);
         this.setVisible(true);
+        
+        nodoType.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                varType.setModel(search_atributes[nodoType.getSelectedIndex()]);
+            }
+        });
+        
+        search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if (!searchLabel.getText().isEmpty()) {
+                    description.setText("");
+                    switch ((String) nodoType.getSelectedItem()) {
+                        case "Users":
+                            User u = (User) n_root.search((String) varType.getSelectedItem(), searchLabel.getText());
+                            if (u != null) {
+                                description.append(u.printInfo());
+                            } else {
+                                description.append("No se encontró usuario buscado por " + varType.getSelectedItem() + ": " + searchLabel.getText() + "\n");
+                            }
+                            searchLabel.setText("");
+                            break;
+                        case "Post":
+                            Post p = (Post) n_root.searchPost((String) varType.getSelectedItem(), searchLabel.getText());
+                            if (p != null) {
+                                description.append(p.printInfo());
+                            } else {
+                                description.append("No se encontró post buscado por " + varType.getSelectedItem() + ": " + searchLabel.getText() + "\n");
+                            }
+                            break;
+                        case "Comment":
+                            Comment c = (Comment) n_root.searchComment((String) varType.getSelectedItem(), searchLabel.getText());
+                            if (c != null) {
+                                description.append(c.printInfo());
+                            } else {
+                                description.append("No se encontró comentario buscado por " + varType.getSelectedItem() + ": " + searchLabel.getText() + "\n");
+                            }
+                            break;
+
+                    }
+                }
+            }
+        });
         
         tree.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
         @Override
@@ -141,6 +189,36 @@ public class GUI_Tree extends JFrame{
         	past = now;
             }
         });
+    }
+    
+    public void initComboBoxAtributes() {
+        this.search_atributes[0] = new DefaultComboBoxModel();
+        this.search_atributes[0].addElement("id");
+        this.search_atributes[0].addElement("name");
+        this.search_atributes[0].addElement("username");
+        this.search_atributes[0].addElement("email");
+        this.search_atributes[0].addElement("dir-street");
+        this.search_atributes[0].addElement("dir-suite");
+        this.search_atributes[0].addElement("dir-city");
+        this.search_atributes[0].addElement("dir-zipcode");
+        this.search_atributes[0].addElement("geo-lat");
+        this.search_atributes[0].addElement("geo-lng");
+        this.search_atributes[0].addElement("phone");
+        this.search_atributes[0].addElement("website");
+        this.search_atributes[0].addElement("comp-name");
+        this.search_atributes[0].addElement("comp-catchPhrase");
+        this.search_atributes[0].addElement("comp-bs");
+        this.search_atributes[1] = new DefaultComboBoxModel();
+        this.search_atributes[1].addElement("userId");
+        this.search_atributes[1].addElement("id");
+        this.search_atributes[1].addElement("title");
+        this.search_atributes[1].addElement("body");
+        this.search_atributes[2] = new DefaultComboBoxModel();
+        this.search_atributes[2].addElement("postId");
+        this.search_atributes[2].addElement("id");
+        this.search_atributes[2].addElement("name");
+        this.search_atributes[2].addElement("email");
+        this.search_atributes[2].addElement("body");
     }
     
     public void add(ArrayList<Nodo>nodos, DefaultMutableTreeNode root){

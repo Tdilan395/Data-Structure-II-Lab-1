@@ -58,12 +58,12 @@ public class Comment extends Nodo {
         return null;
     }
     
-    @Override
-    public String WriteInfo() {
-        StringBuffer b = new StringBuffer();
-        
-        b.append("Comment info");
-        
-        return b.toString();
-    }
+//    @Override
+//    public String WriteInfo() {
+//        StringBuffer b = new StringBuffer();
+//        
+//        b.append("Comment info");
+//        
+//        return b.toString();
+//    }
 }

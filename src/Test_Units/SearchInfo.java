@@ -141,6 +141,6 @@ public class SearchInfo extends JFrame {
             System.out.println("ShowInfo error - number value incorrect");
         }
         Nodo n = searchResult.get(index-1);
-        info.setText(n.WriteInfo());
+        //info.setText(n.WriteInfo());
     }
 }
