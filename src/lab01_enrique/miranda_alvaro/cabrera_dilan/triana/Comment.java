@@ -40,10 +40,10 @@ public class Comment extends Nodo{
         return null;
     }
     
-
-
-    boolean belongsTo(int id) {
-        return this.postID == id;
+    
+    @Override
+    public String getSingleRoute(){
+        return "Comment #" + this.getID();
     }
     
     @Override
@@ -53,7 +53,7 @@ public class Comment extends Nodo{
     }
     @Override
     public String toString() {
-        if(etiquetaSelection)return "...";
-        return "Comment #" + this.getID() + ": " + this.name;
+        if(etiquetaSelection)return "← ← ← ← ← ← ←";
+        return "💬 #" + this.getID() + ": " + this.name;
     }
 }

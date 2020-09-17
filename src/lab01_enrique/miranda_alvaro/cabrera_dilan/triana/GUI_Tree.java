@@ -7,7 +7,6 @@ package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
 
 import java.awt.Color;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -18,11 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JTree;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -38,11 +34,14 @@ public class GUI_Tree extends JFrame{
     private JScrollPane descripcionBar;
     private JButton search;
     private JButton searchOwner;
+    private JButton up,down;
     private JTextField searchLabel;
     private JTextField routeLabel;
+    private JTextField matches;
     private JList tree;
     private JComboBox nodoType;
     private JComboBox varType;
+    
     private long now,past;
     
     
@@ -60,7 +59,11 @@ public class GUI_Tree extends JFrame{
         description= new JTextArea();
         search = new JButton("Buscar");
         searchOwner = new JButton("Buscar Usuario");
+        up=new JButton("🔼");
+        down= new JButton("🔽");
         searchLabel = new  JTextField();
+        matches = new JTextField();
+        routeLabel = new JTextField("Route:\\\\ Init");
         String nodoTypeOptions[]= {"Users","Post","Comment"}; 
         nodoType = new JComboBox(nodoTypeOptions);
         String varTypeOptions[]= {"Var1","Var2","Var3"}; 
@@ -74,22 +77,32 @@ public class GUI_Tree extends JFrame{
     private void init(){
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         description.setEditable(false);
+        routeLabel.setEditable(false);
+        matches.setEditable(false);
         setSize(width, height);
         panel.setLayout(null);
         panel.setBackground(Color.GRAY);
         this.getContentPane().add(panel);
         
-        descripcionBar.setBounds(width/2-50, 60, width/2-100, height/2);
-        treeBar.setBounds(5, 60, width/2-100, height/2);
+        descripcionBar.setBounds(width/2-50, 90, width/2-100, height/2);
+        treeBar.setBounds(5, 90, width/2-100, height/2);
+        down.setBounds(5+treeBar.getWidth()/2-80, 95+height/2, 50, 30);
+        up.setBounds(5+treeBar.getWidth()/2+30, 95+height/2, 50, 30);
+        matches.setBounds(5+treeBar.getWidth()/2-25, 95+height/2, 50, 30);
+        routeLabel.setBounds(5, 60, width/2-100,25);
         searchLabel.setBounds(10, 10, 80, 25);
         searchLabel.setBackground(Color.WHITE);
         nodoType.setBounds(110, 10, 80, 25);
         varType.setBounds(200, 10, 80, 25);
         search.setBounds(290, 10, 80, 25);
-        searchOwner.setBounds(width/2-50, 65+height/2, 80, 25);
+        searchOwner.setBounds(width/2-50, 95+height/2, 80, 25);
         
         panel.add(descripcionBar);
         panel.add(treeBar);
+        panel.add(up);
+        panel.add(down);
+        panel.add(matches);
+        panel.add(routeLabel);
         panel.add(searchLabel);
         panel.add(nodoType);
         panel.add(varType);
@@ -121,7 +134,7 @@ public class GUI_Tree extends JFrame{
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 now = System.nanoTime();
                 
-                System.out.println("Run Test00 "+(now-past));
+                //System.out.println("Run Test00 "+(now-past));
                 if(now-past<=250000000){
                     Nodo nodo = (Nodo)tree.getSelectedValue();
 
@@ -129,10 +142,11 @@ public class GUI_Tree extends JFrame{
                     if(tree.getSelectedIndex()==0){
                         nodo.etiquetaSelection=false;
                     }
-                    
+                    setRoute(nodo);
                     modelo.clear();
                     if(nodo.getFather()!=null)nodo.getFather().etiquetaSelection=true;
                     modelo.addElement(nodo.getFather());
+                    
                     for (Nodo col : nodo.getLinks()) {
                         modelo.addElement(col);
                     }
@@ -141,6 +155,17 @@ public class GUI_Tree extends JFrame{
         	past = now;
             }
         });
+    }
+    
+    public void setRoute(Nodo nodo){
+        Nodo p = nodo;
+        String route="";
+        
+        while(p.getFather()!=null){
+            route=(" → "+p.getSingleRoute()+route);
+            p = p.getFather();
+        }
+        routeLabel.setText("Route:\\\\ Init"+route);
     }
     
     public void add(ArrayList<Nodo>nodos, DefaultMutableTreeNode root){

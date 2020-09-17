@@ -62,6 +62,11 @@ public class User extends Nodo{
     }
     
     @Override
+    public String getSingleRoute(){
+        return "User #" + this.getID();
+    }
+    
+    @Override
     public String printInfo(){
         return (name + " \n- " + username + " \n- " +" \n- "+email+" \n- "+phone+" \n- "+website);
 //        System.out.println("******************************************USER*********************************************************");
@@ -72,7 +77,7 @@ public class User extends Nodo{
     }
     @Override
     public String toString(){
-        if(etiquetaSelection)return "...";
-        return "User #" + this.getID() + ": " + this.name;
+        if(etiquetaSelection)return "← ← ← ← ← ← ←";
+        return "👤 #" + this.getID() + ": " + this.name;
     }
 }

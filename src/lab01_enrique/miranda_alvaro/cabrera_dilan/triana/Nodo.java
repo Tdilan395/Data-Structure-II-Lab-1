@@ -66,6 +66,10 @@ public class Nodo {
     public String printInfo() {
         return "";
     }
+    
+    public String getSingleRoute(){
+        return "";
+    }
 
     public Nodo getFather() {
         return father;
@@ -75,7 +79,7 @@ public class Nodo {
     
     @Override
     public String toString(){
-        if(etiquetaSelection)return "...";
+        if(etiquetaSelection)return "← ← ← ← ← ← ←";
         return "Users";
     }
 }

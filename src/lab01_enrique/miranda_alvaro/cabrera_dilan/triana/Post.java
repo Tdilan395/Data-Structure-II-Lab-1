@@ -52,6 +52,11 @@ public class Post extends Nodo{
     }
     
     @Override
+    public String getSingleRoute(){
+        return "Post #" + this.getID();
+    }
+    
+    @Override
     public String printInfo(){
 //        System.out.println("");
 //        System.out.println("**********************************POST********************************************");
@@ -66,7 +71,7 @@ public class Post extends Nodo{
     
     @Override
     public String toString(){
-        if(etiquetaSelection)return "...";
-        return "Post #" + this.getID() + ": " + this.getTitle();
+        if(etiquetaSelection)return "← ← ← ← ← ← ←";
+        return "📄 #" + this.getID() + ": " + this.getTitle();
     }
 }
