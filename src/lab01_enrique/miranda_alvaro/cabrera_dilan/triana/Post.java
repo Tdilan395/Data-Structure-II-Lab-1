@@ -15,27 +15,29 @@ public class Post extends Nodo{
     private int userID;
     private String title;
     private String body;
-
+    NodoList ptr2;
+    
     public Post(int userID,String title, String body, int ID) {
         super(ID);
         this.title = title;
         this.body = body;
         this.userID = userID;
+        ptr2=null;
     }
     
     public int getUserID(){
         return this.userID;
     }
     
-    @Override
-    public Nodo buscar(int id,Nodo Raiz){
-        for (Nodo user : Raiz.getLinks()) {
-            for (Nodo post : user.getLinks()) {
-                if(post.getID() == id) return post;
-            }
-        }
-        return null;
-    }
+//    @Override
+//    public Nodo buscar(int id,Nodo Raiz){
+//        for (Nodo user : Raiz.getLinks()) {
+//            for (Nodo post : user.getLinks()) {
+//                if(post.getID() == id) return post;
+//            }
+//        }
+//        return null;
+//    }
     
 
     

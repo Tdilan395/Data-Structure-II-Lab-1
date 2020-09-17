@@ -11,7 +11,8 @@ import javax.swing.JOptionPane;
  *
  * @author Domain
  */
-public class User extends Nodo{
+public class User extends Nodo {
+
     private String name;
     private String username;
     private String email;
@@ -19,19 +20,19 @@ public class User extends Nodo{
     private String website;
     private Company company;
     private Address address;
-
-
+    private NodoList ptr1;
 
     public User(int ID, String name, String username, String email, String phone, String webside, Company c, Address a) {
         super(ID);
-        this.name=name;
-        this.username=username;
-        this.email=email;
-        this.phone=phone;
-        this.website=webside;
-        company=c;
-        address=a;
-        
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.phone = phone;
+        this.website = webside;
+        company = c;
+        address = a;
+        ptr1=null;
+
     }
 
     public String getName() {
@@ -61,18 +62,20 @@ public class User extends Nodo{
     public Address getAddress() {
         return address;
     }
-    
+
     @Override
-    public String printInfo(){
-        return ("Name: "+name + " \nUsername: " + username + " \nEmail: "+email+" \nPhone: "+phone+" \nWebsite: "+website+"\nCompany: "+company.printInfo()+"\nAddres: "+address.printInfo());
+    public String printInfo() {
+        return ("Name: " + name + " \nUsername: " + username + " \nEmail: " + email + " \nPhone: " + phone + " \nWebsite: " + website + "\nCompany: " + company.printInfo() + "\nAddres: " + address.printInfo());
 //        System.out.println("******************************************USER*********************************************************");
         //System.out.println(name + " \n- " + username + " \n- " +" \n- "+email+" \n- "+phone+" \n- "+website);
 //        System.out.println("");
 //        this.printAllLinks();
-        
+
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return "User #" + this.getID() + ": " + this.name;
     }
+   
 }

@@ -13,18 +13,19 @@ import java.util.ArrayList;
  */
 public class Nodo {
     private final int ID;
-    private ArrayList<Nodo> links;
+    private NodoList ptr;
 
     public Nodo(int ID) {
         this.ID = ID;
-        links = new ArrayList<>();
+        ptr=null;
+   
     }
     
     public int getID() {
         return ID;
     }
     public Nodo getLink(int i){
-        return links.get(i);
+        return NodoList.getNodo(ptr, i);
     }
     
     /**
@@ -34,7 +35,7 @@ public class Nodo {
      * @since 0.2
      */
     public void insertar(Nodo nodo, Nodo Raiz) {
-        Raiz.getLinks().add(nodo);
+        ptr= NodoList.add(Raiz.getLinks(),nodo);
     }
     
     /**
@@ -45,19 +46,25 @@ public class Nodo {
      * @return
      */
     public Nodo buscar(int id, Nodo Raiz){
-        for (Nodo link : Raiz.links) {
-            if (link.getID() == id) return link;
+        NodoList p = ptr;
+        while(p!=null){
+            Nodo aux=p.getNodo();
+            if(aux.getID()==id) return aux;
+            else p=p.link;
         }
         return null;
     }
     
-    public ArrayList<Nodo> getLinks(){
-        return this.links;
+    public NodoList getLinks(){
+        return this.ptr;
     }
     
     public void printAllLinks(){
-        for (Nodo link : links) {
-            link.printInfo();
+        NodoList p = ptr;
+        while(p.link!=null){
+            Nodo aux=p.getNodo();
+             aux.printInfo();
+             p=p.link;
         }
     }
 

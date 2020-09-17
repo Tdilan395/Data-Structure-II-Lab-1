@@ -96,16 +96,16 @@ public class Reader {
             case 2:
                 ArrayList<Yeison> posts = Reader.deArchivoALista(1, 6, "posts");
                 Post p;
-
+                
                 for (Yeison post : posts) {
                     p = deYeisonaPost(post);
 
                     if (p.getUserID() == raiz.getID()) {
-                        p.insertar(p, raiz);
+                        raiz.insertar(p, raiz);
                         Agregar(3, p);
 
                     }
-                    if (!p.getLinks().isEmpty() && p.getUserID() != raiz.getID()) {
+                    if (p.getLinks()!=null && p.getUserID() != raiz.getID()) {
                         break;
                     }
 //
@@ -119,7 +119,7 @@ public class Reader {
                     c = deYeisonaComment(comentario);
 
                     if (c.getPostID() == raiz.getID()) {
-                        c.insertar(c, raiz);
+                        raiz.insertar(c, raiz);
 
                     }
 

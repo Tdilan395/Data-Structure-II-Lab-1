@@ -28,23 +28,24 @@ public class Comment extends Nodo{
         return postID;
     }
     
-    @Override
-    public Nodo buscar(int id, Nodo Raiz){
-        for (Nodo user : Raiz.getLinks()) {
-            for (Nodo post : user.getLinks()) {
-                for (Nodo comment : post.getLinks()) {
-                    if(comment.getID() == id) return comment;
-                }
-            }
-        }
-        return null;
-    }
+//    @Override
+//    public Nodo buscar(int id, Nodo Raiz){
+//        for (Nodo user : Raiz.getLinks()) {
+//            for (Nodo post : user.getLinks()) {
+//                for (Nodo comment : post.getLinks()) {
+//                    if(comment.getID() == id) return comment;
+//                }
+//            }
+//        }
+//        return null;
+//    }
     
 
 
     boolean belongsTo(int id) {
         return this.postID == id;
     }
+    
     
     @Override
     public String printInfo(){
