@@ -80,7 +80,7 @@ public class Reader {
                 usuarios=usuarios.link;
                 User a;
                 while(usuarios!=null){
-                    a = deYeisonaUser((Yeison)usuarios.getNodo());
+                    a = deYeisonaUser((Yeison)usuarios.getObject());
                     raiz.insertar(a, raiz);
                     Agregar(2, a);
                     usuarios=usuarios.link;
@@ -92,7 +92,7 @@ public class Reader {
                 Post p;
                 
                 while(posts!=null){
-                    p = deYeisonaPost((Yeison)posts.getNodo());
+                    p = deYeisonaPost((Yeison)posts.getObject());
 
                     if (p.getUserID() == raiz.getID()) {
                         raiz.insertar(p, raiz);
@@ -112,7 +112,7 @@ public class Reader {
                 Comment c;
 
                 while(comentarios!=null){
-                    c = deYeisonaComment((Yeison) comentarios.getNodo());
+                    c = deYeisonaComment((Yeison) comentarios.getObject());
 
                     if (c.getPostID() == raiz.getID()) {
                         raiz.insertar(c, raiz);

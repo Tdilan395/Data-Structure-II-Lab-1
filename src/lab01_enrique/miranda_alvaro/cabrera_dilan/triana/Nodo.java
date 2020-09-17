@@ -37,7 +37,9 @@ public class Nodo {
      * @since 0.2
      */
     public void insertar(Nodo nodo, Nodo Raiz) {
+        nodo.father=Raiz;
         ptr= NodoList.add(Raiz.getLinks(),nodo);
+        
     }
 
     /**
@@ -50,22 +52,23 @@ public class Nodo {
     public Nodo buscar(int id, Nodo Raiz){
         NodoList p = ptr;
         while(p!=null){
-            Nodo aux=(Nodo)p.getNodo();
+            Nodo aux=(Nodo)p.getObject();
             if(aux.getID()==id) return aux;
             else p=p.link;
-            
-        return null;
         }
+        return null;
     }
     
-    public ArrayList<Nodo> searchPost(String searchTo, String search){
-        ArrayList<Nodo> result = new ArrayList();
-        for (Nodo user : links) {
-            User u = (User) user;
-            ArrayList<Nodo> p = u.search(searchTo, search);
-            if(!p.isEmpty()){
-                result.addAll(p);
+    public NodoList searchPost(String searchTo, String search){
+        NodoList result = new NodoList();
+        NodoList p = this.getLinks();
+        while(p!=null) {
+            User u = (User) p.getObject();
+            NodoList post = u.search(searchTo, search);
+            if(!post.isEmpty()){
+                result.addAll(post);
             }
+            p=p.link;
         }
         return result;
     }
@@ -75,10 +78,12 @@ public class Nodo {
         return this.ptr;
     }
     
-    public ArrayList<Nodo> searchComment(String searchTo, String search){
-        for (Nodo user : links) {
-            User u = (User) user;
-            ArrayList<Nodo> c = u.searchComment(searchTo, search);
+    public NodoList searchComment(String searchTo, String search){
+        NodoList result = new NodoList();
+        NodoList p = this.getLinks();
+        while(p!=null){
+            User u = (User) p.getObject();
+            NodoList c = u.searchComment(searchTo, search);
             if(c!= null){
                 return c;
             }
@@ -89,98 +94,100 @@ public class Nodo {
     public void printAllLinks(){
         NodoList p = ptr;
         while(p.link!=null){
-            Nodo aux=(Nodo)p.getNodo();
+            Nodo aux=(Nodo)p.getObject();
              aux.printInfo();
              p=p.link;
         }
     }
     
-    public ArrayList<Nodo> search(String toSearch, String search) {//user
-        ArrayList<Nodo> result = new ArrayList();
-        for (Nodo nodo : links) {
-            User u = (User) nodo;
+    public NodoList search(String toSearch, String search) {//user
+        NodoList result = new NodoList();
+        NodoList p = this.getLinks();
+       
+        while(p.link!=null){
+            User u = (User) p.getObject();
             switch (toSearch) {
                 case "id":
                     if (u.getID() == Integer.parseInt(search)) {
-                        result.add(u);
+                        NodoList.add(result,u);
                         //return result;
                     }
                     break;
                 case "name":
                     if (u.getName().equals(search)) {
-                        result.add(u);
+                        NodoList.add(result,u);
                     }
                     break;
                 case "username":
                     if (u.getUsername().equals(search)) {
-                        result.add(u);
+                        NodoList.add(result,u);
                     }
                     break;
                 case "email":
                     if (u.getEmail().equals(search)) {
-                        result.add(u);
+                        NodoList.add(result,u);
                     }
                     break;
                 case "dir-street":
                     if (u.getAddress().getStreet().equals(search)) {
-                        result.add(u);
+                        NodoList.add(result,u);
                     }
                     break;
                 case "dir-suite":
                     if (u.getAddress().getSuite().equals(search)) {
-                        result.add(u);
+                        NodoList.add(result,u);
                     }
                     break;
                 case "dir-city":
                     if (u.getAddress().getCity().equals(search)) {
-                        result.add(u);
+                        NodoList.add(result,u);
                     }
                     break;
                 case "dir-zipcode":
                     if (u.getAddress().getZipCode().equals(search)) {
-                        result.add(u);
+                        NodoList.add(result,u);
                     }
                     break;
                 case "geo-lat":
                     if (u.getAddress().getGeo(0) == Integer.parseInt(search)) {
-                        result.add(u);
+                        NodoList.add(result,u);
                     }
                     break;
                 case "geo-lng":
                     if (u.getAddress().getGeo(1) == Integer.parseInt(search)) {
-                        result.add(u);
+                        NodoList.add(result,u);
                     }
                     break;
                 case "phone":
                     if (u.getPhone().equals(search)) {
-                        result.add(u);
+                        NodoList.add(result,u);
                     }
                     break;
                 case "website":
                     if (u.getWebsite().equals(search)) {
-                        result.add(u);
+                        NodoList.add(result,u);
                     }
                     break;
                 case "comp-name":
                     if (u.getCompany().getName().equals(search)) {
-                        result.add(u);
+                        NodoList.add(result,u);
                     }
                     break;
                 case "comp-catchPharse":
                     if (u.getCompany().getCatchPhrase().equals(search)) {
-                        result.add(u);
+                        NodoList.add(result,u);
                     }
                     break;
                 case "comp-bs":
                     if (u.getCompany().getBs().equals(search)) {
-                        result.add(u);
+                        NodoList.add(result,u);
                     }
                     break;
                 default:
                     System.out.println("Aquí no deberia llegar busqueda de usuarios desde nodo raiz");
                     break;
             }
-            
+            p=p.link;
         }
         return result;
     }

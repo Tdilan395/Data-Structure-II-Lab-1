@@ -26,9 +26,7 @@ public class NodoList {
             }
             p.link = q;
             
-        if(nodo instanceof Yeison){
-            System.out.println(((Yeison)nodo).get("id"));
-        }
+        
         }
         return ptr;
     }
@@ -44,14 +42,14 @@ public class NodoList {
                 p = p.link;
             }
             if (i == pos) {
-                return p.getNodo();
+                return p.getObject();
             } else {
                 return null;
             }
         }
     }
 
-    public Object getNodo() {
+    public Object getObject() {
         return nodo;
     }
 
@@ -63,6 +61,18 @@ public class NodoList {
             i++;
         }
         return i;
+    }
+
+    public boolean isEmpty() {
+        return link==null;
+    }
+
+    void addAll(NodoList c) {
+        NodoList p = this;
+        while(p.link!=null){
+            p=p.link;
+        }
+        p.link=c;
     }
     
     

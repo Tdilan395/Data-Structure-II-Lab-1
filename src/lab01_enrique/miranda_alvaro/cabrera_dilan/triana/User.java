@@ -74,7 +74,15 @@ public class User extends Nodo {
 //        this.printAllLinks();
 
     }
-
+ 
+    
+    @Override
+    public String getSingleRoute(){
+        return "User #" + this.getID();
+    
+    }
+    
+    
     @Override
     public String toString(){
         if(etiquetaSelection)return "← ← ← ← ← ← ←";
@@ -82,52 +90,57 @@ public class User extends Nodo {
     }
     
     @Override
-    public ArrayList<Nodo> search(String toSearch, String search){//post
+    public NodoList search(String toSearch, String search){//post
         Pattern pat = Pattern.compile(search);
         Matcher mat;
-        ArrayList<Nodo> result = new ArrayList();
-        for (Nodo post : this.getLinks()) {
-            Post p = (Post)post;
+        NodoList result = new NodoList();
+        NodoList p = this.getLinks();
+        while(p!=null) {
+            Post post = (Post)p.getObject();
             switch(toSearch){
                 case "userId":
-                    if(p.getUserID() == Integer.parseInt(search)){
-                        result.add(p);
+                    if(post.getUserID() == Integer.parseInt(search)){
+                        NodoList.add(result, post);
                     }
                     break;
                 case "id":
-                    if(p.getID() == Integer.parseInt(search)){
-                        result.add(p);
+                    if(post.getID() == Integer.parseInt(search)){
+                        NodoList.add(result, post);
                         return result;
                     }
                     break;
                 case "title":
-                    mat = pat.matcher(p.getTitle());
+                    mat = pat.matcher(post.getTitle());
                     if(mat.find()){
-                        result.add(p);
+                        NodoList.add(result, post);
                     }
                 case "body":
-                    mat = pat.matcher(p.getBody());
+                    mat = pat.matcher(post.getBody());
                     if(mat.find()){
-                        result.add(p);
+                        NodoList.add(result, post);
                     }
                     break;
                 default:
                     System.out.println("No debería llegar aquí busqueda de post");
                     break;
             }
+            p=p.link;
         }
         return result;
     }
     
     @Override
-    public ArrayList<Nodo> searchComment(String searchTo, String search){
-        ArrayList result = new ArrayList();
-        for (Nodo post : getLinks()) {
-            Post p = (Post) post;
-            ArrayList c =  p.search(searchTo, search);
+    public NodoList searchComment(String searchTo, String search){
+        NodoList result = new NodoList();
+        NodoList p = this.getLinks();
+        
+        while(p!=null){
+            Post post = (Post) p.getObject();
+            NodoList c =  post.search(searchTo, search);
             if(!c.isEmpty()){
                 result.addAll(c);
             }
+            p=p.link;
         }
         return result;
     }

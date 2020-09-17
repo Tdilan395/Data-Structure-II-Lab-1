@@ -20,7 +20,6 @@ public class Lab01_EnriqueMiranda_AlvaroCabrera_DilanTriana {
         Reader.Agregar(1, arbol.raiz);
         GUI_Tree GUI = new GUI_Tree("RRRR solutions", arbol.raiz, 900);
         System.out.println(arbol.raiz.getLinks());
-      GUI.add(arbol.raiz.getLinks(), GUI.getRoot());
       System.out.println(NodoList.size(arbol.raiz.getLinks()));
       System.out.println(NodoList.size(arbol.raiz.getLink(2).getLinks()));
       System.out.println(NodoList.size(arbol.raiz.getLink(2).getLink(0).getLinks()));

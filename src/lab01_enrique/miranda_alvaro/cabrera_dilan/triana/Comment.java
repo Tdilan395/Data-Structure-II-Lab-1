@@ -67,9 +67,9 @@ String aux=body;
     }
 
     @Override
-    public ArrayList<Nodo> search(String searchTo, String search) {
+    public NodoList search(String searchTo, String search) {
         System.out.println("Nunca debería estar aquí");
-        return new ArrayList();
+        return new NodoList();
     }
     
 //    @Override

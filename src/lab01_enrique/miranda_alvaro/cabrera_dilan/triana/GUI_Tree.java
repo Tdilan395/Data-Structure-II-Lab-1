@@ -42,7 +42,7 @@ public class GUI_Tree extends JFrame{
     private JList tree;
     private JComboBox nodoType;
     private JComboBox varType;
-    private ArrayList<Nodo> searchResult;
+    private NodoList searchResult;
     private long now,past;
     private Nodo n_root;
     private DefaultComboBoxModel search_atributes[];
@@ -54,10 +54,12 @@ public class GUI_Tree extends JFrame{
         this.height=width/16*9;
         root= new DefaultMutableTreeNode(n_root);
         this.n_root = n_root;
-        searchResult = new ArrayList();
+        searchResult = new NodoList();
         DefaultListModel model = new DefaultListModel();
-        for (Nodo nodo:n_root.getLinks()) {
-            model.addElement(nodo);
+        NodoList p = n_root.getLinks();
+        while(p!=null){
+            model.addElement(p.getObject());
+            p=p.link;
         }
         tree = new JList(model);
         treeBar=new JScrollPane();
@@ -140,9 +142,10 @@ public class GUI_Tree extends JFrame{
                         case "Users":
                             searchResult = n_root.search((String) varType.getSelectedItem(), searchLabel.getText());
                             if (!searchResult.isEmpty()) {
-                                description.append(searchResult.get(0).printInfo());
-                                showList(searchResult.get(0).getFather());
-                                matches.setText(Integer.toString(searchResult.size()));
+                                if(searchResult==null)System.out.println("Im useless");
+                                description.append(((Nodo)NodoList.getNodo(searchResult, 0)).printInfo());
+                                showList(((Nodo)NodoList.getNodo(searchResult,0)).getFather());
+                                matches.setText(Integer.toString(NodoList.size(searchResult)));
                             } else {
                                 description.append("No se encontró usuario buscado por " + varType.getSelectedItem() + ": " + searchLabel.getText() + "\n");
                             }
@@ -151,9 +154,10 @@ public class GUI_Tree extends JFrame{
                         case "Post":
                             searchResult = n_root.searchPost((String) varType.getSelectedItem(), searchLabel.getText());
                             if (!searchResult.isEmpty()) {
-                                description.append(searchResult.get(0).printInfo());
-                                showList(searchResult.get(0).getFather());
-                                matches.setText(Integer.toString(searchResult.size()));
+                                if(((Nodo)NodoList.getNodo(searchResult, 0))==null)System.out.println("Im useless");
+                                description.append(((Nodo)NodoList.getNodo(searchResult, 0)).printInfo());
+                                showList(((Nodo)NodoList.getNodo(searchResult, 0)).getFather());
+                                matches.setText(Integer.toString(NodoList.size(searchResult)));
                             } else {
                                 description.append("No se encontró post buscado por " + varType.getSelectedItem() + ": " + searchLabel.getText() + "\n");
                             }
@@ -161,9 +165,9 @@ public class GUI_Tree extends JFrame{
                         case "Comment":
                             searchResult = n_root.searchComment((String) varType.getSelectedItem(), searchLabel.getText());
                             if (!searchResult.isEmpty()) {
-                                description.append(searchResult.get(0).printInfo());
-                                showList(searchResult.get(0).getFather());
-                                matches.setText(Integer.toString(searchResult.size()));
+                                description.append(((Nodo)NodoList.getNodo(searchResult, 0)).printInfo());
+                                showList(((Nodo)NodoList.getNodo(searchResult, 0)).getFather());
+                                matches.setText(Integer.toString(NodoList.size(searchResult)));
                             } else {
                                 description.append("No se encontró comentario buscado por " + varType.getSelectedItem() + ": " + searchLabel.getText() + "\n");
                             }
@@ -183,7 +187,7 @@ public class GUI_Tree extends JFrame{
             if(n instanceof Comment)searchOwner.setEnabled(true);
             else searchOwner.setEnabled(false);
             description.setText(n.printInfo());
-            searchResult = new ArrayList();
+            searchResult = new NodoList();
             up.setEnabled(false);
             down.setEnabled(false);
             matches.setText("");
@@ -230,20 +234,22 @@ public class GUI_Tree extends JFrame{
             nodo.getFather().etiquetaSelection = true;
         }
         modelo.addElement(nodo.getFather());
-        for (Nodo col : nodo.getLinks()) {
-            modelo.addElement(col);
+        NodoList p = nodo.getLinks();
+        while(p!=null) {
+            modelo.addElement(p.getObject());
+            p=p.link;
         }
     }
     
     public void plus() {
         int i = Integer.parseInt(matches.getText());
-        if (i >= searchResult.size() - 1) {
+        if (i >= NodoList.size(searchResult) - 1) {
             up.setEnabled(false);
         }
         if (i == 1) {
             down.setEnabled(true);
         }
-        matches.setText((i + 1)+" / "+searchResult.size());
+        matches.setText((i + 1)+" / "+NodoList.size(searchResult));
     }
 
     public void minus() {
@@ -251,10 +257,10 @@ public class GUI_Tree extends JFrame{
         if (i == 2) {
             down.setEnabled(false);
         }
-        if (i == searchResult.size()) {
+        if (i == NodoList.size(searchResult)) {
             up.setEnabled(true);
         }
-        matches.setText((i - 1)+" / "+searchResult.size());
+        matches.setText((i - 1)+" / "+NodoList.size(searchResult));
     }
     
     private void initComboBoxAtributes() {
@@ -287,19 +293,6 @@ public class GUI_Tree extends JFrame{
         this.search_atributes[2].addElement("body");
     }
     
-    public void add(ArrayList<Nodo>nodos, DefaultMutableTreeNode root){
-        DefaultMutableTreeNode j_Nodo;
-        NodoList p = ptr;
-   
-        while (p != null) {
-            Nodo aux = (Nodo)p.getNodo();
-            j_Nodo = new DefaultMutableTreeNode(aux);
-            if(aux.getLinks()!=null)this.add(aux.getLinks(), j_Nodo);
-            root.add(j_Nodo);
-            p = p.link;
-        }
-
-    }
 
     public DefaultMutableTreeNode getRoot() {
 

@@ -68,44 +68,46 @@ public class Post extends Nodo {
     }
 
     @Override
-    public ArrayList<Nodo> search(String searchTo, String search) {//comment
+    public NodoList search(String searchTo, String search) {//comment
         Pattern pat = Pattern.compile(search);
         Matcher mat;
-        ArrayList<Nodo> result = new ArrayList();
-        for (Nodo comment : getLinks()) {
-            Comment c = (Comment) comment;
+        NodoList result = new NodoList();
+        NodoList p = this.getLinks();
+        while(p!=null) {
+            Comment c = (Comment) p.getObject();
             switch (searchTo) {
                 case "postId":
                     if (c.getPostID() == Integer.parseInt(search)) {
-                        result.add(c);
+                        NodoList.add(result, c);
                     }
                     break;
                 case "id":
                     if (c.getID() == Integer.parseInt(search)) {
-                        result.add(c);
+                        NodoList.add(result, c);
                         return result;
                     }
                     break;
                 case "name":
                     if (c.getName().equals(search)) {
-                        result.add(c);
+                        NodoList.add(result, c);
                     }
                     break;
                 case "email":
                     if (c.getEmail().equals(search)) {
-                        result.add(c);
+                        NodoList.add(result, c);
                     }
                     break;
                 case "body":
                     mat = pat.matcher(c.getBody());
                     if (mat.find()) {
-                        result.add(c);
+                        NodoList.add(result, c);
                     }
                     break;
                 default:
                     System.out.println("No deberia estár aquí busqueda de comment");
                     break;
             }
+            p=p.link;
         }
         return result;
     }
