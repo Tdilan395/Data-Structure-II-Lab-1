@@ -121,26 +121,26 @@ public class GUI_Tree extends JFrame{
                     description.setText("");
                     switch ((String) nodoType.getSelectedItem()) {
                         case "Users":
-                            User u = (User) n_root.search((String) varType.getSelectedItem(), searchLabel.getText());
-                            if (u != null) {
-                                description.append(u.printInfo());
+                            ArrayList<Nodo> u = n_root.search((String) varType.getSelectedItem(), searchLabel.getText());
+                            if (!u.isEmpty()) {
+                                description.append(u.get(0).printInfo());
                             } else {
                                 description.append("No se encontró usuario buscado por " + varType.getSelectedItem() + ": " + searchLabel.getText() + "\n");
                             }
                             searchLabel.setText("");
                             break;
                         case "Post":
-                            Post p = (Post) n_root.searchPost((String) varType.getSelectedItem(), searchLabel.getText());
-                            if (p != null) {
-                                description.append(p.printInfo());
+                            ArrayList<Nodo> p = n_root.searchPost((String) varType.getSelectedItem(), searchLabel.getText());
+                            if (!p.isEmpty()) {
+                                description.append(p.get(0).printInfo());
                             } else {
                                 description.append("No se encontró post buscado por " + varType.getSelectedItem() + ": " + searchLabel.getText() + "\n");
                             }
                             break;
                         case "Comment":
-                            Comment c = (Comment) n_root.searchComment((String) varType.getSelectedItem(), searchLabel.getText());
-                            if (c != null) {
-                                description.append(c.printInfo());
+                            ArrayList<Nodo> c = n_root.searchComment((String) varType.getSelectedItem(), searchLabel.getText());
+                            if (!c.isEmpty()) {
+                                description.append(c.get(0).printInfo());
                             } else {
                                 description.append("No se encontró comentario buscado por " + varType.getSelectedItem() + ": " + searchLabel.getText() + "\n");
                             }
@@ -173,25 +173,30 @@ public class GUI_Tree extends JFrame{
                 if(now-past<=250000000){
                     Nodo nodo = (Nodo)tree.getSelectedValue();
 
-                    DefaultListModel modelo = (DefaultListModel)tree.getModel();
                     if(tree.getSelectedIndex()==0){
                         nodo.etiquetaSelection=false;
                     }
                     
-                    modelo.clear();
-                    if(nodo.getFather()!=null)nodo.getFather().etiquetaSelection=true;
-                    modelo.addElement(nodo.getFather());
-                    for (Nodo col : nodo.getLinks()) {
-                        modelo.addElement(col);
-                    }
-                    
+                    showList(nodo);
                 }
         	past = now;
             }
         });
     }
     
-    public void initComboBoxAtributes() {
+    private void showList(Nodo nodo) {
+        DefaultListModel modelo = (DefaultListModel)tree.getModel();
+        modelo.clear();
+        if (nodo.getFather() != null) {
+            nodo.getFather().etiquetaSelection = true;
+        }
+        modelo.addElement(nodo.getFather());
+        for (Nodo col : nodo.getLinks()) {
+            modelo.addElement(col);
+        }
+    }
+    
+    private void initComboBoxAtributes() {
         this.search_atributes[0] = new DefaultComboBoxModel();
         this.search_atributes[0].addElement("id");
         this.search_atributes[0].addElement("name");

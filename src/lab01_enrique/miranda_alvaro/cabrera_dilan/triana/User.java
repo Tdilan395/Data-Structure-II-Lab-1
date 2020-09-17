@@ -5,6 +5,7 @@
  */
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -77,31 +78,33 @@ public class User extends Nodo{
     }
     
     @Override
-    public Nodo search(String toSearch, String search){//post
+    public ArrayList<Nodo> search(String toSearch, String search){//post
         Pattern pat = Pattern.compile(search);
         Matcher mat;
+        ArrayList<Nodo> result = new ArrayList();
         for (Nodo post : this.getLinks()) {
             Post p = (Post)post;
             switch(toSearch){
                 case "userId":
                     if(p.getUserID() == Integer.parseInt(search)){
-                        return p;
+                        result.add(p);
                     }
                     break;
                 case "id":
                     if(p.getID() == Integer.parseInt(search)){
-                        return p;
+                        result.add(p);
+                        return result;
                     }
                     break;
                 case "title":
                     mat = pat.matcher(p.getTitle());
                     if(mat.find()){
-                        return p;
+                        result.add(p);
                     }
                 case "body":
                     mat = pat.matcher(p.getBody());
                     if(mat.find()){
-                        return p;
+                        result.add(p);
                     }
                     break;
                 default:
@@ -109,19 +112,20 @@ public class User extends Nodo{
                     break;
             }
         }
-        return null;
+        return result;
     }
     
     @Override
-    public Nodo searchComment(String searchTo, String search){
+    public ArrayList<Nodo> searchComment(String searchTo, String search){
+        ArrayList result = new ArrayList();
         for (Nodo post : getLinks()) {
             Post p = (Post) post;
-            Comment c = (Comment) p.search(searchTo, search);
-            if(c != null){
-                return c;
+            ArrayList c =  p.search(searchTo, search);
+            if(!c.isEmpty()){
+                result.addAll(c);
             }
         }
-        return null;
+        return result;
     }
     
 //    @Override

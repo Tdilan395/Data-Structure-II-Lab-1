@@ -5,6 +5,8 @@
  */
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Domain
@@ -53,9 +55,9 @@ public class Comment extends Nodo {
     }
 
     @Override
-    public Nodo search(String searchTo, String search) {
+    public ArrayList<Nodo> search(String searchTo, String search) {
         System.out.println("Nunca debería estar aquí");
-        return null;
+        return new ArrayList();
     }
     
 //    @Override

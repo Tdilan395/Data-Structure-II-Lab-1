@@ -5,6 +5,7 @@
  */
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -56,35 +57,38 @@ public class Post extends Nodo {
     }
 
     @Override
-    public Nodo search(String searchTo, String search) {//comment
+    public ArrayList<Nodo> search(String searchTo, String search) {//comment
         Pattern pat = Pattern.compile(search);
         Matcher mat;
+        ArrayList<Nodo> result = new ArrayList();
         for (Nodo comment : getLinks()) {
             Comment c = (Comment) comment;
             switch (searchTo) {
                 case "postId":
                     if (c.getPostID() == Integer.parseInt(search)) {
-                        return c;
+                        result.add(c);
                     }
                     break;
                 case "id":
                     if (c.getID() == Integer.parseInt(search)) {
-                        return c;
+                        result.add(c);
+                        return result;
                     }
                     break;
                 case "name":
                     if (c.getName().equals(search)) {
-                        return c;
+                        result.add(c);
                     }
                     break;
                 case "email":
                     if (c.getEmail().equals(search)) {
-                        break;
+                        result.add(c);
                     }
+                    break;
                 case "body":
                     mat = pat.matcher(c.getBody());
                     if (mat.find()) {
-                        return c;
+                        result.add(c);
                     }
                     break;
                 default:
@@ -92,7 +96,7 @@ public class Post extends Nodo {
                     break;
             }
         }
-        return null;
+        return result;
     }
     
 //    @Override
