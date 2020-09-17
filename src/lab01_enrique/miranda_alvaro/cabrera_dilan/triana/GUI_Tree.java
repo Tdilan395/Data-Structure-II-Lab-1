@@ -7,7 +7,6 @@ package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -18,8 +17,6 @@ import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.text.Style;
-import javax.swing.text.StyleConstants;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -124,8 +121,8 @@ public class GUI_Tree extends JFrame {
         DefaultMutableTreeNode j_Nodo;
         NodoList p = ptr;
    
-        while (p.link != null) {
-            Nodo aux = p.getNodo();
+        while (p != null) {
+            Nodo aux = (Nodo)p.getNodo();
             j_Nodo = new DefaultMutableTreeNode(aux);
             if(aux.getLinks()!=null)this.add(aux.getLinks(), j_Nodo);
             root.add(j_Nodo);

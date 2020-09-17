@@ -11,10 +11,10 @@ package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
  */
 public class NodoList {
 
-    private Nodo nodo;
+    private Object nodo;
     NodoList link;
 
-    public static NodoList add(NodoList ptr, Nodo nodo) {
+    public static NodoList add(NodoList ptr, Object nodo) {
         NodoList p = ptr;
         NodoList q = new NodoList();
         q.nodo = nodo;
@@ -25,11 +25,15 @@ public class NodoList {
                 p = p.link;
             }
             p.link = q;
+            
+        if(nodo instanceof Yeison){
+            System.out.println(((Yeison)nodo).get("id"));
+        }
         }
         return ptr;
     }
 
-    public static Nodo getNodo(NodoList ptr, int pos) {
+    public static Object getNodo(NodoList ptr, int pos) {
         NodoList p = ptr;
         int i = 0;
         if (ptr == null) {
@@ -47,7 +51,7 @@ public class NodoList {
         }
     }
 
-    public Nodo getNodo() {
+    public Object getNodo() {
         return nodo;
     }
 
@@ -60,5 +64,7 @@ public class NodoList {
         }
         return i;
     }
+    
+    
 
 }

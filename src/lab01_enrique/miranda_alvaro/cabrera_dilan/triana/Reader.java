@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 
 
 /**
@@ -19,9 +18,8 @@ import java.util.ArrayList;
  */
 public class Reader {
 
-    public static ArrayList<Yeison> deArchivoALista(int lim1, int lim2, String ruta) {
-        ArrayList<Yeison> objetos = new ArrayList();
-        ArrayList<String> atributos = new ArrayList(); //DESCOMENTAR TODO LO RELACIONADO Y EL SOUT *******USERSSSSSSSSSSSSSSSSSE******** PARA PROBAR YEISON
+    public static NodoList deArchivoALista(int lim1, int lim2, String ruta) {
+        NodoList objetos = new NodoList();
         File f = new File(ruta + ".txt");
 
         try {
@@ -29,24 +27,17 @@ public class Reader {
             int cont = 0;
             String linea;
             String object = "";
-            atributos.add(object);
             while ((linea = br.readLine()) != null) {
                 if (cont >= lim1 && cont <= lim2) {
-                    atributos.add(linea);
                     object +=linea+"\n";
                 }
                 cont++;
                 if (cont == lim2) {
                    object+= "},";
-                    //System.out.println("************************************USERSSSSSSSSSSSSSSSSSE*****************************************");
+                   
+                   
                     Yeison y = new Yeison(object);
-//                    Yeison a = new Yeison(y.get("address"));
-//                    Yeison g = new Yeison(a.get("geo"));
-//                    System.out.println(g.get("lat"));
-                    
-                    //atributos.clear();
-                    objetos.add(y);
-                 // System.out.println(object);
+                    NodoList.add(objetos, y);
                     object = "";
                     cont = 0;
                 }
@@ -85,44 +76,49 @@ public class Reader {
     public static void Agregar(int nivel, Nodo raiz) {
         switch (nivel) {
             case 1:
-                ArrayList<Yeison> usuarios = Reader.deArchivoALista(1, 23, "usuario");
+                NodoList usuarios = Reader.deArchivoALista(1, 23, "usuario");
+                usuarios=usuarios.link;
                 User a;
-                for (Yeison usuario : usuarios) {
-                    a = deYeisonaUser(usuario);
+                while(usuarios!=null){
+                    a = deYeisonaUser((Yeison)usuarios.getNodo());
                     raiz.insertar(a, raiz);
                     Agregar(2, a);
+                    usuarios=usuarios.link;
                 }
                 break;
             case 2:
-                ArrayList<Yeison> posts = Reader.deArchivoALista(1, 6, "posts");
+                NodoList posts = Reader.deArchivoALista(1, 6, "posts");
+                posts=posts.link;
                 Post p;
                 
-                for (Yeison post : posts) {
-                    p = deYeisonaPost(post);
+                while(posts!=null){
+                    p = deYeisonaPost((Yeison)posts.getNodo());
 
                     if (p.getUserID() == raiz.getID()) {
                         raiz.insertar(p, raiz);
                         Agregar(3, p);
-
+                        
                     }
                     if (p.getLinks()!=null && p.getUserID() != raiz.getID()) {
                         break;
                     }
+                    posts=posts.link;
 //
                 }
                 break;
             case 3:
-                ArrayList<Yeison> comentarios = Reader.deArchivoALista(1, 7, "comments");
+                NodoList comentarios = Reader.deArchivoALista(1, 7, "comments");
+                comentarios=comentarios.link;
                 Comment c;
 
-                for (Yeison comentario : comentarios) {
-                    c = deYeisonaComment(comentario);
+                while(comentarios!=null){
+                    c = deYeisonaComment((Yeison) comentarios.getNodo());
 
                     if (c.getPostID() == raiz.getID()) {
                         raiz.insertar(c, raiz);
 
                     }
-
+                    comentarios=comentarios.link;
                 }
                 break;
             default:

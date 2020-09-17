@@ -5,7 +5,7 @@
  */
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
-import java.util.ArrayList;
+
 
 /**
  *
@@ -25,7 +25,7 @@ public class Nodo {
         return ID;
     }
     public Nodo getLink(int i){
-        return NodoList.getNodo(ptr, i);
+        return (Nodo)NodoList.getNodo(ptr, i);
     }
     
     /**
@@ -48,7 +48,7 @@ public class Nodo {
     public Nodo buscar(int id, Nodo Raiz){
         NodoList p = ptr;
         while(p!=null){
-            Nodo aux=p.getNodo();
+            Nodo aux=(Nodo)p.getNodo();
             if(aux.getID()==id) return aux;
             else p=p.link;
         }
@@ -62,7 +62,7 @@ public class Nodo {
     public void printAllLinks(){
         NodoList p = ptr;
         while(p.link!=null){
-            Nodo aux=p.getNodo();
+            Nodo aux=(Nodo)p.getNodo();
              aux.printInfo();
              p=p.link;
         }
