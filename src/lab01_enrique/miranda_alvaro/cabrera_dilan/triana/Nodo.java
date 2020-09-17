@@ -169,6 +169,10 @@ public class Nodo {
     public String printInfo() {
         return "";
     }
+    
+    public String getSingleRoute(){
+        return "";
+    }
 //    public String WriteInfo() {
 //        StringBuffer b = new StringBuffer();
 //        
@@ -183,7 +187,7 @@ public class Nodo {
     
     @Override
     public String toString(){
-        if(etiquetaSelection)return "...";
+        if(etiquetaSelection)return "← ← ← ← ← ← ←";
         return "Users";
     }
 }

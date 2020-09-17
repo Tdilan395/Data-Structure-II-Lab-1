@@ -33,6 +33,11 @@ public class Comment extends Nodo {
     public String getName() {
         return name;
     }
+    
+    
+    @Override
+    public String getSingleRoute(){
+        return "Comment #" + this.getID();
 
     public String getEmail() {
         return email;
@@ -50,8 +55,8 @@ public class Comment extends Nodo {
 
     @Override
     public String toString() {
-        if(etiquetaSelection)return "...";
-        return "Comment #" + this.getID() + ": " + this.name;
+        if(etiquetaSelection)return "← ← ← ← ← ← ←";
+        return "💬 #" + this.getID() + ": " + this.name;
     }
 
     @Override
