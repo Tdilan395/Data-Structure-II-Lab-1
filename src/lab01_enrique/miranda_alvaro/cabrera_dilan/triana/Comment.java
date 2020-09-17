@@ -5,12 +5,14 @@
  */
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
+import java.util.ArrayList;
 
 /**
  *
  * @author Domain
  */
-public class Comment extends Nodo{
+public class Comment extends Nodo {
+
     private int postID;
     private String name;
     private String email;
@@ -18,34 +20,37 @@ public class Comment extends Nodo{
 
     public Comment(int postID, String name, String email, String body, int ID) {
         super(ID);
-        this.postID=postID;
+        this.postID = postID;
         this.name = name;
         this.email = email;
         this.body = body;
     }
-    
-    public int getPostID(){
+
+    public int getPostID() {
         return postID;
     }
-    
-//    @Override
-//    public Nodo buscar(int id, Nodo Raiz){
-//        for (Nodo user : Raiz.getLinks()) {
-//            for (Nodo post : user.getLinks()) {
-//                for (Nodo comment : post.getLinks()) {
-//                    if(comment.getID() == id) return comment;
-//                }
-//            }
-//        }
-//        return null;
-//    }
-    
 
+    public String getName() {
+        return name;
+    }
+    
+    
+    @Override
+    public String getSingleRoute(){
+        return "Comment #" + this.getID();
+    }
+        
+    public String getEmail() {
+        return email;
+    }
+
+    public String getBody() {
+        return body;
+    }
 
     boolean belongsTo(int id) {
         return this.postID == id;
     }
-    
     
     @Override
     public String printInfo(){
@@ -54,8 +59,25 @@ String aux=body;
         aux=aux.replace("\\n", "");
         return ("PostID: "+postID + " \nName: " + name +" \nEmail: "+email+" \nBody: "+aux);
     }
+
     @Override
     public String toString() {
-        return "Comment #" + this.getID() + ": " + this.name;
+        if(etiquetaSelection)return "← ← ← ← ← ← ←";
+        return "💬 #" + this.getID() + ": " + this.name;
     }
+
+    @Override
+    public ArrayList<Nodo> search(String searchTo, String search) {
+        System.out.println("Nunca debería estar aquí");
+        return new ArrayList();
+    }
+    
+//    @Override
+//    public String WriteInfo() {
+//        StringBuffer b = new StringBuffer();
+//        
+//        b.append("Comment info");
+//        
+//        return b.toString();
+//    }
 }

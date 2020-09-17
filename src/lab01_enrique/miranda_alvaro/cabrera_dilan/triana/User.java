@@ -5,7 +5,9 @@
  */
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
-import javax.swing.JOptionPane;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -74,8 +76,60 @@ public class User extends Nodo {
     }
 
     @Override
-    public String toString() {
-        return "User #" + this.getID() + ": " + this.name;
+    public String toString(){
+        if(etiquetaSelection)return "← ← ← ← ← ← ←";
+        return "👤 #" + this.getID() + ": " + this.name;
     }
-   
+    
+    @Override
+    public ArrayList<Nodo> search(String toSearch, String search){//post
+        Pattern pat = Pattern.compile(search);
+        Matcher mat;
+        ArrayList<Nodo> result = new ArrayList();
+        for (Nodo post : this.getLinks()) {
+            Post p = (Post)post;
+            switch(toSearch){
+                case "userId":
+                    if(p.getUserID() == Integer.parseInt(search)){
+                        result.add(p);
+                    }
+                    break;
+                case "id":
+                    if(p.getID() == Integer.parseInt(search)){
+                        result.add(p);
+                        return result;
+                    }
+                    break;
+                case "title":
+                    mat = pat.matcher(p.getTitle());
+                    if(mat.find()){
+                        result.add(p);
+                    }
+                case "body":
+                    mat = pat.matcher(p.getBody());
+                    if(mat.find()){
+                        result.add(p);
+                    }
+                    break;
+                default:
+                    System.out.println("No debería llegar aquí busqueda de post");
+                    break;
+            }
+        }
+        return result;
+    }
+    
+    @Override
+    public ArrayList<Nodo> searchComment(String searchTo, String search){
+        ArrayList result = new ArrayList();
+        for (Nodo post : getLinks()) {
+            Post p = (Post) post;
+            ArrayList c =  p.search(searchTo, search);
+            if(!c.isEmpty()){
+                result.addAll(c);
+            }
+        }
+        return result;
+    }
+    
 }

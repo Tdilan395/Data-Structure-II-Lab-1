@@ -5,13 +5,16 @@
  */
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
-import javax.swing.JOptionPane;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
  * @author Domain
  */
-public class Post extends Nodo{
+public class Post extends Nodo {
+
     private int userID;
     private String title;
     private String body;
@@ -24,26 +27,11 @@ public class Post extends Nodo{
         this.userID = userID;
         ptr2=null;
     }
-    
-    public int getUserID(){
+
+    public int getUserID() {
         return this.userID;
     }
     
-//    @Override
-//    public Nodo buscar(int id,Nodo Raiz){
-//        for (Nodo user : Raiz.getLinks()) {
-//            for (Nodo post : user.getLinks()) {
-//                if(post.getID() == id) return post;
-//            }
-//        }
-//        return null;
-//    }
-    
-
-    
-    public boolean isOwner(int i){
-        return this.userID == i;
-    }
 
     public String getTitle() {
         return title;
@@ -51,6 +39,11 @@ public class Post extends Nodo{
 
     public String getBody() {
         return body;
+    }
+
+    @Override
+    public String getSingleRoute(){
+        return "Post #" + this.getID();
     }
     
     @Override
@@ -61,16 +54,68 @@ public class Post extends Nodo{
 //        System.out.println("");
 //        System.out.println("");
 //        System.out.println("**********************************COMENTARIOS********************************************");
-//        
 //        this.printAllLinks();
     String aux=body;
         aux=aux.replace("\\n", "");
         System.out.println(title.length());
         return ("UserID: "+userID + "\n"+"Title: " + title + "\n" +"Body: " +aux);
     }
-    
+
     @Override
     public String toString(){
-        return "Post #" + this.getID() + ": " + this.getTitle();
+        if(etiquetaSelection)return "← ← ← ← ← ← ←";
+        return "📄 #" + this.getID() + ": " + this.getTitle();
     }
+
+    @Override
+    public ArrayList<Nodo> search(String searchTo, String search) {//comment
+        Pattern pat = Pattern.compile(search);
+        Matcher mat;
+        ArrayList<Nodo> result = new ArrayList();
+        for (Nodo comment : getLinks()) {
+            Comment c = (Comment) comment;
+            switch (searchTo) {
+                case "postId":
+                    if (c.getPostID() == Integer.parseInt(search)) {
+                        result.add(c);
+                    }
+                    break;
+                case "id":
+                    if (c.getID() == Integer.parseInt(search)) {
+                        result.add(c);
+                        return result;
+                    }
+                    break;
+                case "name":
+                    if (c.getName().equals(search)) {
+                        result.add(c);
+                    }
+                    break;
+                case "email":
+                    if (c.getEmail().equals(search)) {
+                        result.add(c);
+                    }
+                    break;
+                case "body":
+                    mat = pat.matcher(c.getBody());
+                    if (mat.find()) {
+                        result.add(c);
+                    }
+                    break;
+                default:
+                    System.out.println("No deberia estár aquí busqueda de comment");
+                    break;
+            }
+        }
+        return result;
+    }
+    
+//    @Override
+//    public String WriteInfo() {
+//        StringBuffer b = new StringBuffer();
+//        
+//        b.append("Post info");
+//        
+//        return b.toString();
+//    }
 }

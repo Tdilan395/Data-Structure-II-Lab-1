@@ -10,7 +10,7 @@ package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
  * @author Enrique
  */
 public class AB {
-    Nodo raiz;
+    public Nodo raiz;
     
     public AB(){
         raiz = new Nodo(0);

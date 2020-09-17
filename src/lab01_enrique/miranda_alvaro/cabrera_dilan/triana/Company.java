@@ -9,7 +9,7 @@ package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
  *
  * @author Domain
  */
-class Company {
+public class Company {
    private String name;
    private String catchPhrase;
    private String bs;

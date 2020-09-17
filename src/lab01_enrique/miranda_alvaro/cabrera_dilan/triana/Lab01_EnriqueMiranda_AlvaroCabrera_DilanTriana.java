@@ -14,7 +14,6 @@ public class Lab01_EnriqueMiranda_AlvaroCabrera_DilanTriana {
     /**
      * @param args the command line arguments
      */
-    Nodo Raiz;
 
     public static void main(String[] args) {
         AB arbol = new AB();

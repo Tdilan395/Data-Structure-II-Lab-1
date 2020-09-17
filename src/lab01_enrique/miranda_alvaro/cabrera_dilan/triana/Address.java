@@ -27,6 +27,26 @@ public class Address {
     public String printInfo() {
          return ("  Street: "+street+"\n  Suite: "+suite+"\n  City: "+city+"\n  ZipCode: "+zipCode+"\n  Geo :"+"\n    Lat: "+geo[0]+"\n    Lng: "+geo[1]);
     }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public String getSuite() {
+        return suite;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public float getGeo(int i) {
+        return geo[i];
+    }
     
     
 }
