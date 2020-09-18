@@ -79,7 +79,7 @@ public class Nodo {
         NodoList result = null;
         NodoList p = this.getLinks();
        
-        while(p.link!=null){
+        while(p!=null){
             User u = (User) p.getObject();
             switch (toSearch) {
                 case "id":
