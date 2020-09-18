@@ -136,16 +136,20 @@ public class GUI_Tree extends JFrame{
         
         search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                if (!searchLabel.getText().isEmpty()) {
+                if(!matches.getText().isEmpty()){
+                    tree.setSelectedIndex(0);
+                    ((Nodo)tree.getSelectedValue()).etiquetaSelection=false;
+                
+                }
+                if (!searchLabel.getText().isEmpty()){
                     description.setText("");
                     switch ((String) nodoType.getSelectedItem()) {
                         case "Users":
                             searchResult = n_root.search((String) varType.getSelectedItem(), searchLabel.getText());
                             if (!searchResult.isEmpty()) {
-                                if(searchResult==null)System.out.println("Im useless");
-                                description.append(((Nodo)NodoList.getNodo(searchResult, 0)).printInfo());
-                                showList(((Nodo)NodoList.getNodo(searchResult,0)).getFather());
-                                matches.setText(Integer.toString(NodoList.size(searchResult)));
+                                description.append(((Nodo)NodoList.getNodo(searchResult, 1)).printInfo());
+                                showList(((Nodo)NodoList.getNodo(searchResult,1)).getFather());
+                                matches.setText(Integer.toString(NodoList.size(searchResult)-1));
                             } else {
                                 description.append("No se encontró usuario buscado por " + varType.getSelectedItem() + ": " + searchLabel.getText() + "\n");
                             }
@@ -154,10 +158,9 @@ public class GUI_Tree extends JFrame{
                         case "Post":
                             searchResult = n_root.searchPost((String) varType.getSelectedItem(), searchLabel.getText());
                             if (!searchResult.isEmpty()) {
-                                if(((Nodo)NodoList.getNodo(searchResult, 0))==null)System.out.println("Im useless");
-                                description.append(((Nodo)NodoList.getNodo(searchResult, 0)).printInfo());
-                                showList(((Nodo)NodoList.getNodo(searchResult, 0)).getFather());
-                                matches.setText(Integer.toString(NodoList.size(searchResult)));
+                                description.append(((Nodo)NodoList.getNodo(searchResult, 2)).printInfo());
+                                showList(((Nodo)NodoList.getNodo(searchResult, 2)).getFather());
+                                matches.setText(Integer.toString(NodoList.size(searchResult)-2));
                             } else {
                                 description.append("No se encontró post buscado por " + varType.getSelectedItem() + ": " + searchLabel.getText() + "\n");
                             }
@@ -165,9 +168,9 @@ public class GUI_Tree extends JFrame{
                         case "Comment":
                             searchResult = n_root.searchComment((String) varType.getSelectedItem(), searchLabel.getText());
                             if (!searchResult.isEmpty()) {
-                                description.append(((Nodo)NodoList.getNodo(searchResult, 0)).printInfo());
-                                showList(((Nodo)NodoList.getNodo(searchResult, 0)).getFather());
-                                matches.setText(Integer.toString(NodoList.size(searchResult)));
+                                description.append(((Nodo)NodoList.getNodo(searchResult, 3)).printInfo());
+                                showList(((Nodo)NodoList.getNodo(searchResult, 3)).getFather());
+                                matches.setText(Integer.toString(NodoList.size(searchResult)-3));
                             } else {
                                 description.append("No se encontró comentario buscado por " + varType.getSelectedItem() + ": " + searchLabel.getText() + "\n");
                             }
@@ -186,6 +189,10 @@ public class GUI_Tree extends JFrame{
             if(n==null)return;
             if(n instanceof Comment)searchOwner.setEnabled(true);
             else searchOwner.setEnabled(false);
+            
+            description.setLineWrap(true);
+            description.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+            description.setWrapStyleWord(true);
             description.setText(n.printInfo());
             searchResult = new NodoList();
             up.setEnabled(false);

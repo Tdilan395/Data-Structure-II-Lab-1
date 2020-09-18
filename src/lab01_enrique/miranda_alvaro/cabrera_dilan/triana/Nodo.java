@@ -84,11 +84,12 @@ public class Nodo {
         while(p!=null){
             User u = (User) p.getObject();
             NodoList c = u.searchComment(searchTo, search);
-            if(c!= null){
-                return c;
+            if(!c.isEmpty()){
+                result.addAll(c);
             }
+            p=p.link;
         }
-        return null;
+        return result;
     }
     
     public void printAllLinks(){
