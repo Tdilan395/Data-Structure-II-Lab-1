@@ -5,8 +5,6 @@
  */
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author Domain
@@ -54,15 +52,14 @@ public class Comment extends Nodo {
     
     @Override
     public String printInfo(){
-//        System.out.println(postID + " - " + name +" - "+email+" - "+body);
-String aux=body;
+        String aux=body;
         aux=aux.replace("\\n", "");
         return ("PostID: "+postID + " \nName: " + name +" \nEmail: "+email+" \nBody: "+aux);
     }
 
     @Override
     public String toString() {
-        if(etiquetaSelection)return "← ← ← ← ← ← ←";
+        if(etiquetaSelection)return "← ← ← Back ← ← ← ";
         return "💬 #" + this.getID() + ": " + this.name;
     }
 

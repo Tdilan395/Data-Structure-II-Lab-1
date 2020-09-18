@@ -87,6 +87,10 @@ public class GUI_Tree extends JFrame{
     }
 
     private void init() {
+        description.setLineWrap(true);
+        description.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+        description.setWrapStyleWord(true);
+        
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         description.setEditable(false);
         routeLabel.setEditable(false);
@@ -136,47 +140,34 @@ public class GUI_Tree extends JFrame{
         
         search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                if(!matches.getText().isEmpty()){
+                
+                if(searchResult.getNodo(0) instanceof Comment){
                     tree.setSelectedIndex(0);
                     ((Nodo)tree.getSelectedValue()).etiquetaSelection=false;
-                
                 }
-                if (!searchLabel.getText().isEmpty()){
+                
+                if (!searchLabel.getText().isEmpty()) {
                     description.setText("");
                     switch ((String) nodoType.getSelectedItem()) {
                         case "Users":
                             searchResult = n_root.search((String) varType.getSelectedItem(), searchLabel.getText());
-                            if (!searchResult.isEmpty()) {
-                                description.append(((Nodo)searchResult.getNodo( 1)).printInfo());
-                                showList(((Nodo)searchResult.getNodo(1)).getFather());
-                                matches.setText(Integer.toString(searchResult.size()-1));
-                            } else {
-                                description.append("No se encontró usuario buscado por " + varType.getSelectedItem() + ": " + searchLabel.getText() + "\n");
-                            }
-                            searchLabel.setText("");
                             break;
                         case "Post":
                             searchResult = n_root.searchPost((String) varType.getSelectedItem(), searchLabel.getText());
-                            if (!searchResult.isEmpty()) {
-                                description.append(((Nodo)searchResult.getNodo( 2)).printInfo());
-                                showList(((Nodo)searchResult.getNodo( 2)).getFather());
-                                matches.setText(Integer.toString(searchResult.size()-2));
-                            } else {
-                                description.append("No se encontró post buscado por " + varType.getSelectedItem() + ": " + searchLabel.getText() + "\n");
-                            }
                             break;
                         case "Comment":
                             searchResult = n_root.searchComment((String) varType.getSelectedItem(), searchLabel.getText());
-                            if (!searchResult.isEmpty()) {
-                                description.append(((Nodo)searchResult.getNodo( 3)).printInfo());
-                                showList(((Nodo)searchResult.getNodo( 3)).getFather());
-                                matches.setText(Integer.toString(searchResult.size()-3));
-                            } else {
-                                description.append("No se encontró comentario buscado por " + varType.getSelectedItem() + ": " + searchLabel.getText() + "\n");
-                            }
                             break;
-
                     }
+
+                    if (!searchResult.isEmpty()) {
+                        description.append(((Nodo) searchResult.getNodo(0)).printInfo());
+                        showList(((Nodo) searchResult.getNodo(0)).getFather());
+                        matches.setText(Integer.toString(searchResult.size()));
+                    } else {
+                        description.append("No se encontró "+ (String) nodoType.getSelectedItem() +" buscado por " + varType.getSelectedItem() + ": " + searchLabel.getText() + "\n");
+                    }
+                    searchLabel.setText("");
                 }
             }
         });

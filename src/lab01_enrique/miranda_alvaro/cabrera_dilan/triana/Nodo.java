@@ -5,6 +5,8 @@
  */
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
+import com.sun.org.apache.bcel.internal.generic.AALOAD;
+
 
 
 /**
@@ -70,7 +72,8 @@ public class Nodo {
             }
             p=p.link;
         }
-        return result;
+        if(result.link==null)return new NodoList();
+        return result.link;
     }
 
     
@@ -89,7 +92,8 @@ public class Nodo {
             }
             p=p.link;
         }
-        return result;
+        if(result.link.link==null)return new NodoList();
+        return result.link.link;
     }
     
     public void printAllLinks(){
@@ -102,16 +106,17 @@ public class Nodo {
     }
     
     public NodoList search(String toSearch, String search) {//user
-        NodoList result = new NodoList();
+        NodoList result = null;
         NodoList p = this.getLinks();
        
-        while(p.link!=null){
+        while(p!=null){
             User u = (User) p.getObject();
             switch (toSearch) {
                 case "id":
-                    if (u.getID() == Integer.parseInt(search)) {
-                        NodoList.add(result,u);
-                        //return result;
+                    if (String.valueOf(u.getID()).equals(search)) {
+                        result = NodoList.add(result,u);
+                        if(result==null) return new NodoList();
+                        return result;
                     }
                     break;
                 case "name":
@@ -190,6 +195,7 @@ public class Nodo {
             }
             p=p.link;
         }
+        if (result == null)return new NodoList();
         return result;
     }
 
@@ -215,7 +221,7 @@ public class Nodo {
     
     @Override
     public String toString(){
-        if(etiquetaSelection)return "← ← ← ← ← ← ←";
+        if(etiquetaSelection)return "← ← ← Back ← ← ← ";
         return "Users";
     }
 }

@@ -59,7 +59,7 @@ public class NodoList {
     }
 
     public boolean isEmpty() {
-        return link == null;
+        return link==null&&nodo==null;
     }
 
     void addAll(NodoList c) {

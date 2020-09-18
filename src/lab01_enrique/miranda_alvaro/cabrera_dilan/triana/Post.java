@@ -62,8 +62,10 @@ public class Post extends Nodo {
     }
 
     @Override
-    public String toString(){
-        if(etiquetaSelection)return "← ← ← ← ← ← ←";
+    public String toString() {
+        if (etiquetaSelection) {
+            return "← ← ← Back ← ← ← ";
+        }
         return "📄 #" + this.getID() + ": " + this.getTitle();
     }
 
@@ -71,19 +73,20 @@ public class Post extends Nodo {
     public NodoList search(String searchTo, String search) {//comment
         Pattern pat = Pattern.compile(search);
         Matcher mat;
-        NodoList result = new NodoList();
+        NodoList result = null;
         NodoList p = this.getLinks();
         while(p!=null) {
             Comment c = (Comment) p.getObject();
             switch (searchTo) {
                 case "postId":
-                    if (c.getPostID() == Integer.parseInt(search)) {
-                        NodoList.add(result, c);
+                    if (String.valueOf(c.getPostID()).equals(search)) {
+                        result = NodoList.add(result, c);
                     }
                     break;
                 case "id":
-                    if (c.getID() == Integer.parseInt(search)) {
-                        NodoList.add(result, c);
+                    if (String.valueOf(c.getID()).equals(search)) {
+                        result = NodoList.add(result, c);
+                        if(result==null)return new NodoList();
                         return result;
                     }
                     break;
@@ -109,6 +112,7 @@ public class Post extends Nodo {
             }
             p=p.link;
         }
+        if(result==null)return new NodoList();
         return result;
     }
     

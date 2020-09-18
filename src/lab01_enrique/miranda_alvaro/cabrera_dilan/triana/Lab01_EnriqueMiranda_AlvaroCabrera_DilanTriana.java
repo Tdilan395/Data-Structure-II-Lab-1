@@ -15,11 +15,10 @@ public class Lab01_EnriqueMiranda_AlvaroCabrera_DilanTriana {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+
         AB arbol = new AB();
         Reader.Agregar(1, arbol.raiz);
         GUI_Tree GUI = new GUI_Tree("RRRR solutions", arbol.raiz, 900);
-        System.out.println(arbol.raiz.getLinks());
-      
     }
 
 }
