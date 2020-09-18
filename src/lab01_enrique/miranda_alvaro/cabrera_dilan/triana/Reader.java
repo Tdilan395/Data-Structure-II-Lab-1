@@ -19,7 +19,7 @@ import java.io.IOException;
 public class Reader {
 
     public static NodoList deArchivoALista(int lim1, int lim2, String ruta) {
-        NodoList objetos = new NodoList();
+        NodoList objetos=null;
         File f = new File(ruta + ".txt");
 
         try {
@@ -33,11 +33,9 @@ public class Reader {
                 }
                 cont++;
                 if (cont == lim2) {
-                   object+= "},";
-                   
-                   
+                   object+= "},"; 
                     Yeison y = new Yeison(object);
-                    NodoList.add(objetos, y);
+                    objetos=NodoList.add(objetos, y);
                     object = "";
                     cont = 0;
                 }
@@ -77,7 +75,7 @@ public class Reader {
         switch (nivel) {
             case 1:
                 NodoList usuarios = Reader.deArchivoALista(1, 23, "usuario");
-                usuarios=usuarios.link;
+                System.out.println(NodoList.getNodo(usuarios,0));
                 User a;
                 while(usuarios!=null){
                     a = deYeisonaUser((Yeison)usuarios.getObject());
@@ -88,7 +86,6 @@ public class Reader {
                 break;
             case 2:
                 NodoList posts = Reader.deArchivoALista(1, 6, "posts");
-                posts=posts.link;
                 Post p;
                 
                 while(posts!=null){
@@ -108,7 +105,6 @@ public class Reader {
                 break;
             case 3:
                 NodoList comentarios = Reader.deArchivoALista(1, 7, "comments");
-                comentarios=comentarios.link;
                 Comment c;
 
                 while(comentarios!=null){

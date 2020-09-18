@@ -25,8 +25,6 @@ public class NodoList {
                 p = p.link;
             }
             p.link = q;
-            
-        
         }
         return ptr;
     }

@@ -127,7 +127,7 @@ public class GUI_Tree extends JFrame{
 
         this.setResizable(false);
         this.setVisible(true);
-        
+
         nodoType.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 varType.setModel(search_atributes[nodoType.getSelectedIndex()]);
