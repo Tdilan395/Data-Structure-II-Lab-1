@@ -20,6 +20,8 @@ public class NodoList {
         q.nodo = nodo;
         if (ptr == null) {
             ptr = q;
+        } else if (NodoList.getNodo(ptr, 0) == null) {
+            return q;
         } else {
             while (p.link != null) {
                 p = p.link;
@@ -62,17 +64,20 @@ public class NodoList {
     }
 
     public boolean isEmpty() {
-        return link==null;
+        return link == null;
     }
 
-    void addAll(NodoList c) {
+    public NodoList addAll(NodoList c) {
         NodoList p = this;
-        while(p.link!=null){
-            p=p.link;
+        if (this.nodo == null) {
+            p = c;
+        } else {
+            while (p.link != null) {
+                p = p.link;
+            }
+            p.link = c;
         }
-        p.link=c;
+        return p;
     }
-    
-    
 
 }

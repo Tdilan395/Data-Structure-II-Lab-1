@@ -22,7 +22,6 @@ public class User extends Nodo {
     private String website;
     private Company company;
     private Address address;
-    private NodoList ptr1;
 
     public User(int ID, String name, String username, String email, String phone, String webside, Company c, Address a) {
         super(ID);
@@ -33,7 +32,6 @@ public class User extends Nodo {
         this.website = webside;
         company = c;
         address = a;
-        ptr1=null;
 
     }
 
@@ -74,75 +72,87 @@ public class User extends Nodo {
 //        this.printAllLinks();
 
     }
- 
-    
+
     @Override
-    public String getSingleRoute(){
+    public String getSingleRoute() {
         return "User #" + this.getID();
-    
+
     }
-    
-    
+
     @Override
-    public String toString(){
-        if(etiquetaSelection)return "← ← ← ← ← ← ←";
+    public String toString() {
+        if (etiquetaSelection) {
+            return "← ← ← ← ← ← ←";
+        }
         return "👤 #" + this.getID() + ": " + this.name;
     }
-    
+
     @Override
-    public NodoList search(String toSearch, String search){//post
+    public NodoList search(String toSearch, String search) {//post
         Pattern pat = Pattern.compile(search);
         Matcher mat;
         NodoList result = new NodoList();
         NodoList p = this.getLinks();
-        while(p!=null) {
-            Post post = (Post)p.getObject();
-            switch(toSearch){
+        while (p != null) {
+            Post post = (Post) p.getObject();
+            switch (toSearch) {
                 case "userId":
-                    if(post.getUserID() == Integer.parseInt(search)){
-                        NodoList.add(result, post);
+                    if (post.getUserID() == Integer.parseInt(search)) {
+                        result = NodoList.add(result, post);
                     }
                     break;
                 case "id":
-                    if(post.getID() == Integer.parseInt(search)){
-                        NodoList.add(result, post);
+                    if (post.getID() == Integer.parseInt(search)) {
+                        result = NodoList.add(result, post);
                         return result;
                     }
                     break;
                 case "title":
                     mat = pat.matcher(post.getTitle());
-                    if(mat.find()){
-                        NodoList.add(result, post);
+                    if (mat.find()) {
+                        result = NodoList.add(result, post);
                     }
                 case "body":
                     mat = pat.matcher(post.getBody());
-                    if(mat.find()){
-                        NodoList.add(result, post);
+                    if (mat.find()) {
+                        result = NodoList.add(result, post);
                     }
                     break;
                 default:
                     System.out.println("No debería llegar aquí busqueda de post");
                     break;
             }
-            p=p.link;
+            p = p.link;
+        }
+        return result;
+    }
+
+    @Override
+    public NodoList searchComment(String searchTo, String search) {
+        NodoList result = new NodoList();
+        NodoList p = this.getLinks();
+
+        while (p != null) {
+            Post post = (Post) p.getObject();
+            NodoList c = post.search(searchTo, search);
+            if (!c.isEmpty()) {
+                result = result.addAll(c);
+            }
+            p = p.link;
         }
         return result;
     }
     
     @Override
-    public NodoList searchComment(String searchTo, String search){
-        NodoList result = new NodoList();
-        NodoList p = this.getLinks();
-        
-        while(p!=null){
-            Post post = (Post) p.getObject();
-            NodoList c =  post.search(searchTo, search);
-            if(!c.isEmpty()){
-                result.addAll(c);
-            }
-            p=p.link;
+    public void showAll(){
+        NodoList p = getLinks();
+        while(p != null){
+            Nodo n = (Nodo)p.getObject();
+            System.out.println("\t**********_📄 #"+n.getID()+"_**********");
+            System.out.println(((Nodo)p.getObject()).printInfo()+"\n");
+            n.showAll();
+            p = p.link;
         }
-        return result;
     }
-    
+
 }

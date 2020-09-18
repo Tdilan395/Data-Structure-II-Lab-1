@@ -5,7 +5,6 @@
  */
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
-import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,20 +17,17 @@ public class Post extends Nodo {
     private int userID;
     private String title;
     private String body;
-    NodoList ptr2;
-    
-    public Post(int userID,String title, String body, int ID) {
+
+    public Post(int userID, String title, String body, int ID) {
         super(ID);
         this.title = title;
         this.body = body;
         this.userID = userID;
-        ptr2=null;
     }
 
     public int getUserID() {
         return this.userID;
     }
-    
 
     public String getTitle() {
         return title;
@@ -42,12 +38,12 @@ public class Post extends Nodo {
     }
 
     @Override
-    public String getSingleRoute(){
+    public String getSingleRoute() {
         return "Post #" + this.getID();
     }
-    
+
     @Override
-    public String printInfo(){
+    public String printInfo() {
 //        System.out.println("");
 //        System.out.println("**********************************POST********************************************");
 //        System.out.println(userID + "   " + title + "   " + body);
@@ -55,15 +51,17 @@ public class Post extends Nodo {
 //        System.out.println("");
 //        System.out.println("**********************************COMENTARIOS********************************************");
 //        this.printAllLinks();
-    String aux=body;
-        aux=aux.replace("\\n", "");
+        String aux = body;
+        aux = aux.replace("\\n", "");
         System.out.println(title.length());
-        return ("UserID: "+userID + "\n"+"Title: " + title + "\n" +"Body: " +aux);
+        return ("UserID: " + userID + "\n" + "Title: " + title + "\n" + "Body: " + aux);
     }
 
     @Override
-    public String toString(){
-        if(etiquetaSelection)return "← ← ← ← ← ← ←";
+    public String toString() {
+        if (etiquetaSelection) {
+            return "← ← ← ← ← ← ←";
+        }
         return "📄 #" + this.getID() + ": " + this.getTitle();
     }
 
@@ -73,51 +71,53 @@ public class Post extends Nodo {
         Matcher mat;
         NodoList result = new NodoList();
         NodoList p = this.getLinks();
-        while(p!=null) {
+        while (p != null) {
             Comment c = (Comment) p.getObject();
             switch (searchTo) {
                 case "postId":
                     if (c.getPostID() == Integer.parseInt(search)) {
-                        NodoList.add(result, c);
+                        result = NodoList.add(result, c);
                     }
                     break;
                 case "id":
                     if (c.getID() == Integer.parseInt(search)) {
-                        NodoList.add(result, c);
+                        result = NodoList.add(result, c);
                         return result;
                     }
                     break;
                 case "name":
                     if (c.getName().equals(search)) {
-                        NodoList.add(result, c);
+                        result = NodoList.add(result, c);
                     }
                     break;
                 case "email":
                     if (c.getEmail().equals(search)) {
-                        NodoList.add(result, c);
+                        result = NodoList.add(result, c);
                     }
                     break;
                 case "body":
                     mat = pat.matcher(c.getBody());
                     if (mat.find()) {
-                        NodoList.add(result, c);
+                        result = NodoList.add(result, c);
                     }
                     break;
                 default:
                     System.out.println("No deberia estár aquí busqueda de comment");
                     break;
             }
-            p=p.link;
+            p = p.link;
         }
         return result;
     }
-    
-//    @Override
-//    public String WriteInfo() {
-//        StringBuffer b = new StringBuffer();
-//        
-//        b.append("Post info");
-//        
-//        return b.toString();
-//    }
+
+    @Override
+    public void showAll(){
+        NodoList p = getLinks();
+        while(p != null){
+            Nodo n = (Nodo)p.getObject();
+            System.out.println("\t\t********_💬 #"+n.getID()+"_********");
+            System.out.println(((Nodo)p.getObject()).printInfo()+"\n");
+            p = p.link;
+        }
+    }
 }
