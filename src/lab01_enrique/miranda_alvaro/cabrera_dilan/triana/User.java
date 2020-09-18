@@ -125,7 +125,7 @@ public class User extends Nodo{
         ArrayList result = new ArrayList();
         for (Nodo post : getLinks()) {
             Post p = (Post) post;
-            ArrayList c =  p.search(searchTo, search);
+            ArrayList<Nodo> c =  p.search(searchTo, search);
             if(!c.isEmpty()){
                 result.addAll(c);
             }

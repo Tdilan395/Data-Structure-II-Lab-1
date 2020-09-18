@@ -65,14 +65,15 @@ public class Nodo {
     }
     
     public ArrayList<Nodo> searchComment(String searchTo, String search){
+         ArrayList<Nodo> result = new ArrayList();
         for (Nodo user : links) {
             User u = (User) user;
             ArrayList<Nodo> c = u.searchComment(searchTo, search);
-            if(c!= null){
-                return c;
+            if(!c.isEmpty()){
+                result.addAll(c);
             }
         }
-        return null;
+        return result;
     }
     
     public ArrayList<Nodo> search(String toSearch, String search) {//user
@@ -83,7 +84,7 @@ public class Nodo {
                 case "id":
                     if (u.getID() == Integer.parseInt(search)) {
                         result.add(u);
-                        //return result;
+                        return result;
                     }
                     break;
                 case "name":
