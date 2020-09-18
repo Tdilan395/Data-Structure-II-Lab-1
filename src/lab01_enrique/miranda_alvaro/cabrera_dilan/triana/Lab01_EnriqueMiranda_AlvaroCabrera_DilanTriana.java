@@ -76,7 +76,7 @@ public class Lab01_EnriqueMiranda_AlvaroCabrera_DilanTriana {
                         }
                     } while (i == -12);
                     try {
-                        System.out.println(((Nodo) arbol.raiz.searchPost("id", responses).link.getObject()).printInfo());
+                        System.out.println(((Nodo) arbol.raiz.searchPost("id", responses).getObject()).printInfo());
                     } catch (Exception e) {
                         System.out.println("No se encontró al post con id: " + responses);
                     }
