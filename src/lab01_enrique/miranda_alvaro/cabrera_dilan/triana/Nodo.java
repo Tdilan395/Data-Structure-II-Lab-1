@@ -27,7 +27,7 @@ public class Nodo {
         return ID;
     }
     public Nodo getLink(int i){
-        return (Nodo)NodoList.getNodo(ptr, i);
+        return (Nodo)ptr.getNodo( i);
     }
 
     /**

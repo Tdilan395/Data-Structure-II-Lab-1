@@ -147,9 +147,9 @@ public class GUI_Tree extends JFrame{
                         case "Users":
                             searchResult = n_root.search((String) varType.getSelectedItem(), searchLabel.getText());
                             if (!searchResult.isEmpty()) {
-                                description.append(((Nodo)NodoList.getNodo(searchResult, 1)).printInfo());
-                                showList(((Nodo)NodoList.getNodo(searchResult,1)).getFather());
-                                matches.setText(Integer.toString(NodoList.size(searchResult)-1));
+                                description.append(((Nodo)searchResult.getNodo( 1)).printInfo());
+                                showList(((Nodo)searchResult.getNodo(1)).getFather());
+                                matches.setText(Integer.toString(searchResult.size()-1));
                             } else {
                                 description.append("No se encontró usuario buscado por " + varType.getSelectedItem() + ": " + searchLabel.getText() + "\n");
                             }
@@ -158,9 +158,9 @@ public class GUI_Tree extends JFrame{
                         case "Post":
                             searchResult = n_root.searchPost((String) varType.getSelectedItem(), searchLabel.getText());
                             if (!searchResult.isEmpty()) {
-                                description.append(((Nodo)NodoList.getNodo(searchResult, 2)).printInfo());
-                                showList(((Nodo)NodoList.getNodo(searchResult, 2)).getFather());
-                                matches.setText(Integer.toString(NodoList.size(searchResult)-2));
+                                description.append(((Nodo)searchResult.getNodo( 2)).printInfo());
+                                showList(((Nodo)searchResult.getNodo( 2)).getFather());
+                                matches.setText(Integer.toString(searchResult.size()-2));
                             } else {
                                 description.append("No se encontró post buscado por " + varType.getSelectedItem() + ": " + searchLabel.getText() + "\n");
                             }
@@ -168,9 +168,9 @@ public class GUI_Tree extends JFrame{
                         case "Comment":
                             searchResult = n_root.searchComment((String) varType.getSelectedItem(), searchLabel.getText());
                             if (!searchResult.isEmpty()) {
-                                description.append(((Nodo)NodoList.getNodo(searchResult, 3)).printInfo());
-                                showList(((Nodo)NodoList.getNodo(searchResult, 3)).getFather());
-                                matches.setText(Integer.toString(NodoList.size(searchResult)-3));
+                                description.append(((Nodo)searchResult.getNodo( 3)).printInfo());
+                                showList(((Nodo)searchResult.getNodo( 3)).getFather());
+                                matches.setText(Integer.toString(searchResult.size()-3));
                             } else {
                                 description.append("No se encontró comentario buscado por " + varType.getSelectedItem() + ": " + searchLabel.getText() + "\n");
                             }
@@ -250,13 +250,13 @@ public class GUI_Tree extends JFrame{
     
     public void plus() {
         int i = Integer.parseInt(matches.getText());
-        if (i >= NodoList.size(searchResult) - 1) {
+        if (i >= searchResult.size() - 1) {
             up.setEnabled(false);
         }
         if (i == 1) {
             down.setEnabled(true);
         }
-        matches.setText((i + 1)+" / "+NodoList.size(searchResult));
+        matches.setText((i + 1)+" / "+searchResult.size());
     }
 
     public void minus() {
@@ -264,10 +264,10 @@ public class GUI_Tree extends JFrame{
         if (i == 2) {
             down.setEnabled(false);
         }
-        if (i == NodoList.size(searchResult)) {
+        if (i == searchResult.size()) {
             up.setEnabled(true);
         }
-        matches.setText((i - 1)+" / "+NodoList.size(searchResult));
+        matches.setText((i - 1)+" / "+searchResult.size());
     }
     
     private void initComboBoxAtributes() {

@@ -29,31 +29,28 @@ public class NodoList {
         return ptr;
     }
 
-    public static Object getNodo(NodoList ptr, int pos) {
-        NodoList p = ptr;
+    public Object getNodo( int pos) {
+        NodoList p = this;
         int i = 0;
-        if (ptr == null) {
-            return null;
-        } else {
-            while (p.link != null && i != pos) {
-                i++;
-                p = p.link;
-            }
-            if (i == pos) {
-                return p.getObject();
-            } else {
-                return null;
-            }
+        while (p.link != null && i != pos) {
+            i++;
+            p = p.link;
         }
+        if (i == pos) {
+            return p.getObject();
+        } else {
+            return null;
+        }
+
     }
 
     public Object getObject() {
         return nodo;
     }
 
-    public static int size(NodoList ptr) {
+    public int size() {
         int i = 0;
-        NodoList p = ptr;
+        NodoList p = this;
         while (p != null) {
             p = p.link;
             i++;
@@ -62,17 +59,15 @@ public class NodoList {
     }
 
     public boolean isEmpty() {
-        return link==null;
+        return link == null;
     }
 
     void addAll(NodoList c) {
         NodoList p = this;
-        while(p.link!=null){
-            p=p.link;
+        while (p.link != null) {
+            p = p.link;
         }
-        p.link=c;
+        p.link = c;
     }
-    
-    
 
 }

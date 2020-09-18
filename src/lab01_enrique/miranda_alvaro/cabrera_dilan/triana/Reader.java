@@ -75,7 +75,6 @@ public class Reader {
         switch (nivel) {
             case 1:
                 NodoList usuarios = Reader.deArchivoALista(1, 23, "usuario");
-                System.out.println(NodoList.getNodo(usuarios,0));
                 User a;
                 while(usuarios!=null){
                     a = deYeisonaUser((Yeison)usuarios.getObject());
