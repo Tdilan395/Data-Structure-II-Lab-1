@@ -59,7 +59,7 @@ public class Lab01_EnriqueMiranda_AlvaroCabrera_DilanTriana {
                         }
                     } while (i == -12);
                     try {
-                        System.out.println(((Nodo) arbol.raiz.search("id", responses).getObject()).printInfo());
+                        System.out.println(arbol.raiz.search("id", responses).getObject());
                     } catch (Exception e) {
                         System.out.println("No se encontró al usuario con id: " + responses);
                     }

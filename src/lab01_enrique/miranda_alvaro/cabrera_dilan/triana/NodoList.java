@@ -20,9 +20,7 @@ public class NodoList {
         q.nodo = nodo;
         if (ptr == null) {
             ptr = q;
-        } /*else if (NodoList.getNodo(ptr, 0) == null) {
-        return q;
-        }*/ else {
+        } else {
             while (p.link != null) {
                 p = p.link;
             }
