@@ -21,7 +21,7 @@ public class AB {
     }
     
     public void print(){
-        raiz.printAllLinks();
+        raiz.showAll();
     }
     
 }

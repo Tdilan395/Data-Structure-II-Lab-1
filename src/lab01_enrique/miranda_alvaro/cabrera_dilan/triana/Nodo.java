@@ -41,23 +41,6 @@ public class Nodo {
         ptr= NodoList.add(Raiz.getLinks(),nodo);
         
     }
-
-    /**
-     *
-     * @param id
-     * @param Raiz
-     * @since 0.2
-     * @return
-     */
-    public Nodo buscar(int id, Nodo Raiz){
-        NodoList p = ptr;
-        while(p!=null){
-            Nodo aux=(Nodo)p.getObject();
-            if(aux.getID()==id) return aux;
-            else p=p.link;
-        }
-        return null;
-    }
     
     public NodoList searchPost(String searchTo, String search){
         NodoList result = new NodoList();
@@ -66,11 +49,11 @@ public class Nodo {
             User u = (User) p.getObject();
             NodoList post = u.search(searchTo, search);
             if(!post.isEmpty()){
-                result.addAll(post);
+                result = result.addAll(post);
             }
             p=p.link;
         }
-        return result;
+        return result.link;
     }
 
     
@@ -85,24 +68,15 @@ public class Nodo {
             User u = (User) p.getObject();
             NodoList c = u.searchComment(searchTo, search);
             if(!c.isEmpty()){
-                result.addAll(c);
+                result = result.addAll(c);
             }
             p=p.link;
         }
-        return result;
-    }
-    
-    public void printAllLinks(){
-        NodoList p = ptr;
-        while(p.link!=null){
-            Nodo aux=(Nodo)p.getObject();
-             aux.printInfo();
-             p=p.link;
-        }
+        return result.link;
     }
     
     public NodoList search(String toSearch, String search) {//user
-        NodoList result = new NodoList();
+        NodoList result = null;
         NodoList p = this.getLinks();
        
         while(p.link!=null){
@@ -110,78 +84,78 @@ public class Nodo {
             switch (toSearch) {
                 case "id":
                     if (u.getID() == Integer.parseInt(search)) {
-                        NodoList.add(result,u);
-                        //return result;
+                        result = NodoList.add(result,u);
+                        return result;
                     }
                     break;
                 case "name":
                     if (u.getName().equals(search)) {
-                        NodoList.add(result,u);
+                        result = NodoList.add(result,u);
                     }
                     break;
                 case "username":
                     if (u.getUsername().equals(search)) {
-                        NodoList.add(result,u);
+                        result = NodoList.add(result,u);
                     }
                     break;
                 case "email":
                     if (u.getEmail().equals(search)) {
-                        NodoList.add(result,u);
+                        result = NodoList.add(result,u);
                     }
                     break;
                 case "dir-street":
                     if (u.getAddress().getStreet().equals(search)) {
-                        NodoList.add(result,u);
+                        result = NodoList.add(result,u);
                     }
                     break;
                 case "dir-suite":
                     if (u.getAddress().getSuite().equals(search)) {
-                        NodoList.add(result,u);
+                        result = NodoList.add(result,u);
                     }
                     break;
                 case "dir-city":
                     if (u.getAddress().getCity().equals(search)) {
-                        NodoList.add(result,u);
+                        result = NodoList.add(result,u);
                     }
                     break;
                 case "dir-zipcode":
                     if (u.getAddress().getZipCode().equals(search)) {
-                        NodoList.add(result,u);
+                        result = NodoList.add(result,u);
                     }
                     break;
                 case "geo-lat":
                     if (u.getAddress().getGeo(0) == Integer.parseInt(search)) {
-                        NodoList.add(result,u);
+                        result = NodoList.add(result,u);
                     }
                     break;
                 case "geo-lng":
                     if (u.getAddress().getGeo(1) == Integer.parseInt(search)) {
-                        NodoList.add(result,u);
+                        result = NodoList.add(result,u);
                     }
                     break;
                 case "phone":
                     if (u.getPhone().equals(search)) {
-                        NodoList.add(result,u);
+                        result = NodoList.add(result,u);
                     }
                     break;
                 case "website":
                     if (u.getWebsite().equals(search)) {
-                        NodoList.add(result,u);
+                        result = NodoList.add(result,u);
                     }
                     break;
                 case "comp-name":
                     if (u.getCompany().getName().equals(search)) {
-                        NodoList.add(result,u);
+                        result = NodoList.add(result,u);
                     }
                     break;
                 case "comp-catchPharse":
                     if (u.getCompany().getCatchPhrase().equals(search)) {
-                        NodoList.add(result,u);
+                        result = NodoList.add(result,u);
                     }
                     break;
                 case "comp-bs":
                     if (u.getCompany().getBs().equals(search)) {
-                        NodoList.add(result,u);
+                        result = NodoList.add(result,u);
                     }
                     break;
                 default:
@@ -201,13 +175,6 @@ public class Nodo {
     public String getSingleRoute(){
         return "";
     }
-//    public String WriteInfo() {
-//        StringBuffer b = new StringBuffer();
-//        
-//        b.append("Nodo info");
-//        
-//        return b.toString();
-//    }
 
     public Nodo getFather() {
         return father;
@@ -217,5 +184,16 @@ public class Nodo {
     public String toString(){
         if(etiquetaSelection)return "← ← ← ← ← ← ←";
         return "Users";
+    }
+    
+    public void showAll(){
+        NodoList p = getLinks();
+        while(p != null){
+            Nodo n = (Nodo)p.getObject();
+            System.out.println("*************_👤 #"+n.getID()+"_*************");
+            System.out.println(((Nodo)p.getObject()).printInfo()+"\n");
+            n.showAll();
+            p = p.link;
+        }
     }
 }
