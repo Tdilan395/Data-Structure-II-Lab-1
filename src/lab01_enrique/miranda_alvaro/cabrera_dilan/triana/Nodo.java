@@ -92,7 +92,7 @@ public class Nodo {
             }
             p=p.link;
         }
-        if(result.link.link==null)return new NodoList();
+        if(result.link == null || result.link.link==null)return new NodoList();
         return result.link.link;
     }
     

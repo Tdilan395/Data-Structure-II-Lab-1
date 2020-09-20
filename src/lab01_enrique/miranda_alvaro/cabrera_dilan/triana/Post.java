@@ -92,18 +92,18 @@ public class Post extends Nodo {
                     break;
                 case "name":
                     if (c.getName().equals(search)) {
-                        NodoList.add(result, c);
+                        result = NodoList.add(result, c);
                     }
                     break;
                 case "email":
                     if (c.getEmail().equals(search)) {
-                        NodoList.add(result, c);
+                        result = NodoList.add(result, c);
                     }
                     break;
                 case "body":
                     mat = pat.matcher(c.getBody());
                     if (mat.find()) {
-                        NodoList.add(result, c);
+                        result = NodoList.add(result, c);
                     }
                     break;
                 default:

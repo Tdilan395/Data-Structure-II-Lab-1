@@ -115,12 +115,12 @@ public class User extends Nodo {
                 case "title":
                     mat = pat.matcher(post.getTitle());
                     if(mat.find()){
-                        NodoList.add(result, post);
+                        result = NodoList.add(result, post);
                     }
                 case "body":
                     mat = pat.matcher(post.getBody());
                     if(mat.find()){
-                        NodoList.add(result, post);
+                        result = NodoList.add(result, post);
                     }
                     break;
                 default:

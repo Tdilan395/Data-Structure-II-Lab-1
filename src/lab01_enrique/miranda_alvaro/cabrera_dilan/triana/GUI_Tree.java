@@ -7,7 +7,6 @@ package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -163,12 +162,33 @@ public class GUI_Tree extends JFrame{
                     if (!searchResult.isEmpty()) {
                         description.append(((Nodo) searchResult.getNodo(0)).printInfo());
                         showList(((Nodo) searchResult.getNodo(0)).getFather());
-                        matches.setText(Integer.toString(searchResult.size()));
+                        matches.setText("1");
                     } else {
                         description.append("No se encontró "+ (String) nodoType.getSelectedItem() +" buscado por " + varType.getSelectedItem() + ": " + searchLabel.getText() + "\n");
                     }
                     searchLabel.setText("");
+                    setPages();
                 }
+            }
+        });
+        
+        up.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                minus();
+                int i = Integer.parseInt(matches.getText())-1;
+                description.setText("");
+                description.append(((Nodo) searchResult.getNodo(i)).printInfo());
+                showList(((Nodo) searchResult.getNodo(i)).getFather());
+            }
+        });
+        
+        down.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                plus();
+                int i = Integer.parseInt(matches.getText())-1;
+                description.setText("");
+                description.append(((Nodo) searchResult.getNodo(i)).printInfo());
+                showList(((Nodo) searchResult.getNodo(i)).getFather());
             }
         });
         
@@ -181,9 +201,6 @@ public class GUI_Tree extends JFrame{
             if(n instanceof Comment)searchOwner.setEnabled(true);
             else searchOwner.setEnabled(false);
             
-            description.setLineWrap(true);
-            description.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-            description.setWrapStyleWord(true);
             description.setText(n.printInfo());
             searchResult = new NodoList();
             up.setEnabled(false);
@@ -242,23 +259,34 @@ public class GUI_Tree extends JFrame{
     public void plus() {
         int i = Integer.parseInt(matches.getText());
         if (i >= searchResult.size() - 1) {
-            up.setEnabled(false);
+            down.setEnabled(false);
         }
         if (i == 1) {
-            down.setEnabled(true);
+            up.setEnabled(true);
         }
-        matches.setText((i + 1)+" / "+searchResult.size());
+        matches.setText(String.valueOf(i + 1));
     }
 
     public void minus() {
         int i = Integer.parseInt(matches.getText());
         if (i == 2) {
-            down.setEnabled(false);
+            up.setEnabled(false);
         }
         if (i == searchResult.size()) {
-            up.setEnabled(true);
+            down.setEnabled(true);
         }
-        matches.setText((i - 1)+" / "+searchResult.size());
+        matches.setText(String.valueOf(i - 1));
+    }
+    
+    private void setPages() {
+        if (searchResult == null || searchResult.isEmpty()) {
+            matches.setText("0");
+        } else if (searchResult.size() == 1) {
+            matches.setText("1");
+        } else if (searchResult.size() > 1) {
+            matches.setText("1");
+            down.setEnabled(true);
+        }
     }
     
     private void initComboBoxAtributes() {
@@ -293,7 +321,6 @@ public class GUI_Tree extends JFrame{
     
 
     public DefaultMutableTreeNode getRoot() {
-
         return root;
     }
 
