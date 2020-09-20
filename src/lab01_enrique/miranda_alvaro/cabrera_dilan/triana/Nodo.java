@@ -6,6 +6,8 @@
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
 import com.sun.org.apache.bcel.internal.generic.AALOAD;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 
@@ -106,6 +108,8 @@ public class Nodo {
     }
     
     public NodoList search(String toSearch, String search) {//user
+        Pattern pat = Pattern.compile(search);
+        Matcher mat;
         NodoList result = null;
         NodoList p = this.getLinks();
        
@@ -120,8 +124,9 @@ public class Nodo {
                     }
                     break;
                 case "name":
-                    if (u.getName().equals(search)) {
-                        NodoList.add(result,u);
+                    mat = pat.matcher(u.getName());
+                    if (mat.find()) {
+                        result = NodoList.add(result, u);
                     }
                     break;
                 case "username":
@@ -134,33 +139,8 @@ public class Nodo {
                         NodoList.add(result,u);
                     }
                     break;
-                case "dir-street":
-                    if (u.getAddress().getStreet().equals(search)) {
-                        NodoList.add(result,u);
-                    }
-                    break;
-                case "dir-suite":
-                    if (u.getAddress().getSuite().equals(search)) {
-                        NodoList.add(result,u);
-                    }
-                    break;
                 case "dir-city":
                     if (u.getAddress().getCity().equals(search)) {
-                        NodoList.add(result,u);
-                    }
-                    break;
-                case "dir-zipcode":
-                    if (u.getAddress().getZipCode().equals(search)) {
-                        NodoList.add(result,u);
-                    }
-                    break;
-                case "geo-lat":
-                    if (u.getAddress().getGeo(0) == Integer.parseInt(search)) {
-                        NodoList.add(result,u);
-                    }
-                    break;
-                case "geo-lng":
-                    if (u.getAddress().getGeo(1) == Integer.parseInt(search)) {
                         NodoList.add(result,u);
                     }
                     break;
@@ -176,16 +156,6 @@ public class Nodo {
                     break;
                 case "comp-name":
                     if (u.getCompany().getName().equals(search)) {
-                        NodoList.add(result,u);
-                    }
-                    break;
-                case "comp-catchPharse":
-                    if (u.getCompany().getCatchPhrase().equals(search)) {
-                        NodoList.add(result,u);
-                    }
-                    break;
-                case "comp-bs":
-                    if (u.getCompany().getBs().equals(search)) {
                         NodoList.add(result,u);
                     }
                     break;

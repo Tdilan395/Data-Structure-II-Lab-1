@@ -295,17 +295,10 @@ public class GUI_Tree extends JFrame{
         this.search_atributes[0].addElement("name");
         this.search_atributes[0].addElement("username");
         this.search_atributes[0].addElement("email");
-        this.search_atributes[0].addElement("dir-street");
-        this.search_atributes[0].addElement("dir-suite");
         this.search_atributes[0].addElement("dir-city");
-        this.search_atributes[0].addElement("dir-zipcode");
-        this.search_atributes[0].addElement("geo-lat");
-        this.search_atributes[0].addElement("geo-lng");
         this.search_atributes[0].addElement("phone");
         this.search_atributes[0].addElement("website");
         this.search_atributes[0].addElement("comp-name");
-        this.search_atributes[0].addElement("comp-catchPhrase");
-        this.search_atributes[0].addElement("comp-bs");
         this.search_atributes[1] = new DefaultComboBoxModel();
         this.search_atributes[1].addElement("userId");
         this.search_atributes[1].addElement("id");
@@ -317,11 +310,6 @@ public class GUI_Tree extends JFrame{
         this.search_atributes[2].addElement("name");
         this.search_atributes[2].addElement("email");
         this.search_atributes[2].addElement("body");
-    }
-    
-
-    public DefaultMutableTreeNode getRoot() {
-        return root;
     }
 
 }
