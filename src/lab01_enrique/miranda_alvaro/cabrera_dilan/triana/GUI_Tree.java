@@ -47,6 +47,7 @@ public class GUI_Tree extends JFrame{
     private long now,past;
     private Nodo n_root;
     private DefaultComboBoxModel search_atributes[];
+    private DefaultListModel userPlaneModel,commentPlaneModel,postPlaneModel;
     
     
     public GUI_Tree(String title, Nodo n_root,int width){
@@ -84,6 +85,9 @@ public class GUI_Tree extends JFrame{
         descripcionBar= new JScrollPane();
         panel = new JPanel();
         past=System.nanoTime();
+        userPlaneModel=new DefaultListModel();
+        commentPlaneModel=new DefaultListModel();
+        this.postPlaneModel=new DefaultListModel();
         init();
     }
 
@@ -131,7 +135,10 @@ public class GUI_Tree extends JFrame{
         panel.add(filter);
         descripcionBar.setViewportView(description);
         treeBar.setViewportView(tree);
-
+        
+        showCommentsModel(commentPlaneModel);
+        showPlaneModel(n_root, 0, postPlaneModel);
+        showUsersModel(userPlaneModel);
         this.setResizable(false);
         this.setVisible(true);
 
@@ -148,17 +155,24 @@ public class GUI_Tree extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 
                 DefaultListModel model = (DefaultListModel)tree.getModel();
-                setEtiquetasFalse();
-                model.clear();
+                //setEtiquetasFalse();
+                
+                
                 switch((String)filterType.getSelectedItem()){
                         case "Users":
-                            showUsersModel(model);
+                            routeLabel.setText("Route:\\\\ Init");
+                            tree.setModel(userPlaneModel);
+//                            showUsersModel(model);
                             break;
                         case "Post":
-                            showPlaneModel(n_root,0,model);
+                            routeLabel.setText("Route:\\\\ Init_Posts");
+                            tree.setModel(postPlaneModel);
+//                            showPlaneModel(n_root,0,model);
                             break;
                         case "Comment":
-                            showCommentsModel(model);
+                            routeLabel.setText("Route:\\\\ Init_Comments");
+                            tree.setModel(commentPlaneModel);
+//                          showCommentsModel(model);
                             break;
                 }
                 
@@ -276,7 +290,9 @@ public class GUI_Tree extends JFrame{
     }
     
     private void showList(Nodo nodo) {
-        DefaultListModel modelo = (DefaultListModel)tree.getModel();
+        
+        DefaultListModel modelo =(tree.getModel()==userPlaneModel||tree.getModel()==commentPlaneModel||tree.getModel()==postPlaneModel)? new DefaultListModel():(DefaultListModel)tree.getModel();
+        if(modelo.isEmpty())tree.setModel(modelo);
         modelo.clear();
         setRoute(nodo);
         if (nodo.getFather() != null) {
@@ -367,12 +383,12 @@ public class GUI_Tree extends JFrame{
     }
 
     private void showPlaneModel(Nodo core, int i, DefaultListModel model) {
-        if (i >= core.getLinks().size()) {
+        if (i == core.getLinks().size()) {
             return;
         }
         
         NodoList p = core.getLink(i).getLinks();
-        while (p != null) {
+        while (p != null){
             model.addElement(p.getObject());
             p = p.link;
         }
@@ -382,9 +398,12 @@ public class GUI_Tree extends JFrame{
 
     private void showCommentsModel(DefaultListModel model) {
         NodoList p = n_root.getLinks();
+        int i=0;
         while (p != null) {
             showPlaneModel((Nodo) p.getObject(), 0, model);
             p = p.link;
+            System.out.println(i);
+            i++;
         }
     }
 
