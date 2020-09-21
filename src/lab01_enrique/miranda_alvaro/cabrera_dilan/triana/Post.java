@@ -61,7 +61,6 @@ public class Post extends Nodo {
 //        this.printAllLinks();
     String aux=body;
         aux=aux.replace("\\n", "");
-        System.out.println(title.length());
         return ("UserID: "+userID + "\n"+"Title: " + title + "\n" +"Body: " +aux);
     }
 

@@ -5,7 +5,6 @@
  */
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

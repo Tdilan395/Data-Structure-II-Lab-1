@@ -7,6 +7,8 @@ package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -19,21 +21,20 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  *
  * @author Domain
  */
 public class GUI_Tree extends JFrame{
-    private DefaultMutableTreeNode root;
+    private Nodo backRoot;
     private JPanel panel;
     private int width, height;
     private JTextArea description;
     private JScrollPane treeBar;
     private JScrollPane descripcionBar;
     private JButton search;
-    private JButton searchOwner;
+    private JButton filter;
     private JButton up,down;
     private JTextField searchLabel;
     private JTextField routeLabel;
@@ -41,6 +42,7 @@ public class GUI_Tree extends JFrame{
     private JList tree;
     private JComboBox nodoType;
     private JComboBox varType;
+    private JComboBox filterType;
     private NodoList searchResult;
     private long now,past;
     private Nodo n_root;
@@ -51,7 +53,6 @@ public class GUI_Tree extends JFrame{
         super(title);
         this.width=width;
         this.height=width/16*9;
-        root= new DefaultMutableTreeNode(n_root);
         this.n_root = n_root;
         searchResult = new NodoList();
         DefaultListModel model = new DefaultListModel();
@@ -64,7 +65,7 @@ public class GUI_Tree extends JFrame{
         treeBar=new JScrollPane();
         description= new JTextArea();
         search = new JButton("Buscar");
-        searchOwner = new JButton("Buscar Usuario");
+        filter = new JButton("Filtrar");
         up=new JButton("🔼");
         down= new JButton("🔽");
         searchLabel = new  JTextField();
@@ -73,8 +74,9 @@ public class GUI_Tree extends JFrame{
         matches = new JTextField();
         matches.setText("");
         routeLabel = new JTextField("Route:\\\\ Init");
-        String nodoTypeOptions[]= {"Users","Post","Comment"}; 
-        nodoType = new JComboBox(nodoTypeOptions);
+        String[] basicTypeOptions= {"Users","Post","Comment"}; 
+        nodoType = new JComboBox(basicTypeOptions);
+        filterType= new JComboBox(basicTypeOptions);
         varType = new JComboBox();
         search_atributes = new DefaultComboBoxModel[3];
         initComboBoxAtributes();
@@ -110,7 +112,10 @@ public class GUI_Tree extends JFrame{
         nodoType.setBounds(110, 10, 80, 25);
         varType.setBounds(200, 10, 80, 25);
         search.setBounds(290, 10, 80, 25);
-        searchOwner.setBounds(width/2-50, 95+height/2, 80, 25);
+        filter.setBounds(100,height-80,80, 25);
+        filterType.setBounds(10, height-80,80, 25);
+        
+        matches.setHorizontalAlignment((int) CENTER_ALIGNMENT);
         
         panel.add(descripcionBar);
         panel.add(treeBar);
@@ -121,10 +126,9 @@ public class GUI_Tree extends JFrame{
         panel.add(searchLabel);
         panel.add(nodoType);
         panel.add(varType);
+        panel.add(filterType);
         panel.add(search);
-        panel.add(searchOwner);
-
-        searchOwner.setEnabled(false);
+        panel.add(filter);
         descripcionBar.setViewportView(description);
         treeBar.setViewportView(tree);
 
@@ -132,18 +136,40 @@ public class GUI_Tree extends JFrame{
         this.setVisible(true);
 
         nodoType.addItemListener(new java.awt.event.ItemListener() {
+            @Override
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 varType.setModel(search_atributes[nodoType.getSelectedIndex()]);
             }
         });
         
-        search.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        filter.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
                 
-                if(searchResult.getNodo(0) instanceof Comment){
-                    tree.setSelectedIndex(0);
-                    ((Nodo)tree.getSelectedValue()).etiquetaSelection=false;
+                DefaultListModel model = (DefaultListModel)tree.getModel();
+                setEtiquetasFalse();
+                model.clear();
+                switch((String)filterType.getSelectedItem()){
+                        case "Users":
+                            showUsersModel(model);
+                            break;
+                        case "Post":
+                            showPlaneModel(n_root,0,model);
+                            break;
+                        case "Comment":
+                            showCommentsModel(model);
+                            break;
                 }
+                
+            }
+
+
+        });
+        
+        search.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 
                 if (!searchLabel.getText().isEmpty()) {
                     description.setText("");
@@ -170,12 +196,16 @@ public class GUI_Tree extends JFrame{
                     setPages();
                 }
             }
+
+
         });
         
         up.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 minus();
-                int i = Integer.parseInt(matches.getText())-1;
+                String iValue = matches.getText().substring(0, indexOf(matches.getText(), "/"));
+                int i = Integer.parseInt(iValue)-1;
                 description.setText("");
                 description.append(((Nodo) searchResult.getNodo(i)).printInfo());
                 showList(((Nodo) searchResult.getNodo(i)).getFather());
@@ -183,9 +213,11 @@ public class GUI_Tree extends JFrame{
         });
         
         down.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 plus();
-                int i = Integer.parseInt(matches.getText())-1;
+                String iValue = matches.getText().substring(0, indexOf(matches.getText(), "/"));
+                int i = Integer.parseInt(iValue)-1;
                 description.setText("");
                 description.append(((Nodo) searchResult.getNodo(i)).printInfo());
                 showList(((Nodo) searchResult.getNodo(i)).getFather());
@@ -198,8 +230,6 @@ public class GUI_Tree extends JFrame{
             
             Nodo n = (Nodo)tree.getSelectedValue();
             if(n==null)return;
-            if(n instanceof Comment)searchOwner.setEnabled(true);
-            else searchOwner.setEnabled(false);
             
             description.setText(n.printInfo());
             searchResult = new NodoList();
@@ -230,6 +260,10 @@ public class GUI_Tree extends JFrame{
         });
     }
     
+    private void setEtiquetasFalse() {
+        if(backRoot!=null)backRoot.etiquetaSelection=false;
+    }
+    
     public void setRoute(Nodo nodo){
         Nodo p = nodo;
         String route="";
@@ -246,7 +280,9 @@ public class GUI_Tree extends JFrame{
         modelo.clear();
         setRoute(nodo);
         if (nodo.getFather() != null) {
+            setEtiquetasFalse();
             nodo.getFather().etiquetaSelection = true;
+            backRoot = nodo.getFather();
         }
         modelo.addElement(nodo.getFather());
         NodoList p = nodo.getLinks();
@@ -257,25 +293,27 @@ public class GUI_Tree extends JFrame{
     }
     
     public void plus() {
-        int i = Integer.parseInt(matches.getText());
+        String iValue = matches.getText().substring(0, indexOf(matches.getText(), "/"));
+        int i = Integer.parseInt(iValue);
         if (i >= searchResult.size() - 1) {
             down.setEnabled(false);
         }
         if (i == 1) {
             up.setEnabled(true);
         }
-        matches.setText(String.valueOf(i + 1));
+        matches.setText(String.valueOf(i + 1)+ "/" + searchResult.size());
     }
 
     public void minus() {
-        int i = Integer.parseInt(matches.getText());
+        String iValue = matches.getText().substring(0, indexOf(matches.getText(), "/"));
+        int i = Integer.parseInt(iValue);
         if (i == 2) {
             up.setEnabled(false);
         }
         if (i == searchResult.size()) {
             down.setEnabled(true);
         }
-        matches.setText(String.valueOf(i - 1));
+        matches.setText(String.valueOf(i - 1) + "/" + searchResult.size());
     }
     
     private void setPages() {
@@ -284,7 +322,7 @@ public class GUI_Tree extends JFrame{
         } else if (searchResult.size() == 1) {
             matches.setText("1");
         } else if (searchResult.size() > 1) {
-            matches.setText("1");
+            matches.setText("1/"+searchResult.size());
             down.setEnabled(true);
         }
     }
@@ -295,7 +333,7 @@ public class GUI_Tree extends JFrame{
         this.search_atributes[0].addElement("name");
         this.search_atributes[0].addElement("username");
         this.search_atributes[0].addElement("email");
-        this.search_atributes[0].addElement("dir-city");
+        this.search_atributes[0].addElement("city");
         this.search_atributes[0].addElement("phone");
         this.search_atributes[0].addElement("website");
         this.search_atributes[0].addElement("comp-name");
@@ -310,6 +348,44 @@ public class GUI_Tree extends JFrame{
         this.search_atributes[2].addElement("name");
         this.search_atributes[2].addElement("email");
         this.search_atributes[2].addElement("body");
+    }
+
+    private int indexOf(String text, String key) {
+        
+        for (int i = 0; i < text.length(); i++) {
+            if(text.substring(i, i+1).equals(key))return i;
+        }
+        return -1;
+    }
+    
+    private void showUsersModel(DefaultListModel model) {
+        NodoList p = n_root.getLinks();
+        while (p != null) {
+            model.addElement(p.getObject());
+            p = p.link;
+        }
+    }
+
+    private void showPlaneModel(Nodo core, int i, DefaultListModel model) {
+        if (i >= core.getLinks().size()) {
+            return;
+        }
+        
+        NodoList p = core.getLink(i).getLinks();
+        while (p != null) {
+            model.addElement(p.getObject());
+            p = p.link;
+        }
+        
+        showPlaneModel(core, i + 1, model);
+    }
+
+    private void showCommentsModel(DefaultListModel model) {
+        NodoList p = n_root.getLinks();
+        while (p != null) {
+            showPlaneModel((Nodo) p.getObject(), 0, model);
+            p = p.link;
+        }
     }
 
 }
