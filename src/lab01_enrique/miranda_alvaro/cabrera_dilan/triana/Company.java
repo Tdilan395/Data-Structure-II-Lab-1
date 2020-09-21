@@ -9,7 +9,7 @@ package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
  *Esta clase contiene todos los atributos y metodos de una compañia
  * @author Dilan Triana
  */
-class Company {
+public class Company {
    private String name;
    private String catchPhrase;
    private String bs;
@@ -45,12 +45,9 @@ class Company {
     public String getBs() {
         return bs;
     }
-    /**
-     * Metodo para imprimir toda la inforación del objeto en una cadena de caracteres
-     * @return toda la información del objeto
-     */
-    String printInfo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    public String printInfo() {
+        return ("\n  Name: "+name+"\n  CatchPhrase: "+catchPhrase+" \n  Bs: "+bs);
     }
    
    

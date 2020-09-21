@@ -5,7 +5,7 @@
  */
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
-import java.util.ArrayList;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,9 +17,7 @@ import java.util.regex.Pattern;
  */
 public class Yeison {
 
-    /*
-  
-     */
+   
     private StringBuffer buff;
     /**
      * Metodo constructor parametrizado
@@ -50,7 +48,6 @@ public class Yeison {
                     s.append(mat.group().replace("\"" + key + "\": ", "").replace("\"", ""));
                 }
             }
-
         }
         return s.toString();
     }

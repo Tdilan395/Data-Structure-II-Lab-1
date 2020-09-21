@@ -5,27 +5,28 @@
  */
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
-import java.util.ArrayList;
+import com.sun.org.apache.bcel.internal.generic.AALOAD;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+
 
 /**
  * Esta clase contiene todos los atributos y metodos de un Nodo
  * @author Domain
  */
 public class Nodo {
+
     private final int ID;
-    private ArrayList<Nodo> links;
-    /**
-     * Metodo constructor parametrizado
-     * @param ID  id del nodo
-     */
+    private Nodo father;
+    protected Boolean etiquetaSelection=false;
+    private NodoList ptr;
     public Nodo(int ID) {
         this.ID = ID;
-        links = new ArrayList<>();
+        ptr=null;
+   
     }
-    /**
-     * Metodo para obtener el id del nodo
-     * @return Id del nodo
-     */
+
     public int getID() {
         return ID;
     }
@@ -35,9 +36,9 @@ public class Nodo {
      * @return Nodo i-esimo
      */
     public Nodo getLink(int i){
-        return links.get(i);
+        return (Nodo)ptr.getNodo( i);
     }
-    
+
     /**
      * Metodo para insertar Nodos
      * @param nodo nodo que se desea insertar
@@ -45,9 +46,11 @@ public class Nodo {
      * @since 0.2
      */
     public void insertar(Nodo nodo, Nodo Raiz) {
-        Raiz.getLinks().add(nodo);
+        nodo.father=Raiz;
+        ptr= NodoList.add(Raiz.getLinks(),nodo);
+        
     }
-    
+
     /**
      *
      * @param id
@@ -56,27 +59,144 @@ public class Nodo {
      * @return
      */
     public Nodo buscar(int id, Nodo Raiz){
-        for (Nodo link : Raiz.links) {
-            if (link.getID() == id) return link;
+        NodoList p = ptr;
+        while(p!=null){
+            Nodo aux=(Nodo)p.getObject();
+            if(aux.getID()==id) return aux;
+            else p=p.link;
         }
         return null;
     }
-    /**
-     * Metodo para obtener la lista de hijos del nodo
-     * @return Hijos del nodo
-     */
-    public ArrayList<Nodo> getLinks(){
-        return this.links;
+    
+    public NodoList searchPost(String searchTo, String search){
+        NodoList result = new NodoList();
+        NodoList p = this.getLinks();
+        while(p!=null) {
+            User u = (User) p.getObject();
+            NodoList post = u.search(searchTo, search);
+            if(!post.isEmpty()){
+                result.addAll(post);
+            }
+            p=p.link;
+        }
+        if(result.link==null)return new NodoList();
+        return result.link;
+    }
+
+    
+    public NodoList getLinks(){
+        return this.ptr;
+    }
+    
+    public NodoList searchComment(String searchTo, String search){
+        NodoList result = new NodoList();
+        NodoList p = this.getLinks();
+        while(p!=null){
+            User u = (User) p.getObject();
+            NodoList c = u.searchComment(searchTo, search);
+            if(!c.isEmpty()){
+                result.addAll(c);
+            }
+            p=p.link;
+        }
+        if(result.link == null || result.link.link==null)return new NodoList();
+        return result.link.link;
     }
     
     public void printAllLinks(){
-        for (Nodo link : links) {
-            link.printInfo();
+        NodoList p = ptr;
+        while(p.link!=null){
+            Nodo aux=(Nodo)p.getObject();
+             aux.printInfo();
+             p=p.link;
         }
     }
+    
+    public NodoList search(String toSearch, String search) {//user
+        Pattern pat = Pattern.compile(search);
+        Matcher mat;
+        NodoList result = null;
+        NodoList p = this.getLinks();
+       
+        while(p!=null){
+            User u = (User) p.getObject();
+            switch (toSearch) {
+                case "id":
+                    if (String.valueOf(u.getID()).equals(search)) {
+                        result = NodoList.add(result,u);
+                        if(result==null) return new NodoList();
+                        return result;
+                    }
+                    break;
+                case "name":
+                    mat = pat.matcher(u.getName());
+                    if (mat.find()) {
+                        result = NodoList.add(result, u);
+                    }
+                    break;
+                case "username":
+                    if (u.getUsername().equals(search)) {
+                        NodoList.add(result,u);
+                    }
+                    break;
+                case "email":
+                    if (u.getEmail().equals(search)) {
+                        NodoList.add(result,u);
+                    }
+                    break;
+                case "dir-city":
+                    if (u.getAddress().getCity().equals(search)) {
+                        NodoList.add(result,u);
+                    }
+                    break;
+                case "phone":
+                    if (u.getPhone().equals(search)) {
+                        NodoList.add(result,u);
+                    }
+                    break;
+                case "website":
+                    if (u.getWebsite().equals(search)) {
+                        NodoList.add(result,u);
+                    }
+                    break;
+                case "comp-name":
+                    if (u.getCompany().getName().equals(search)) {
+                        NodoList.add(result,u);
+                    }
+                    break;
+                default:
+                    System.out.println("Aquí no deberia llegar busqueda de usuarios desde nodo raiz");
+                    break;
+            }
+            p=p.link;
+        }
+        if (result == null)return new NodoList();
+        return result;
+    }
 
-    public void printInfo() {
-        
+
+    public String printInfo() {
+        return "";
     }
     
+    public String getSingleRoute(){
+        return "";
+    }
+//    public String WriteInfo() {
+//        StringBuffer b = new StringBuffer();
+//        
+//        b.append("Nodo info");
+//        
+//        return b.toString();
+//    }
+
+    public Nodo getFather() {
+        return father;
+    }
+    
+    @Override
+    public String toString(){
+        if(etiquetaSelection)return "← ← ← Back ← ← ← ";
+        return "Users";
+    }
 }

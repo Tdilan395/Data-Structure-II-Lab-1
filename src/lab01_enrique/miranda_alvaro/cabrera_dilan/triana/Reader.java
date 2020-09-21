@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 
 
 /**
@@ -22,16 +21,9 @@ import java.util.ArrayList;
  * @see Post
  */
 public class Reader {
-    /**
-     * Metodo para leer un archivo de formato JSON y transformarlos a una lista de objetos Yeison
-     * @param lim1 indica la linea en la que empieza el objeto dentro del formato JSON
-     * @param lim2 indica la linea en la que termina el objeto dentro del formato JSON
-     * @param ruta indica el nombre del archivo donde se encuentra la lista de objetos JSON
-     * @return Una lista de objetos tipo Yeison 
-     */
-    public static ArrayList<Yeison> deArchivoALista(int lim1, int lim2, String ruta) {
-        ArrayList<Yeison> objetos = new ArrayList();
-        ArrayList<String> atributos = new ArrayList(); //DESCOMENTAR TODO LO RELACIONADO Y EL SOUT *******USERSSSSSSSSSSSSSSSSSE******** PARA PROBAR YEISON
+
+    public static NodoList deArchivoALista(int lim1, int lim2, String ruta) {
+        NodoList objetos=null;
         File f = new File(ruta + ".txt");
 
         try {
@@ -39,24 +31,15 @@ public class Reader {
             int cont = 0;
             String linea;
             String object = "";
-            atributos.add(object);
             while ((linea = br.readLine()) != null) {
                 if (cont >= lim1 && cont <= lim2) {
-                    atributos.add(linea);
                     object +=linea+"\n";
                 }
                 cont++;
                 if (cont == lim2) {
-                   object+= "},";
-                    //System.out.println("************************************USERSSSSSSSSSSSSSSSSSE*****************************************");
+                   object+= "},"; 
                     Yeison y = new Yeison(object);
-//                    Yeison a = new Yeison(y.get("address"));
-//                    Yeison g = new Yeison(a.get("geo"));
-//                    System.out.println(g.get("lat"));
-                    
-                    //atributos.clear();
-                    objetos.add(y);
-                 // System.out.println(object);
+                    objetos=NodoList.add(objetos, y);
                     object = "";
                     cont = 0;
                 }
@@ -111,44 +94,46 @@ public class Reader {
     public static void Agregar(int nivel, Nodo raiz) {
         switch (nivel) {
             case 1:
-                ArrayList<Yeison> usuarios = Reader.deArchivoALista(1, 23, "usuario");
+                NodoList usuarios = Reader.deArchivoALista(1, 23, "usuario");
                 User a;
-                for (Yeison usuario : usuarios) {
-                    a = deYeisonaUser(usuario);
+                while(usuarios!=null){
+                    a = deYeisonaUser((Yeison)usuarios.getObject());
                     raiz.insertar(a, raiz);
                     Agregar(2, a);
+                    usuarios=usuarios.link;
                 }
                 break;
             case 2:
-                ArrayList<Yeison> posts = Reader.deArchivoALista(1, 6, "posts");
+                NodoList posts = Reader.deArchivoALista(1, 6, "posts");
                 Post p;
-
-                for (Yeison post : posts) {
-                    p = deYeisonaPost(post);
+                
+                while(posts!=null){
+                    p = deYeisonaPost((Yeison)posts.getObject());
 
                     if (p.getUserID() == raiz.getID()) {
-                        p.insertar(p, raiz);
+                        raiz.insertar(p, raiz);
                         Agregar(3, p);
-
+                        
                     }
-                    if (!p.getLinks().isEmpty() && p.getUserID() != raiz.getID()) {
+                    if (p.getLinks()!=null && p.getUserID() != raiz.getID()) {
                         break;
                     }
+                    posts=posts.link;
 //
                 }
                 break;
             case 3:
-                ArrayList<Yeison> comentarios = Reader.deArchivoALista(1, 7, "comments");
+                NodoList comentarios = Reader.deArchivoALista(1, 7, "comments");
                 Comment c;
 
-                for (Yeison comentario : comentarios) {
-                    c = deYeisonaComment(comentario);
+                while(comentarios!=null){
+                    c = deYeisonaComment((Yeison) comentarios.getObject());
 
                     if (c.getPostID() == raiz.getID()) {
-                        c.insertar(c, raiz);
+                        raiz.insertar(c, raiz);
 
                     }
-
+                    comentarios=comentarios.link;
                 }
                 break;
             default:
