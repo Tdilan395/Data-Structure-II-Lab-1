@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -31,7 +32,7 @@ public class GUI_Tree extends JFrame {
     private final int height;
     private final JTextArea description;
     private final JScrollPane treeBar;
-    private final JScrollPane descripcionBar;
+    private JScrollPane descriptionBar;
     private final JButton search;
     private final JButton filter;
     private final JButton up;
@@ -65,8 +66,8 @@ public class GUI_Tree extends JFrame {
         this.n_root = n_root;
         searchResult = new List();
         DefaultListModel model = new DefaultListModel();
-        List p = n_root.getLinks();
-        while (p != null) {
+        NodoList p = n_root.getLinks();
+        while(p!=null){
             model.addElement(p.getObject());
             p = p.link;
         }
@@ -90,7 +91,7 @@ public class GUI_Tree extends JFrame {
         search_atributes = new DefaultComboBoxModel[3];
         initComboBoxAtributes();
         varType.setModel(search_atributes[nodoType.getSelectedIndex()]);
-        descripcionBar = new JScrollPane();
+        descriptionBar= new JScrollPane();
         panel = new JPanel();
         past = System.nanoTime();
         userPlaneModel = new DefaultListModel();
@@ -116,24 +117,65 @@ public class GUI_Tree extends JFrame {
         panel.setLayout(null);
         panel.setBackground(Color.GRAY);
         this.getContentPane().add(panel);
-
-        descripcionBar.setBounds(width / 2 - 50, 90, width / 2 - 100, height / 2);
-        treeBar.setBounds(5, 90, width / 2 - 100, height / 2);
-        down.setBounds(5 + treeBar.getWidth() / 2 - 80, 95 + height / 2, 50, 30);
-        up.setBounds(5 + treeBar.getWidth() / 2 + 30, 95 + height / 2, 50, 30);
-        matches.setBounds(5 + treeBar.getWidth() / 2 - 25, 95 + height / 2, 50, 30);
-        routeLabel.setBounds(5, 60, width / 2 - 100, 25);
+        
+        descriptionBar.setBounds(width/2-50, 90, width/2-100, height/2);
+        treeBar.setBounds(5, 90, width/2-100, height/2);
+        up.setBounds(5+treeBar.getWidth()/2-80, 95+height/2, 50, 30);
+        down.setBounds(5+treeBar.getWidth()/2+30, 95+height/2, 50, 30);
+        matches.setBounds(5+treeBar.getWidth()/2-25, 95+height/2, 50, 30);
+        routeLabel.setBounds(5, 60, width/2-100,25);
         searchLabel.setBounds(10, 10, 80, 25);
-        searchLabel.setBackground(Color.WHITE);
         nodoType.setBounds(110, 10, 80, 25);
         varType.setBounds(200, 10, 80, 25);
         search.setBounds(290, 10, 80, 25);
-        filter.setBounds(100, height - 80, 80, 25);
-        filterType.setBounds(10, height - 80, 80, 25);
-
+        filter.setBounds(100,height-80,80, 25);
+        filterType.setBounds(10, height-80,80, 25);
+        
+        //ComboBoxes
+        filterType.setBackground(new Color(0xfff0a500));
+        filterType.setForeground(Color.BLACK);
+        filterType.setFocusable(false);
+        filterType.setBorder(BorderFactory.createEtchedBorder(new Color(0xff7ea04d), new Color(0xff335d2d)));
+        varType.setBackground(new Color(0xfff0a500));
+        varType.setForeground(Color.BLACK);
+        varType.setFocusable(false);
+        varType.setBorder(BorderFactory.createEtchedBorder(new Color(0xff7ea04d), new Color(0xff335d2d)));
+        nodoType.setBackground(new Color(0xfff0a500));
+        nodoType.setForeground(Color.BLACK); 
+        nodoType.setFocusable(false);
+        nodoType.setBorder(BorderFactory.createEtchedBorder(new Color(0xff7ea04d), new Color(0xff335d2d)));
+        //Labels
+        searchLabel.setBackground(new Color(0xffe8e8e8));
+        routeLabel.setBackground(new Color(0xffbfdcae));
+        matches.setBackground(new Color(0xffbfdcae));
+        
+        
+        //buttons
+        search.setBackground(new Color(0xff4c4c4c));
+        search.setForeground(Color.WHITE);
+        search.setFocusPainted(false);
+        search.setBorder(BorderFactory.createEtchedBorder(new Color(0xff7ea04d), new Color(0xff335d2d)));
+        up.setBackground(new Color(0xff4c4c4c));
+        up.setForeground(Color.WHITE);
+        up.setFocusPainted(false);
+        up.setBorder(BorderFactory.createEtchedBorder(new Color(0xff7ea04d), new Color(0xff335d2d)));
+        down.setBackground(new Color(0xff4c4c4c));
+        down.setForeground(Color.WHITE);
+        down.setFocusPainted(false);
+        down.setBorder(BorderFactory.createEtchedBorder(new Color(0xff7ea04d), new Color(0xff335d2d)));
+        filter.setBackground(new Color(0xff4c4c4c));
+        filter.setForeground(Color.WHITE);
+        filter.setFocusable(false);
+        filter.setBorder(BorderFactory.createEtchedBorder(new Color(0xff7ea04d), new Color(0xff335d2d)));
+       //info
+        description.setBackground(new Color(0xffe8e8e8));
+        tree.setBackground(new Color(0xffe8e8e8));
+        
+        panel.setBackground(new Color(0xffa37eba));
+        
         matches.setHorizontalAlignment((int) CENTER_ALIGNMENT);
-
-        panel.add(descripcionBar);
+        
+        panel.add(descriptionBar);
         panel.add(treeBar);
         panel.add(up);
         panel.add(down);
@@ -145,7 +187,7 @@ public class GUI_Tree extends JFrame {
         panel.add(filterType);
         panel.add(search);
         panel.add(filter);
-        descripcionBar.setViewportView(description);
+        descriptionBar.setViewportView(description);
         treeBar.setViewportView(tree);
 
         showCommentsModel(commentPlaneModel);
@@ -209,8 +251,8 @@ public class GUI_Tree extends JFrame {
                     }
 
                     if (!searchResult.isEmpty()) {
-                        description.append(((Nodo) searchResult.getObjectbyIndex(0)).printInfo());
-                        showList(((Nodo) searchResult.getObjectbyIndex(0)).getFather());
+                        description.append(((Nodo) searchResult.getObjectByIndex(0)).printInfo());
+                        showList(((Nodo) searchResult.getObjectByIndex(0)).getFather());
                         matches.setText("1");
                     } else {
                         description.append("No se encontró " + (String) nodoType.getSelectedItem() + " buscado por " + varType.getSelectedItem() + ": " + searchLabel.getText() + "\n");
@@ -229,9 +271,10 @@ public class GUI_Tree extends JFrame {
                 String iValue = matches.getText().substring(0, indexOf(matches.getText(), "/"));
                 int i = Integer.parseInt(iValue) - 1;
                 description.setText("");
-                description.append(((Nodo) searchResult.getObjectbyIndex(i)).printInfo());
-                showList(((Nodo) searchResult.getObjectbyIndex(i)).getFather());
-            }
+                if(searchResult.getObjectByIndex(i)==null)i++;
+                description.append(((Nodo) searchResult.getObjectByIndex(i)).printInfo());
+                showList(((Nodo) searchResult.getObjectByIndex(i)).getFather());
+                }
         });
 
         down.addActionListener(new java.awt.event.ActionListener() {
@@ -241,26 +284,25 @@ public class GUI_Tree extends JFrame {
                 String iValue = matches.getText().substring(0, indexOf(matches.getText(), "/"));
                 int i = Integer.parseInt(iValue) - 1;
                 description.setText("");
-                description.append(((Nodo) searchResult.getObjectbyIndex(i)).printInfo());
-                showList(((Nodo) searchResult.getObjectbyIndex(i)).getFather());
+                if(searchResult.getObjectByIndex(i)==null)i++;
+                description.append(((Nodo)searchResult.getObjectByIndex(i)).printInfo());
+                showList(((Nodo) searchResult.getObjectByIndex(i)).getFather());
             }
         });
 
         tree.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-
-                Nodo n = (Nodo) tree.getSelectedValue();
-                if (n == null) {
-                    return;
-                }
-
-                description.setText(n.printInfo());
-                searchResult = new List();
-                up.setEnabled(false);
-                down.setEnabled(false);
-                matches.setText("");
-            }
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            
+            Nodo n = (Nodo)tree.getSelectedValue();
+            if(n==null)return;
+            
+            description.setText(n.printInfo());
+            searchResult = new List();
+            up.setEnabled(false);
+            down.setEnabled(false);
+            matches.setText("");
+        }
         });
 
         tree.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -329,7 +371,7 @@ public class GUI_Tree extends JFrame {
         }
         modelo.addElement(nodo.getFather());
         List p = nodo.getLinks();
-        while (p != null) {
+        while(p!=null) {
             modelo.addElement(p.getObject());
             p = p.link;
         }
@@ -373,8 +415,13 @@ public class GUI_Tree extends JFrame {
     private void setPages() {
         if (searchResult == null || searchResult.isEmpty()) {
             matches.setText("0");
+            
+            down.setEnabled(false);
+            up.setEnabled(false);
         } else if (searchResult.size() == 1) {
             matches.setText("1");
+            down.setEnabled(false);
+            up.setEnabled(false);
         } else if (searchResult.size() > 1) {
             matches.setText("1/" + searchResult.size());
             down.setEnabled(true);
@@ -416,13 +463,12 @@ public class GUI_Tree extends JFrame {
      * @return retornar la posición del caracter que se está buscando.
      */
     private int indexOf(String text, String key) {
-
         for (int i = 0; i < text.length(); i++) {
             if (text.substring(i, i + 1).equals(key)) {
                 return i;
             }
         }
-        return -1;
+        return 1;
     }
 
     /**
@@ -465,11 +511,10 @@ public class GUI_Tree extends JFrame {
      */
     private void showCommentsModel(DefaultListModel model) {
         List p = n_root.getLinks();
-        int i = 0;
+        int i=0;
         while (p != null) {
             showPlaneModel((Nodo) p.getObject(), 0, model);
             p = p.link;
-            System.out.println(i);
             i++;
         }
     }
