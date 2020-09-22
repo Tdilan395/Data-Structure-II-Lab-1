@@ -42,7 +42,7 @@ public class List {
      * @see #getObject() 
      * @return Nodo encontrado o nulo en caso de no hallarse la posición.
      */
-    public Object getObjectbyIndex(int pos) {
+    public Object getObjectByIndex(int pos) {
         List p = this;
         int i = 0;
         while (p.link != null && i != pos) {

@@ -66,7 +66,7 @@ public class GUI_Tree extends JFrame {
         this.n_root = n_root;
         searchResult = new List();
         DefaultListModel model = new DefaultListModel();
-        NodoList p = n_root.getLinks();
+        List p = n_root.getLinks();
         while(p!=null){
             model.addElement(p.getObject());
             p = p.link;
@@ -208,7 +208,7 @@ public class GUI_Tree extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 DefaultListModel model = (DefaultListModel) tree.getModel();
-                //setEtiquetasFalse();
+                setEtiquetasFalse();
 
                 switch ((String) filterType.getSelectedItem()) {
                     case "Users":

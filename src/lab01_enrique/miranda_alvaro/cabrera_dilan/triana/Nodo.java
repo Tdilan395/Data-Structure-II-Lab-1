@@ -43,7 +43,7 @@ public class Nodo {
      * @see List#getNodo()
      */
     public Nodo getLink(int i) {
-        return (Nodo) ptr.getObjectbyIndex(i);
+        return (Nodo) ptr.getObjectByIndex(i);
     }
 
     /**
