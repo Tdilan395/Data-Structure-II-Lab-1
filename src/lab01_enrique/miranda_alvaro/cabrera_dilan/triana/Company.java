@@ -1,54 +1,61 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
 /**
- *Esta clase contiene todos los atributos y metodos de una compañia
+ * Esta clase contiene todos los atributos y métodos de una compañia
+ *
  * @author Dilan Triana
  */
 public class Company {
-   private String name;
-   private String catchPhrase;
-   private String bs;
-   /**
-    * Metodo constructor parametrizado
-    * @param name nombre de la compañia
-    * @param catchPhrase eslogan de la compañia
-    * @param bs 
-    */
+
+    private final String name;
+    private final String catchPhrase;
+    private final String bs;
+
+    /**
+     * Método constructor parametrizado
+     *
+     * @param name nombre de la compañia
+     * @param catchPhrase eslogan de la compañia
+     * @param bs
+     */
     public Company(String name, String catchPhrase, String bs) {
         this.name = name;
         this.catchPhrase = catchPhrase;
         this.bs = bs;
     }
+
     /**
-     * Metodo para obtener el nombre de la compañia
-     * @return el nombre
+     * Método para obtener el nombre de la compañia
+     *
+     * @return nombre
      */
     public String getName() {
         return name;
     }
+
     /**
-     * Metodo para retornar el eslogan de la compañia
-     * @return el slogan 
+     * Método para retornar el eslogan de la compañia
+     *
+     * @return slogan
      */
     public String getCatchPhrase() {
         return catchPhrase;
     }
+
     /**
-     * Metodo para retonar el bs
-     * @return  bs
+     * Método para retonar el bs
+     *
+     * @return bs
      */
     public String getBs() {
         return bs;
     }
-
+    /**
+     * Método para añadir la información de la compañia en una cadena de caracteres
+     * @return String concatenado con la información de la compañia
+     */
     public String printInfo() {
-        return ("\n  Name: "+name+"\n  CatchPhrase: "+catchPhrase+" \n  Bs: "+bs);
+        return ("\n  Name: " + name + "\n  CatchPhrase: " + catchPhrase + " \n  Bs: " + bs);
     }
-   
-   
+
 }

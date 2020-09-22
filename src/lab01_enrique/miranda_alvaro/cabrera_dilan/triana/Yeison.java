@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
 
@@ -11,16 +7,16 @@ import java.util.regex.Pattern;
 
 /**
  *  Esta clase contiene todo lo relacionado para la obtención de los objetos leidos de un formato JSON.
- *  Yeison funciona a partir de una entrada de tipo Arraylist en donde cada elemento es la distribución de lineas en formato String de un objeto con
+ *  Yeison funciona a partir de una entrada de tipo String que es la distribución de lineas en formato String de un objeto con
     estructura JSON.
  * @author Dilan Triana
  */
 public class Yeison {
 
    
-    private StringBuffer buff;
+    private final StringBuffer buff;
     /**
-     * Metodo constructor parametrizado
+     * Método constructor parametrizado
      * @param object Objeto en formato JSON
      */
     public Yeison(String object) {

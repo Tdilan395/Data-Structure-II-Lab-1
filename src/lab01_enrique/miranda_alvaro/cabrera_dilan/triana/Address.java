@@ -1,25 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
 /**
- *Esta clase contiene todos los atributos y métodos de la dirección
+ * Esta clase contiene todos los atributos y métodos de la dirección
+ *
  * @author Dilan Triana
  */
 public class Address {
-    private String street;
-    private String suite;
-    private String city;
-    private String zipCode;
-    private float [] geo;
+
+    private final String street;
+    private final String suite;
+    private final String city;
+    private final String zipCode;
+    private final float[] geo;
+
     /**
-     * Metodo constructor parametrizado 
+     * Método constructor parametrizado
+     *
      * @param street calle
      * @param suite
-     * @param city  ciudad  
+     * @param city ciudad
      * @param zipCode codigo postal
      * @param geo coordenadas
      */
@@ -31,29 +30,60 @@ public class Address {
         this.geo = geo;
     }
 
+    /**
+     * Método que permite obtener añadir toda la información de la dirección en
+     * una cadena de caracteres.
+     *
+     * @return String concatenado con la información de la dirección.
+     */
     public String printInfo() {
-         return ("  Street: "+street+"\n  Suite: "+suite+"\n  City: "+city+"\n  ZipCode: "+zipCode+"\n  Geo :"+"\n    Lat: "+geo[0]+"\n    Lng: "+geo[1]);
+        return ("  Street: " + street + "\n  Suite: " + suite + "\n  City: " + city + "\n  ZipCode: " + zipCode + "\n  Geo :" + "\n    Lat: " + geo[0] + "\n    Lng: " + geo[1]);
     }
 
+    /**
+     * Método para obtener la calle.
+     *
+     * @return Calle
+     */
     public String getStreet() {
         return street;
     }
 
+    /**
+     * Método para obtener la suite.
+     *
+     * @return suite
+     */
     public String getSuite() {
         return suite;
     }
 
+    /**
+     * Método para obtener la ciudad.
+     *
+     * @return ciudad
+     */
     public String getCity() {
         return city;
     }
 
+    /**
+     * Método para obtener el código Postal
+     *
+     * @return código postal
+     */
     public String getZipCode() {
         return zipCode;
     }
 
+    /**
+     * Metódo para obtener las coordenas latitud y longitud
+     *
+     * @param i indice del vector, 1=latitud, 2= longitud
+     * @return Latitud o Longitud.
+     */
     public float getGeo(int i) {
         return geo[i];
     }
-    
-    
+
 }
