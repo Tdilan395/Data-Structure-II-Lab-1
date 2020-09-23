@@ -26,7 +26,7 @@ public class Post extends Nodo {
     public Post(int userID, String title, String body, int ID) {
         super(ID);
         this.title = title;
-        this.body = body;
+        this.body = body.replace("\\n", " ");
         this.userID = userID;
         ptr2 = null;
     }

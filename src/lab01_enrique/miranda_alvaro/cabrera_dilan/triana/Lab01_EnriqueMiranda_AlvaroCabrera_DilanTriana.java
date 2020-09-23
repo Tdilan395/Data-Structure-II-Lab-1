@@ -1,6 +1,7 @@
 
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
+import javax.swing.JFrame;
 import javax.swing.JRootPane;
 
 /**

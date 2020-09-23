@@ -60,6 +60,7 @@ public class GUI_Tree extends JFrame {
      * @param width Ancho de la ventana
      */
     public GUI_Tree(String title, Nodo n_root, int width) {
+        
         super(title);
         this.width = width;
         this.height = width / 16 * 9;
@@ -115,63 +116,23 @@ public class GUI_Tree extends JFrame {
         matches.setEditable(false);
         setSize(width, height);
         panel.setLayout(null);
-        panel.setBackground(Color.GRAY);
         this.getContentPane().add(panel);
         
-        descriptionBar.setBounds(width/2-50, 90, width/2-100, height/2);
-        treeBar.setBounds(5, 90, width/2-100, height/2);
-        up.setBounds(5+treeBar.getWidth()/2-80, 95+height/2, 50, 30);
-        down.setBounds(5+treeBar.getWidth()/2+30, 95+height/2, 50, 30);
-        matches.setBounds(5+treeBar.getWidth()/2-25, 95+height/2, 50, 30);
-        routeLabel.setBounds(5, 60, width/2-100,25);
-        searchLabel.setBounds(10, 10, 80, 25);
-        nodoType.setBounds(110, 10, 80, 25);
-        varType.setBounds(200, 10, 80, 25);
-        search.setBounds(290, 10, 80, 25);
-        filter.setBounds(100,height-80,80, 25);
-        filterType.setBounds(10, height-80,80, 25);
+        descriptionBar.setBounds(width/2, 90, width/2-100, height/2);
+        treeBar.setBounds(20, 90, width/2-100, height/2);
+        up.setBounds(width/2+descriptionBar.getWidth()/2-80, 95+height/2, 50, 30);
+        down.setBounds(width/2+descriptionBar.getWidth()/2+30, 95+height/2, 50, 30);
+        matches.setBounds(width/2+descriptionBar.getWidth()/2-25, 95+height/2, 50, 30);
+        routeLabel.setBounds(20, 40, width/2-100,25);
+        nodoType.setBounds(30+width/2-100, 40, 80, 25);
+        varType.setBounds(120+width/2-100, 40, 80, 25);
+        searchLabel.setBounds(210+width/2-100, 40, 80, 25);
+        search.setBounds(300+width/2-100, 40, 80, 25);
+        filterType.setBounds(20, treeBar.getHeight()+100,120, 25);
+        filter.setBounds(150,treeBar.getHeight()+100,treeBar.getWidth()-130, 25);
         
-        //ComboBoxes
-        filterType.setBackground(new Color(0xfff0a500));
-        filterType.setForeground(Color.BLACK);
-        filterType.setFocusable(false);
-        filterType.setBorder(BorderFactory.createEtchedBorder(new Color(0xff7ea04d), new Color(0xff335d2d)));
-        varType.setBackground(new Color(0xfff0a500));
-        varType.setForeground(Color.BLACK);
-        varType.setFocusable(false);
-        varType.setBorder(BorderFactory.createEtchedBorder(new Color(0xff7ea04d), new Color(0xff335d2d)));
-        nodoType.setBackground(new Color(0xfff0a500));
-        nodoType.setForeground(Color.BLACK); 
-        nodoType.setFocusable(false);
-        nodoType.setBorder(BorderFactory.createEtchedBorder(new Color(0xff7ea04d), new Color(0xff335d2d)));
-        //Labels
-        searchLabel.setBackground(new Color(0xffe8e8e8));
-        routeLabel.setBackground(new Color(0xffbfdcae));
-        matches.setBackground(new Color(0xffbfdcae));
+        setDesignColor();
         
-        
-        //buttons
-        search.setBackground(new Color(0xff4c4c4c));
-        search.setForeground(Color.WHITE);
-        search.setFocusPainted(false);
-        search.setBorder(BorderFactory.createEtchedBorder(new Color(0xff7ea04d), new Color(0xff335d2d)));
-        up.setBackground(new Color(0xff4c4c4c));
-        up.setForeground(Color.WHITE);
-        up.setFocusPainted(false);
-        up.setBorder(BorderFactory.createEtchedBorder(new Color(0xff7ea04d), new Color(0xff335d2d)));
-        down.setBackground(new Color(0xff4c4c4c));
-        down.setForeground(Color.WHITE);
-        down.setFocusPainted(false);
-        down.setBorder(BorderFactory.createEtchedBorder(new Color(0xff7ea04d), new Color(0xff335d2d)));
-        filter.setBackground(new Color(0xff4c4c4c));
-        filter.setForeground(Color.WHITE);
-        filter.setFocusable(false);
-        filter.setBorder(BorderFactory.createEtchedBorder(new Color(0xff7ea04d), new Color(0xff335d2d)));
-       //info
-        description.setBackground(new Color(0xffe8e8e8));
-        tree.setBackground(new Color(0xffe8e8e8));
-        
-        panel.setBackground(new Color(0xffa37eba));
         
         matches.setHorizontalAlignment((int) CENTER_ALIGNMENT);
         
@@ -517,6 +478,45 @@ public class GUI_Tree extends JFrame {
             p = p.link;
             i++;
         }
+    }
+
+    private void setDesignColor() {
+        //ComboBoxes
+        filterType.setBackground(new Color(0xff1e5f74));//407088
+        filterType.setForeground(Color.WHITE);
+        filterType.setFocusable(false);
+        varType.setBackground(new Color(0xff1e5f74));
+        varType.setForeground(Color.WHITE);
+        varType.setFocusable(false);
+        nodoType.setBackground(new Color(0xff1e5f74));
+        nodoType.setForeground(Color.WHITE); 
+        nodoType.setFocusable(false);
+        
+        //Labels
+        searchLabel.setBackground(new Color(0xfff0ece3));
+        routeLabel.setBackground(new Color(0xfff0ece3));
+        matches.setBackground(new Color(0xfff0ece3));
+        
+        
+        //buttons
+        search.setBackground(new Color(0xff1d2d50));
+        search.setForeground(Color.WHITE);
+        search.setFocusPainted(false);
+        up.setBackground(new Color(0xff1d2d50));//132743
+        up.setForeground(Color.WHITE);
+        up.setFocusPainted(false);
+        down.setBackground(new Color(0xff1d2d50));
+        down.setForeground(Color.WHITE);
+        down.setFocusPainted(false);
+        filter.setBackground(new Color(0xff1d2d50));
+        filter.setForeground(Color.WHITE);
+        filter.setFocusable(false);
+       
+        //info
+        description.setBackground(new Color(0xfff0ece3));
+        tree.setBackground(new Color(0xfff0ece3));
+        
+        panel.setBackground(new Color(0xff596e79));
     }
 
 }
