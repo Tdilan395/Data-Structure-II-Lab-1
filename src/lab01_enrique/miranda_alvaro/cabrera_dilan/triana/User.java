@@ -190,7 +190,7 @@ public class User extends Nodo {
                         result = List.add(result, post);
                     }
                 case "body":              
-                    mat = pat.matcher(post.getBody().replace("\\n", " "));
+                    mat = pat.matcher(Reader.replace(post.getBody(),"\\n", " "));
                     if (mat.find()) {
                         result = List.add(result, post);
                     }

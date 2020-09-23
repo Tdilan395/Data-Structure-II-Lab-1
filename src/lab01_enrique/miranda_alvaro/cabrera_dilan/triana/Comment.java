@@ -96,7 +96,7 @@ public class Comment extends Nodo {
     @Override
     public String printInfo() {
         String aux = body;
-        aux = aux.replace("\\n", " ");
+        aux = Reader.replace(aux,"\\n", " ");
         return ("ID: "+getID()+"\nPostID: " + postID + " \nName: " + name + " \nEmail: " + email + " \nBody: " + aux);
     }
 

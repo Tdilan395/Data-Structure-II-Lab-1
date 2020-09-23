@@ -77,7 +77,7 @@ public class Post extends Nodo {
     @Override
     public String printInfo() {
         String aux = body;
-        aux = aux.replace("\\n", " ");
+        aux = Reader.replace(aux,"\\n", " ");
         return ("ID: "+getID()+"\nUserID: " + userID + "\n" + "Title: " + title + "\n" + "Body: " + aux);
     }
 
@@ -142,7 +142,7 @@ public class Post extends Nodo {
                     }
                     break;
                 case "body":
-                    mat = pat.matcher(c.getBody().replace("\\n", " "));
+                    mat = pat.matcher(Reader.replace(c.getBody(),"\\n", " "));
                     if (mat.find()) {
                         result = List.add(result, c);
                     }

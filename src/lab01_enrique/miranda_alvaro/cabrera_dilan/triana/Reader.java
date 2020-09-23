@@ -170,4 +170,15 @@ public class Reader {
                 System.out.println("Solo existen 3 niveles. ");
         }
     }
+    
+    public static String replace(String cadena, String toReplace, String replaceTo){
+        String result=cadena;
+        if(toReplace.length()>cadena.length())return cadena;
+        for (int i = 0; i <= result.length()-toReplace.length(); i++) {
+            if(result.substring(i,i+toReplace.length()).equals(toReplace)){
+                return result.substring(0, i)+ replaceTo + replace(result.substring(i+toReplace.length()),toReplace,replaceTo);
+            }
+        }
+        return cadena;
+    }
 }
