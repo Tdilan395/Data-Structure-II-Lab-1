@@ -132,7 +132,8 @@ public class Post extends Nodo {
                     }
                     break;
                 case "name":
-                    if (c.getName().equals(search)) {
+                    mat = pat.matcher(c.getName());
+                    if (mat.find()) {
                         result = List.add(result, c);
                     }
                     break;

@@ -189,6 +189,7 @@ public class User extends Nodo {
                     if (mat.find()) {
                         result = List.add(result, post);
                     }
+                    break;
                 case "body":              
                     mat = pat.matcher(Reader.replace(post.getBody(),"\\n", " "));
                     if (mat.find()) {
