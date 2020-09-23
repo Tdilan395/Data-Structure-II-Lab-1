@@ -31,7 +31,7 @@ public class Reader {
      */
     public static List deArchivoALista(int lim1, int lim2, String ruta) {
         List objetos = null;
-        File f = new File(ruta + ".txt");
+        File f = new File("files/"+ruta + ".txt");
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(f));
