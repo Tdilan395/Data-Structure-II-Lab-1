@@ -50,7 +50,6 @@ public class GUI_Tree extends JFrame {
     private final DefaultListModel userPlaneModel;
     private final DefaultListModel commentPlaneModel;
     private final DefaultListModel postPlaneModel;
-    private int joder;
 
     /**
      * Método constructor parametrizado
@@ -72,7 +71,6 @@ public class GUI_Tree extends JFrame {
             model.addElement(p.getObject());
             p = p.link;
         }
-        joder = 1;
         tree = new JList(model);
         treeBar = new JScrollPane();
         description = new JTextArea();
@@ -179,17 +177,14 @@ public class GUI_Tree extends JFrame {
                     case "Users":
                         routeLabel.setText("Route:\\\\ Init");
                         tree.setModel(userPlaneModel);
-//                            showUsersModel(model);
                         break;
                     case "Post":
                         routeLabel.setText("Route:\\\\ Init_Posts");
                         tree.setModel(postPlaneModel);
-//                            showPlaneModel(n_root,0,model);
                         break;
                     case "Comment":
                         routeLabel.setText("Route:\\\\ Init_Comments");
                         tree.setModel(commentPlaneModel);
-//                          showCommentsModel(model);
                         break;
                 }
 
@@ -220,7 +215,6 @@ public class GUI_Tree extends JFrame {
                         showList(((Nodo) searchResult.getObjectByIndex(0)).getFather());
                         matches.setText("1");
                         tree.setSelectedValue(searchResult.getObjectByIndex(0), true);
-                        joder = 1;
                     } else {
                         description.append("No se encontró " + (String) nodoType.getSelectedItem() + " buscado por " + varType.getSelectedItem() + ": " + searchLabel.getText() + "\n");
                     }
@@ -244,7 +238,6 @@ public class GUI_Tree extends JFrame {
                 description.append(((Nodo) searchResult.getObjectByIndex(i)).printInfo());
                 showList(((Nodo) searchResult.getObjectByIndex(i)).getFather());
                 tree.setSelectedValue(searchResult.getObjectByIndex(i), true);
-                joder = 1;
             }
         });
 
@@ -261,7 +254,6 @@ public class GUI_Tree extends JFrame {
                 description.append(((Nodo) searchResult.getObjectByIndex(i)).printInfo());
                 showList(((Nodo) searchResult.getObjectByIndex(i)).getFather());
                 tree.setSelectedValue(searchResult.getObjectByIndex(i), true);
-                joder = 1;
             }
         });
 
@@ -271,26 +263,24 @@ public class GUI_Tree extends JFrame {
             
             Nodo n = (Nodo)tree.getSelectedValue();
             if(n==null)return;
-            if (joder == 0) {
+                if (searchResult.isEmpty()) { //Remplacé el Joder.
+                    
+                    searchResult = new List();
+                    up.setEnabled(false);
+                    down.setEnabled(false);
+                    matches.setText("");
+                }
                 description.setText(n.printInfo());
-                searchResult = new List();
-                up.setEnabled(false);
-                down.setEnabled(false);
-                matches.setText("");
             }
-            joder = 0;
-        }
         });
 
         tree.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 now = System.nanoTime();
-                
-                //System.out.println("Run Test00 "+(now-past));
                 if (now - past <= 250000000) {
                     Nodo nodo = (Nodo) tree.getSelectedValue();
-
+                    searchResult=new List();
                     if (tree.getSelectedIndex() == 0) {
                         setEtiquetasFalse();
                     }
@@ -490,11 +480,9 @@ public class GUI_Tree extends JFrame {
      */
     private void showCommentsModel(DefaultListModel model) {
         List p = n_root.getLinks();
-        int i=0;
         while (p != null) {
             showPlaneModel((Nodo) p.getObject(), 0, model);
             p = p.link;
-            i++;
         }
     }
 
