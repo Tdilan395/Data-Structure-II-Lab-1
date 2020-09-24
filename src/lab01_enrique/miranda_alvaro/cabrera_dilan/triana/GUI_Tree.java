@@ -232,9 +232,6 @@ public class GUI_Tree extends JFrame {
                 String iValue = matches.getText().substring(0, indexOf(matches.getText(), "/"));
                 int i = Integer.parseInt(iValue) - 1;
                 description.setText("");
-                if (searchResult.getObjectByIndex(i) == null) {
-                    i++;
-                }
                 description.append(((Nodo) searchResult.getObjectByIndex(i)).printInfo());
                 showList(((Nodo) searchResult.getObjectByIndex(i)).getFather());
                 tree.setSelectedValue(searchResult.getObjectByIndex(i), true);
@@ -248,9 +245,6 @@ public class GUI_Tree extends JFrame {
                 String iValue = matches.getText().substring(0, indexOf(matches.getText(), "/"));
                 int i = Integer.parseInt(iValue) - 1;
                 description.setText("");
-                if (searchResult.getObjectByIndex(i) == null) {
-                    i++;
-                }
                 description.append(((Nodo) searchResult.getObjectByIndex(i)).printInfo());
                 showList(((Nodo) searchResult.getObjectByIndex(i)).getFather());
                 tree.setSelectedValue(searchResult.getObjectByIndex(i), true);
@@ -378,11 +372,12 @@ public class GUI_Tree extends JFrame {
 
     /**
      * Método para seleccionar el número de coincidencias encontradas.
+     * @see List#size() 
+     * @see List#deleteEmpty() 
      */
     private void setPages() {
         if (searchResult == null || searchResult.isEmpty()) {
             matches.setText("0");
-            
             down.setEnabled(false);
             up.setEnabled(false);
         } else if (searchResult.size() == 1) {
@@ -390,6 +385,7 @@ public class GUI_Tree extends JFrame {
             down.setEnabled(false);
             up.setEnabled(false);
         } else if (searchResult.size() > 1) {
+            searchResult.deleteEmpty();
             matches.setText("1/" + searchResult.size());
             down.setEnabled(true);
             up.setEnabled(false);

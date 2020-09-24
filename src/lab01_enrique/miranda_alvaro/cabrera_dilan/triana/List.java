@@ -1,4 +1,3 @@
-
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
 /**
@@ -39,7 +38,7 @@ public class List {
      * posición.
      *
      * @param pos posición del nodo dentro de la lista
-     * @see #getObject() 
+     * @see #getObject()
      * @return Nodo encontrado o nulo en caso de no hallarse la posición.
      */
     public Object getObjectByIndex(int pos) {
@@ -56,16 +55,19 @@ public class List {
         }
 
     }
+
     /**
-     * Método para obtener el contenido del método. 
-     * 
+     * Método para obtener el contenido del método.
+     *
      * @return object que contiene el nodo
      */
     public Object getObject() {
         return object;
     }
+
     /**
      * Método para obtener el tamaño de una lista enlazada simple.
+     *
      * @return Int que indica el tamaño de la lista
      */
     public int size() {
@@ -77,23 +79,51 @@ public class List {
         }
         return i;
     }
-    /**Método para determinar si una lista está vacía
-     * 
-     * @return  booleano que indica si la lista está vacía
+
+    /**
+     * Método para determinar si una lista está vacía
+     *
+     * @return booleano que indica si la lista está vacía
      */
     public boolean isEmpty() {
         return link == null && object == null;
     }
+
     /**
      * Método para unir dos listas.
-     * @param c  cabezal de la lista que se desea unir. 
+     *
+     * @param c cabezal de la lista que se desea unir.
      */
-    void addAll(List c) {
+    public void addAll(List c) {
         List p = this;
         while (p.link != null) {
             p = p.link;
         }
         p.link = c;
+    }
+
+    /**
+     * Método para eliminar los nodos vacíos de una lista
+     * 
+     * @see #getObject()
+     * PD: Profe no vea esto
+     */
+    public void deleteEmpty() {
+        List p = this;
+        List ptr = this;
+        List aux = null;
+        while (p != null) {
+            if (p.getObject() == null) {
+                if (p == ptr) {
+                    ptr = p.link;
+                } else {
+                    aux.link = p.link;
+                    p = aux;
+                }
+            }
+            aux = p;
+            p = p.link;
+        }
     }
 
 }

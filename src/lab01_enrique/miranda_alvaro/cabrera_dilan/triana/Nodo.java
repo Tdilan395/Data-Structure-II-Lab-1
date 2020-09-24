@@ -154,7 +154,7 @@ public class Nodo {
     public List search(String toSearch, String search) {//user
         List result = null;
         try { 
-        Pattern pat = Pattern.compile(search);
+        Pattern pat = Pattern.compile(search.toUpperCase());
         Matcher mat;
         
         List p = this.getLinks();
@@ -172,7 +172,7 @@ public class Nodo {
                     }
                     break;
                 case "name":
-                    mat = pat.matcher(u.getName());
+                    mat = pat.matcher(u.getName().toUpperCase());
                     if (mat.find()) {
                         result = List.add(result, u);
                     }
