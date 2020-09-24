@@ -16,11 +16,11 @@ public class Address {
     /**
      * Método constructor parametrizado
      *
-     * @param street calle
-     * @param suite
-     * @param city ciudad
-     * @param zipCode codigo postal
-     * @param geo coordenadas
+     * @param street calle del usuario
+     * @param suite la habitación del usuario 
+     * @param city ciudad del usuario 
+     * @param zipCode codigo postal del usuario
+     * @param geo coordenadas del usuario
      */
     public Address(String street, String suite, String city, String zipCode, float[] geo) {
         this.street = street;
@@ -37,7 +37,7 @@ public class Address {
      * @return String concatenado con la información de la dirección.
      */
     public String printInfo() {
-        return ("  Street: " + street + "\n  Suite: " + suite + "\n  City: " + city + "\n  ZipCode: " + zipCode + "\n  Geo :" + "\n    Lat: " + geo[0] + "\n    Lng: " + geo[1]);
+        return ("  \nStreet: " + street + "\n  Suite: " + suite + "\n  City: " + city + "\n  ZipCode: " + zipCode + "\n  Geo :" + "\n    Lat: " + geo[0] + "\n    Lng: " + geo[1]);
     }
 
     /**

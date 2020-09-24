@@ -25,13 +25,14 @@ public class Reader {
      * @param lim1 línea en que comienza el objeto JSON
      * @param lim2 línea en que termina el objeto JSON
      * @param ruta nombre del archivo a ser leído
-     * @see List#add()
+     * @see List#add(lab01_enrique.miranda_alvaro.cabrera_dilan.triana.List,
+     * java.lang.Object)
      * @see Yeison
      * @return un cabezal de tipo List, que representa la lista de objetos JSON
      */
     public static List deArchivoALista(int lim1, int lim2, String ruta) {
         List objetos = null;
-        File f = new File("files/"+ruta + ".txt");
+        File f = new File("files/" + ruta + ".txt");
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(f));
@@ -115,10 +116,13 @@ public class Reader {
      * @see List
      * @see Post
      * @see Comment
-     * @see #deYeisonaComment() 
-     * @see #deYeisonaPost() 
-     * @see #deYeisonaUser() 
-     * @see #deArchivoALista() 
+     * @see
+     * #deYeisonaComment(lab01_enrique.miranda_alvaro.cabrera_dilan.triana.Yeison)
+     * @see
+     * #deYeisonaPost(lab01_enrique.miranda_alvaro.cabrera_dilan.triana.Yeison)
+     * @see
+     * #deYeisonaUser(lab01_enrique.miranda_alvaro.cabrera_dilan.triana.Yeison)
+     * @see #deArchivoALista(int, int, java.lang.String)
      * @param raiz La raiz del arbol donde deseamos agregar
      */
     public static void Agregar(int nivel, Nodo raiz) {
@@ -170,13 +174,25 @@ public class Reader {
                 System.out.println("Solo existen 3 niveles. ");
         }
     }
-    
-    public static String replace(String cadena, String toReplace, String replaceTo){
-        String result=cadena;
-        if(toReplace.length()>cadena.length())return cadena;
-        for (int i = 0; i <= result.length()-toReplace.length(); i++) {
-            if(result.substring(i,i+toReplace.length()).equals(toReplace)){
-                return result.substring(0, i)+ replaceTo + replace(result.substring(i+toReplace.length()),toReplace,replaceTo);
+
+    /**
+     * Método que se encarga de buscar diferentes caracteres o subcadenas
+     * dentrode un cadena de caracateres y reemplaza los resultados con un valor
+     * deseado
+     *
+     * @param cadena cadena de caracteres que se debe evaluar
+     * @param toReplace valor que deseamos reemplazar
+     * @param replaceTo valor con que se desea reemplazar
+     * @return La cadena de caracteres editada
+     */
+    public static String replace(String cadena, String toReplace, String replaceTo) {
+        String result = cadena;
+        if (toReplace.length() > cadena.length()) {
+            return cadena;
+        }
+        for (int i = 0; i <= result.length() - toReplace.length(); i++) {
+            if (result.substring(i, i + toReplace.length()).equals(toReplace)) {
+                return result.substring(0, i) + replaceTo + replace(result.substring(i + toReplace.length()), toReplace, replaceTo);
             }
         }
         return cadena;

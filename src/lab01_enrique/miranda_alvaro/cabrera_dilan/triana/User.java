@@ -157,7 +157,7 @@ public class User extends Nodo {
      * name, etc...
      * @param search valor del parametro que se desea buscar.
      * @see List#getObject()
-     * @see List#addAll()
+     * @see List#addAll(lab01_enrique.miranda_alvaro.cabrera_dilan.triana.List) 
      * @return Retornar el nodo que cumpla con las especificaciones o nulo en
      * caso de no encontrarlo.
      */
@@ -222,7 +222,7 @@ public class User extends Nodo {
      * body, email, etc...
      * @param search valor del parametro que se desea buscar.
      * @see List#getObject()
-     * @see List#addAll()
+     * @see List#addAll(lab01_enrique.miranda_alvaro.cabrera_dilan.triana.List) 
      * @return Retornar el nodo que cumpla con las especificaciones o nulo en
      * caso de no encontrarlo.
      */

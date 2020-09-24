@@ -40,7 +40,7 @@ public class Nodo {
      *
      * @param i el número del hijo que desea
      * @return Nodo i-esimo
-     * @see List#getNodo()
+     * @see List#getObjectByIndex(int) 
      */
     public Nodo getLink(int i) {
         return (Nodo) ptr.getObjectByIndex(i);
@@ -51,7 +51,7 @@ public class Nodo {
      *
      * @param nodo Nodo que se desea insertar
      * @param Raiz Raíz del árbol
-     * @see List#add()
+     * @see List#add(lab01_enrique.miranda_alvaro.cabrera_dilan.triana.List, java.lang.Object) 
      */
     public void insertar(Nodo nodo, Nodo Raiz) {
         nodo.father = Raiz;
@@ -67,7 +67,7 @@ public class Nodo {
      * title, etc...
      * @param search valor del parametro que se desea buscar.
      * @see List#getObject()
-     * @see List#addAll()
+     * @see List#addAll(lab01_enrique.miranda_alvaro.cabrera_dilan.triana.List) 
      * @return Retornar el nodo que cumpla con las especificaciones o nulo en
      * caso de no encontrarlo.
      */
@@ -105,7 +105,7 @@ public class Nodo {
      * body, etc...
      * @param search valor del parametro que se desea buscar.
      * @see List#getObject()
-     * @see List#addAll()
+     * @see List#addAll(lab01_enrique.miranda_alvaro.cabrera_dilan.triana.List) 
      * @return Retornar el nodo que cumpla con las especificaciones o nulo en
      * caso de no encontrarlo.
      */
@@ -147,7 +147,7 @@ public class Nodo {
      * body, etc...
      * @param search valor del parametro que se desea buscar.
      * @see List#getObject()
-     * @see List#addAll()
+     * @see List#addAll(lab01_enrique.miranda_alvaro.cabrera_dilan.triana.List) 
      * @return Retornar el nodo que cumpla con las especificaciones o nulo en
      * caso de no encontrarlo.
      */

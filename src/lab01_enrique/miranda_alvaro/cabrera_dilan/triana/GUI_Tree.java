@@ -104,6 +104,8 @@ public class GUI_Tree extends JFrame {
     /**
      * Método encargado de inicializar todos los componentes de la ventana, es
      * llamado por el constructor.
+     * @see List
+     * @see Nodo#getFather() 
      */
     private void init() {
         description.setLineWrap(true);
@@ -437,6 +439,7 @@ public class GUI_Tree extends JFrame {
      *Método para construir la lista de usuarios en el modelo JList
      *
      * @param model el modelo del JList.
+     * @see List#getObject() 
      */
     private void showUsersModel(DefaultListModel model) {
         List p = n_root.getLinks();

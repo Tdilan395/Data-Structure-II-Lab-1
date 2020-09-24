@@ -90,7 +90,8 @@ public class Comment extends Nodo {
     /**
      * Método para añadir la información del comentario en una cadena de
      * caracteres
-     *
+     *  
+     * @see Reader#replace(java.lang.String, java.lang.String, java.lang.String) 
      * @return String concatenado con la información del comentario
      */
     @Override

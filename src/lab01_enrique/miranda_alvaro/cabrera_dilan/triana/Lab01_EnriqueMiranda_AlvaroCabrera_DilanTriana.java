@@ -1,8 +1,6 @@
 
 package lab01_enrique.miranda_alvaro.cabrera_dilan.triana;
 
-import javax.swing.JFrame;
-import javax.swing.JRootPane;
 
 /**
  *Clase Main, se encarga de crear el árbol, poblarlo y añadirlo a la interfaz gráfica. 

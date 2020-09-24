@@ -16,7 +16,7 @@ public class Company {
      *
      * @param name nombre de la compañia
      * @param catchPhrase eslogan de la compañia
-     * @param bs
+     * @param bs BS de la compañia
      */
     public Company(String name, String catchPhrase, String bs) {
         this.name = name;
