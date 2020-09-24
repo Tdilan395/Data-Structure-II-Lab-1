@@ -166,7 +166,7 @@ public class User extends Nodo {
         List result = null;
         try {
             
-            Pattern pat = Pattern.compile(search);
+            Pattern pat = Pattern.compile(search.toUpperCase());
             Matcher mat;
             
             List p = this.getLinks();
@@ -188,13 +188,13 @@ public class User extends Nodo {
                         }
                         break;
                     case "title":
-                        mat = pat.matcher(post.getTitle());
+                        mat = pat.matcher(post.getTitle().toUpperCase());
                         if (mat.find()) {
                             result = List.add(result, post);
                         }
                         break;
                     case "body":              
-                        mat = pat.matcher(Reader.replace(post.getBody(),"\\n", " "));
+                        mat = pat.matcher(Reader.replace(post.getBody(),"\\n", " ").toUpperCase());
                         if (mat.find()) {
                             result = List.add(result, post);
                         }

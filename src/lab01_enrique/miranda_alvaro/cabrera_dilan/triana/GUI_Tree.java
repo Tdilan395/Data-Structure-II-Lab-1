@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -51,6 +50,7 @@ public class GUI_Tree extends JFrame {
     private final DefaultListModel userPlaneModel;
     private final DefaultListModel commentPlaneModel;
     private final DefaultListModel postPlaneModel;
+    private int joder;
 
     /**
      * Método constructor parametrizado
@@ -72,6 +72,7 @@ public class GUI_Tree extends JFrame {
             model.addElement(p.getObject());
             p = p.link;
         }
+        joder = 1;
         tree = new JList(model);
         treeBar = new JScrollPane();
         description = new JTextArea();
@@ -215,6 +216,8 @@ public class GUI_Tree extends JFrame {
                         description.append(((Nodo) searchResult.getObjectByIndex(0)).printInfo());
                         showList(((Nodo) searchResult.getObjectByIndex(0)).getFather());
                         matches.setText("1");
+                        tree.setSelectedValue(searchResult.getObjectByIndex(0), true);
+                        joder = 1;
                     } else {
                         description.append("No se encontró " + (String) nodoType.getSelectedItem() + " buscado por " + varType.getSelectedItem() + ": " + searchLabel.getText() + "\n");
                     }
@@ -232,10 +235,14 @@ public class GUI_Tree extends JFrame {
                 String iValue = matches.getText().substring(0, indexOf(matches.getText(), "/"));
                 int i = Integer.parseInt(iValue) - 1;
                 description.setText("");
-                if(searchResult.getObjectByIndex(i)==null)i++;
+                if (searchResult.getObjectByIndex(i) == null) {
+                    i++;
+                }
                 description.append(((Nodo) searchResult.getObjectByIndex(i)).printInfo());
                 showList(((Nodo) searchResult.getObjectByIndex(i)).getFather());
-                }
+                tree.setSelectedValue(searchResult.getObjectByIndex(i), true);
+                joder = 1;
+            }
         });
 
         down.addActionListener(new java.awt.event.ActionListener() {
@@ -245,9 +252,13 @@ public class GUI_Tree extends JFrame {
                 String iValue = matches.getText().substring(0, indexOf(matches.getText(), "/"));
                 int i = Integer.parseInt(iValue) - 1;
                 description.setText("");
-                if(searchResult.getObjectByIndex(i)==null)i++;
-                description.append(((Nodo)searchResult.getObjectByIndex(i)).printInfo());
+                if (searchResult.getObjectByIndex(i) == null) {
+                    i++;
+                }
+                description.append(((Nodo) searchResult.getObjectByIndex(i)).printInfo());
                 showList(((Nodo) searchResult.getObjectByIndex(i)).getFather());
+                tree.setSelectedValue(searchResult.getObjectByIndex(i), true);
+                joder = 1;
             }
         });
 
@@ -257,12 +268,14 @@ public class GUI_Tree extends JFrame {
             
             Nodo n = (Nodo)tree.getSelectedValue();
             if(n==null)return;
-            
-            description.setText(n.printInfo());
-            searchResult = new List();
-            up.setEnabled(false);
-            down.setEnabled(false);
-            matches.setText("");
+            if (joder == 0) {
+                description.setText(n.printInfo());
+                searchResult = new List();
+                up.setEnabled(false);
+                down.setEnabled(false);
+                matches.setText("");
+            }
+            joder = 0;
         }
         });
 
@@ -276,7 +289,7 @@ public class GUI_Tree extends JFrame {
                     Nodo nodo = (Nodo) tree.getSelectedValue();
 
                     if (tree.getSelectedIndex() == 0) {
-                        nodo.etiquetaSelection = false;
+                        setEtiquetasFalse();
                     }
 
                     showList(nodo);
