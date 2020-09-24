@@ -178,7 +178,7 @@ public class Nodo {
                     }
                     break;
                 case "username":
-                    if (u.getUsername().equals(search)) {
+                    if (u.getUsername().toUpperCase().equals(search.toUpperCase())) {
                         result =List.add(result, u);
                     }
                     break;
@@ -188,22 +188,22 @@ public class Nodo {
                     }
                     break;
                 case "city":
-                    if (u.getAddress().getCity().equals(search)) {
+                    if (u.getAddress().getCity().toUpperCase().equals(search.toUpperCase())) {
                        result = List.add(result, u);
                     }
                     break;
                 case "phone":
-                    if (u.getPhone().equals(search)) {
+                    if (u.getPhone().toUpperCase().equals(search.toUpperCase())) {
                        result = List.add(result, u);
                     }
                     break;
                 case "website":
-                    if (u.getWebsite().equals(search)) {
+                    if (u.getWebsite().toUpperCase().equals(search.toUpperCase())) {
                        result = List.add(result, u);
                     }
                     break;
                 case "comp-name":
-                    if (u.getCompany().getName().equals(search)) {
+                    if (u.getCompany().getName().toUpperCase().equals(search.toUpperCase())) {
                        result = List.add(result, u);
                     }
                     break;
