@@ -157,7 +157,7 @@ public class User extends Nodo {
      * name, etc...
      * @param search valor del parametro que se desea buscar.
      * @see List#getObject()
-     * @see List#addAll(lab01_enrique.miranda_alvaro.cabrera_dilan.triana.List) 
+     * @see List#addAll(lab01_enrique.miranda_alvaro.cabrera_dilan.triana.List)
      * @return Retornar el nodo que cumpla con las especificaciones o nulo en
      * caso de no encontrarlo.
      */
@@ -165,18 +165,16 @@ public class User extends Nodo {
     public List search(String toSearch, String search) {//post
         List result = null;
         try {
-            
+
             Pattern pat = Pattern.compile(search.toUpperCase());
             Matcher mat;
-            
+            String toMatch = "";
             List p = this.getLinks();
             while (p != null) {
                 Post post = (Post) p.getObject();
                 switch (toSearch) {
                     case "userId":
-                        if (String.valueOf(post.getUserID()).equals(search)) {
-                            result = List.add(result, post);
-                        }
+                        toMatch= String.valueOf(post.getUserID());
                         break;
                     case "id":
                         if (String.valueOf(post.getID()).equals(search)) {
@@ -188,21 +186,19 @@ public class User extends Nodo {
                         }
                         break;
                     case "title":
-                        mat = pat.matcher(post.getTitle().toUpperCase());
-                        if (mat.find()) {
-                            result = List.add(result, post);
-                        }
+                        toMatch=post.getTitle();
                         break;
-                    case "body":              
-                        mat = pat.matcher(Reader.replace(post.getBody(),"\\n", " ").toUpperCase());
-                        if (mat.find()) {
-                            result = List.add(result, post);
-                        }
+                    case "body":
+                        toMatch=post.getBody();
                         break;
                     default:
                         System.out.println("No debería llegar aquí busqueda de post");
                         break;
                 }
+                mat = pat.matcher(toMatch.toUpperCase());
+                if (mat.find()) {
+                    result = List.add(result, post);
+                } 
                 p = p.link;
             }
             if (result == null) {
@@ -222,7 +218,7 @@ public class User extends Nodo {
      * body, email, etc...
      * @param search valor del parametro que se desea buscar.
      * @see List#getObject()
-     * @see List#addAll(lab01_enrique.miranda_alvaro.cabrera_dilan.triana.List) 
+     * @see List#addAll(lab01_enrique.miranda_alvaro.cabrera_dilan.triana.List)
      * @return Retornar el nodo que cumpla con las especificaciones o nulo en
      * caso de no encontrarlo.
      */

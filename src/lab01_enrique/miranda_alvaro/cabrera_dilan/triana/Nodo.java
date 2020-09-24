@@ -40,7 +40,7 @@ public class Nodo {
      *
      * @param i el número del hijo que desea
      * @return Nodo i-esimo
-     * @see List#getObjectByIndex(int) 
+     * @see List#getObjectByIndex(int)
      */
     public Nodo getLink(int i) {
         return (Nodo) ptr.getObjectByIndex(i);
@@ -51,7 +51,8 @@ public class Nodo {
      *
      * @param nodo Nodo que se desea insertar
      * @param Raiz Raíz del árbol
-     * @see List#add(lab01_enrique.miranda_alvaro.cabrera_dilan.triana.List, java.lang.Object) 
+     * @see List#add(lab01_enrique.miranda_alvaro.cabrera_dilan.triana.List,
+     * java.lang.Object)
      */
     public void insertar(Nodo nodo, Nodo Raiz) {
         nodo.father = Raiz;
@@ -67,7 +68,7 @@ public class Nodo {
      * title, etc...
      * @param search valor del parametro que se desea buscar.
      * @see List#getObject()
-     * @see List#addAll(lab01_enrique.miranda_alvaro.cabrera_dilan.triana.List) 
+     * @see List#addAll(lab01_enrique.miranda_alvaro.cabrera_dilan.triana.List)
      * @return Retornar el nodo que cumpla con las especificaciones o nulo en
      * caso de no encontrarlo.
      */
@@ -105,7 +106,7 @@ public class Nodo {
      * body, etc...
      * @param search valor del parametro que se desea buscar.
      * @see List#getObject()
-     * @see List#addAll(lab01_enrique.miranda_alvaro.cabrera_dilan.triana.List) 
+     * @see List#addAll(lab01_enrique.miranda_alvaro.cabrera_dilan.triana.List)
      * @return Retornar el nodo que cumpla con las especificaciones o nulo en
      * caso de no encontrarlo.
      */
@@ -128,6 +129,7 @@ public class Nodo {
 
     /**
      * Método para imprimir toda la información de los hijos del nodo.
+     *
      * @see List#getObject()
      */
     public void printAllLinks() {
@@ -147,22 +149,22 @@ public class Nodo {
      * body, etc...
      * @param search valor del parametro que se desea buscar.
      * @see List#getObject()
-     * @see List#addAll(lab01_enrique.miranda_alvaro.cabrera_dilan.triana.List) 
+     * @see List#addAll(lab01_enrique.miranda_alvaro.cabrera_dilan.triana.List)
      * @return Retornar el nodo que cumpla con las especificaciones o nulo en
      * caso de no encontrarlo.
      */
     public List search(String toSearch, String search) {//user
         List result = null;
-        try { 
-        Pattern pat = Pattern.compile(search.toUpperCase());
-        Matcher mat;
-        
-        List p = this.getLinks();
+        try {
+            Pattern pat = Pattern.compile(search.toUpperCase());
+            Matcher mat;
+            String toMatch = "";
+            List p = this.getLinks();
 
-        while (p != null) {
-            User u = (User) p.getObject();
-            switch (toSearch) {
-                case "id":
+            while (p != null) {
+                User u = (User) p.getObject();
+                switch (toSearch) {
+                    case "id":
                     if (String.valueOf(u.getID()).equals(search)) {
                         result = List.add(result, u);
                         if (result == null) {
@@ -170,54 +172,44 @@ public class Nodo {
                         }
                         return result;
                     }
-                    break;
-                case "name":
-                    mat = pat.matcher(u.getName().toUpperCase());
-                    if (mat.find()) {
-                        result = List.add(result, u);
-                    }
-                    break;
-                case "username":
-                    if (u.getUsername().toUpperCase().equals(search.toUpperCase())) {
-                        result =List.add(result, u);
-                    }
-                    break;
-                case "email":
-                    if (u.getEmail().equals(search)) {
-                       result = List.add(result, u);
-                    }
-                    break;
-                case "city":
-                    if (u.getAddress().getCity().toUpperCase().equals(search.toUpperCase())) {
-                       result = List.add(result, u);
-                    }
-                    break;
-                case "phone":
-                    if (u.getPhone().toUpperCase().equals(search.toUpperCase())) {
-                       result = List.add(result, u);
-                    }
-                    break;
-                case "website":
-                    if (u.getWebsite().toUpperCase().equals(search.toUpperCase())) {
-                       result = List.add(result, u);
-                    }
-                    break;
-                case "comp-name":
-                    if (u.getCompany().getName().toUpperCase().equals(search.toUpperCase())) {
-                       result = List.add(result, u);
-                    }
-                    break;
-                default:
-                    System.out.println("Aquí no deberia llegar busqueda de usuarios desde nodo raiz");
-                    break;
+                        break;
+                    case "name":
+                        toMatch = u.getName();
+                        break;
+                    case "username":
+                        toMatch = u.getUsername();
+                        break;
+                    case "email":
+                        toMatch = u.getEmail();
+                        break;
+                    case "city":
+                        toMatch = u.getAddress().getCity();
+                        break;
+                    case "phone":
+                        toMatch = u.getPhone();
+                        break;
+                    case "website":
+                        toMatch = u.getWebsite();
+                        break;
+                    case "comp-name":
+                        toMatch = u.getCompany().getName();
+                        break;
+                    default:
+                        System.out.println("Aquí no deberia llegar busqueda de usuarios desde nodo raiz");
+                        break;
+                }
+                mat = pat.matcher(toMatch.toUpperCase());
+                if (mat.find()) {
+                    result = List.add(result, u);
+                } 
+                
+                p = p.link;
+
             }
-            p = p.link;
-        }
-        if (result == null) {
-            return new List();
-        }
-        }
-        catch (Exception e) {
+            if (result == null) {
+                return new List();
+            }
+        } catch (Exception e) {
             return new List();
         }
         return result;

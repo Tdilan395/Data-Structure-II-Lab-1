@@ -117,15 +117,13 @@ public class Post extends Nodo {
         
             Pattern pat = Pattern.compile(search.toUpperCase());
             Matcher mat;
-        
+            String toMatch = "";
             List p = this.getLinks();
             while (p != null) {
                 Comment c = (Comment) p.getObject();
                 switch (searchTo) {
                     case "postId":
-                        if (String.valueOf(c.getPostID()).equals(search)) {
-                            result = List.add(result, c);
-                        }
+                        toMatch=String.valueOf(c.getPostID());
                         break;
                     case "id":
                         if (String.valueOf(c.getID()).equals(search)) {
@@ -137,27 +135,23 @@ public class Post extends Nodo {
                         }
                         break;
                     case "name":
-                        mat = pat.matcher(c.getName().toUpperCase());
-                        if (mat.find()) {
-                        
-                            result = List.add(result, c);
-                        }
+                        toMatch=c.getName();
                         break;
                     case "email":
-                        if (c.getEmail().equals(search)) {
-                            result = List.add(result, c);
-                        }
+                        toMatch=c.getEmail();
                         break;
                     case "body":
-                        mat = pat.matcher(Reader.replace(c.getBody(),"\\n", " ").toUpperCase());
-                        if (mat.find()) {
-                            result = List.add(result, c);
-                        }
+                        toMatch=c.getBody();
                         break;
                     default:
                         System.out.println("No deberia estár aquí busqueda de comment");
                         break;
                 }
+                mat = pat.matcher(toMatch.toUpperCase());
+                if (mat.find()) {
+                    result = List.add(result, c);
+                } 
+                
                 p = p.link;
 
             }
