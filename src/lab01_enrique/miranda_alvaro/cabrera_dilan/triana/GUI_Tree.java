@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -32,7 +31,7 @@ public class GUI_Tree extends JFrame {
     private final int height;
     private final JTextArea description;
     private final JScrollPane treeBar;
-    private JScrollPane descriptionBar;
+    private final JScrollPane descriptionBar;
     private final JButton search;
     private final JButton filter;
     private final JButton up;
@@ -167,8 +166,9 @@ public class GUI_Tree extends JFrame {
         filter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                DefaultListModel model = (DefaultListModel) tree.getModel();
+                up.setEnabled(false);
+                down.setEnabled(false);
+                matches.setText("");
                 setEtiquetasFalse();
 
                 switch ((String) filterType.getSelectedItem()) {
@@ -270,13 +270,13 @@ public class GUI_Tree extends JFrame {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 now = System.nanoTime();
-
+                
                 //System.out.println("Run Test00 "+(now-past));
                 if (now - past <= 250000000) {
                     Nodo nodo = (Nodo) tree.getSelectedValue();
 
                     if (tree.getSelectedIndex() == 0) {
-                        nodo.etiquetaSelection = false;
+                        setEtiquetasFalse();
                     }
 
                     showList(nodo);
@@ -318,7 +318,7 @@ public class GUI_Tree extends JFrame {
      * @param nodo nodo seleccionado o encontrado
      */
     private void showList(Nodo nodo) {
-
+        setEtiquetasFalse();
         DefaultListModel modelo = (tree.getModel() == userPlaneModel || tree.getModel() == commentPlaneModel || tree.getModel() == postPlaneModel) ? new DefaultListModel() : (DefaultListModel) tree.getModel();
         if (modelo.isEmpty()) {
             tree.setModel(modelo);
@@ -326,7 +326,7 @@ public class GUI_Tree extends JFrame {
         modelo.clear();
         setRoute(nodo);
         if (nodo.getFather() != null) {
-            setEtiquetasFalse();
+            
             nodo.getFather().etiquetaSelection = true;
             backRoot = nodo.getFather();
         }
