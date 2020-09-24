@@ -386,6 +386,7 @@ public class GUI_Tree extends JFrame {
         } else if (searchResult.size() > 1) {
             matches.setText("1/" + searchResult.size());
             down.setEnabled(true);
+            up.setEnabled(false);
         }
     }
 

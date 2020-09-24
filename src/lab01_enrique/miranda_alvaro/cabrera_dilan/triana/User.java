@@ -163,46 +163,52 @@ public class User extends Nodo {
      */
     @Override
     public List search(String toSearch, String search) {//post
-        Pattern pat = Pattern.compile(search);
-        Matcher mat;
         List result = null;
-        List p = this.getLinks();
-        while (p != null) {
-            Post post = (Post) p.getObject();
-            switch (toSearch) {
-                case "userId":
-                    if (String.valueOf(post.getUserID()).equals(search)) {
-                        result = List.add(result, post);
-                    }
-                    break;
-                case "id":
-                    if (String.valueOf(post.getID()).equals(search)) {
-                        result = List.add(result, post);
-                        if (result == null) {
-                            return new List();
+        try {
+            
+            Pattern pat = Pattern.compile(search);
+            Matcher mat;
+            
+            List p = this.getLinks();
+            while (p != null) {
+                Post post = (Post) p.getObject();
+                switch (toSearch) {
+                    case "userId":
+                        if (String.valueOf(post.getUserID()).equals(search)) {
+                            result = List.add(result, post);
                         }
-                        return result;
-                    }
-                    break;
-                case "title":
-                    mat = pat.matcher(post.getTitle());
-                    if (mat.find()) {
-                        result = List.add(result, post);
-                    }
-                    break;
-                case "body":              
-                    mat = pat.matcher(Reader.replace(post.getBody(),"\\n", " "));
-                    if (mat.find()) {
-                        result = List.add(result, post);
-                    }
-                    break;
-                default:
-                    System.out.println("No debería llegar aquí busqueda de post");
-                    break;
+                        break;
+                    case "id":
+                        if (String.valueOf(post.getID()).equals(search)) {
+                            result = List.add(result, post);
+                            if (result == null) {
+                                return new List();
+                            }
+                            return result;
+                        }
+                        break;
+                    case "title":
+                        mat = pat.matcher(post.getTitle());
+                        if (mat.find()) {
+                            result = List.add(result, post);
+                        }
+                        break;
+                    case "body":              
+                        mat = pat.matcher(Reader.replace(post.getBody(),"\\n", " "));
+                        if (mat.find()) {
+                            result = List.add(result, post);
+                        }
+                        break;
+                    default:
+                        System.out.println("No debería llegar aquí busqueda de post");
+                        break;
+                }
+                p = p.link;
             }
-            p = p.link;
-        }
-        if (result == null) {
+            if (result == null) {
+                return new List();
+            }
+        } catch (Exception e) {
             return new List();
         }
         return result;

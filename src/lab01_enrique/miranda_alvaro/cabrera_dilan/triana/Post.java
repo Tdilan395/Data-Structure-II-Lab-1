@@ -110,51 +110,61 @@ public class Post extends Nodo {
      */
     @Override
     public List search(String searchTo, String search) {//comment
-        Pattern pat = Pattern.compile(search);
-        Matcher mat;
         List result = null;
-        List p = this.getLinks();
-        while (p != null) {
-            Comment c = (Comment) p.getObject();
-            switch (searchTo) {
-                case "postId":
-                    if (String.valueOf(c.getPostID()).equals(search)) {
-                        result = List.add(result, c);
-                    }
-                    break;
-                case "id":
-                    if (String.valueOf(c.getID()).equals(search)) {
-                        result = List.add(result, c);
-                        if (result == null) {
-                            return new List();
+        try {
+            
+        
+            Pattern pat = Pattern.compile(search);
+            Matcher mat;
+        
+            List p = this.getLinks();
+            while (p != null) {
+                Comment c = (Comment) p.getObject();
+                switch (searchTo) {
+                    case "postId":
+                        if (String.valueOf(c.getPostID()).equals(search)) {
+                            result = List.add(result, c);
                         }
-                        return result;
-                    }
-                    break;
-                case "name":
-                    mat = pat.matcher(c.getName());
-                    if (mat.find()) {
-                        result = List.add(result, c);
-                    }
-                    break;
-                case "email":
-                    if (c.getEmail().equals(search)) {
-                        result = List.add(result, c);
-                    }
-                    break;
-                case "body":
-                    mat = pat.matcher(Reader.replace(c.getBody(),"\\n", " "));
-                    if (mat.find()) {
-                        result = List.add(result, c);
-                    }
-                    break;
-                default:
-                    System.out.println("No deberia estár aquí busqueda de comment");
-                    break;
+                        break;
+                    case "id":
+                        if (String.valueOf(c.getID()).equals(search)) {
+                            result = List.add(result, c);
+                            if (result == null) {
+                                return new List();
+                            }
+                            return result;
+                        }
+                        break;
+                    case "name":
+                        mat = pat.matcher(c.getName());
+                        if (mat.find()) {
+                        
+                            result = List.add(result, c);
+                        }
+                        break;
+                    case "email":
+                        if (c.getEmail().equals(search)) {
+                            result = List.add(result, c);
+                        }
+                        break;
+                    case "body":
+                        mat = pat.matcher(Reader.replace(c.getBody(),"\\n", " "));
+                        if (mat.find()) {
+                            result = List.add(result, c);
+                        }
+                        break;
+                    default:
+                        System.out.println("No deberia estár aquí busqueda de comment");
+                        break;
+                }
+                p = p.link;
+
             }
-            p = p.link;
-        }
-        if (result == null) {
+            if (result == null) {
+                return new List();
+            }
+        } 
+        catch (Exception e) {
             return new List();
         }
         return result;

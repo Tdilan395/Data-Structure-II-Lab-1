@@ -152,9 +152,11 @@ public class Nodo {
      * caso de no encontrarlo.
      */
     public List search(String toSearch, String search) {//user
+        List result = null;
+        try { 
         Pattern pat = Pattern.compile(search);
         Matcher mat;
-        List result = null;
+        
         List p = this.getLinks();
 
         while (p != null) {
@@ -212,6 +214,10 @@ public class Nodo {
             p = p.link;
         }
         if (result == null) {
+            return new List();
+        }
+        }
+        catch (Exception e) {
             return new List();
         }
         return result;
